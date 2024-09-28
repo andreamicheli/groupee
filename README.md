@@ -1,5 +1,18 @@
 # Groupee - Project Documentation
 
+## Instructions
+
+To run the FE project, enter into the frontend directory with ```$ cd Groupee```
+then, if not installed, install angular on your machine with ```$ npm install -g @angular/cli```
+and run the application with ```ng serve```
+
+To deploy, start committing and pushing your updates with ```git commit -m``` and ```git push```
+then build the app with angular with ```ng build```
+and then deploy throught firebase ```firebase deploy```
+
+The deployed version is available at [this link]([URL](https://groupee-fi.web.app/))
+
+
 ## Overview
 
 This project is a web application designed to facilitate group dynamics and project management through structured sessions. It comprises various models that represent the roles of hosts and clients, as well as backend functionality.
