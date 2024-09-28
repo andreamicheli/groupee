@@ -10,7 +10,7 @@ To deploy, start committing and pushing your updates with ```git commit -m``` an
 then build the app with angular with ```ng build```
 and then deploy throught firebase ```firebase deploy```
 
-The deployed version is available at [this link]([URL](https://groupee-fi.web.app/))
+The deployed version is available at [this link]([URL](https://groupee-fi.web.app/)) https://groupee-fi.web.app/
 
 
 ## Overview
