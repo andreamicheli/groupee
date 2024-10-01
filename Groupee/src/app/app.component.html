@@ -1,7 +1,7 @@
 <div id="main wrapper styles" class="font-poppins bg-t-light text-t-dark">
   <div class="flex flex-col items-center w-full h-screen justify-around">
     <header
-      class="md:-translate-y-10 -translate-y-6 md:w-2/3 w-10/12 md:h-20 md:p-8 p-4 bg-white rounded-3xl text-center"
+      class="md:-translate-y-10 -translate-y-0 md:w-2/3 w-10/12 md:h-20 md:p-8 p-4 bg-white rounded-3xl text-center"
     >
       <div class="flex justify-between items-center h-full">
         <div class="font-extrabold lg:text-2xl text-base text-t-orange">
@@ -12,7 +12,7 @@
             <mat-icon
               aria-hidden="false"
               aria-label="Example home icon"
-              fontIcon="business_center"
+              fontIcon="computer"
               class="mat-icon-outlined"
             ></mat-icon>
             <span class="hidden md:inline">Host</span>
@@ -31,9 +31,10 @@
             >About Us</a
           >
           <button
-            class="md:p-4 p-2 bg-t-orange text-t-light font-bold py-2 rounded-3xl md:text-base text-sm"
+            class="md:p-4 p-2 bg-t-orange text-white font-bold py-2 rounded-3xl md:text-base text-sm flex"
           >
-            Log in
+            <div>Create&nbsp;</div>
+            <div class="md:block hidden">Session</div>
           </button>
         </div>
       </div>
@@ -57,13 +58,24 @@
       <span class="font-bold text-4xl">Who are you?</span>
       <div class="w-full flex justify-between gap-8">
         <button
-          class="p-2 w-36 bg-t-orange text-white font-bold py-2 rounded-3xl hover:bg-t-orange-hover active:bg-t-orange-active transform hover:scale-105 active:scale-95 transition duration-300 ease-in-out brightness-100"
+          class="p-2 w-36 flex justify-center items-center gap-2 bg-t-orange text-white font-bold py-2 rounded-3xl hover:bg-t-orange-hover active:bg-t-orange-active transform hover:scale-105 active:scale-95 transition duration-300 ease-in-out brightness-100"
         >
+          <mat-icon
+            aria-hidden="false"
+            aria-label="Example home icon"
+            fontIcon="computer"
+            class="mat-icon-outlined"
+          ></mat-icon>
           Host
         </button>
         <button
-          class="p-2 w-36 bg-t-green text-white font-bold py-2 rounded-3xl hover:bg-t-green-hover active:bg-t-green-active transform hover:scale-105 active:scale-95 transition duration-300 ease-in-out brightness-100"
+          class="p-2 w-36 flex justify-center items-center gap-2 bg-t-green text-white font-bold py-2 rounded-3xl hover:bg-t-green-hover active:bg-t-green-active transform hover:scale-105 active:scale-95 transition duration-300 ease-in-out brightness-100"
         >
+          <mat-icon
+            aria-hidden="false"
+            aria-label="Example home icon"
+            fontIcon="group"
+          ></mat-icon>
           Participant
         </button>
       </div>

@@ -12,8 +12,8 @@ module.exports = {
       "t-orange-hover": "#FF4D00",
       "t-orange-active": "#992400", // 50% brightness of #FF6433
       "t-blue": "#00FFFF",
-      "t-green": "#00FFC2",
-      "t-green-hover": "#00E88F",
+      "t-green": "#28DDB1",
+      "t-green-hover": "#00deb2",
       "t-green-active": "#008062",
     },
     fontFamily: {
