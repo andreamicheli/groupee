@@ -2,11 +2,11 @@
   class="md:mt-10 mt-4 md:w-2/3 w-10/12 md:h-20 md:p-8 p-4 bg-white rounded-full shadow-lg text-center"
 >
   <div class="flex justify-between items-center h-full">
-    <div class="font-extrabold lg:text-2xl text-base text-t-orange">
+    <a href="/" class="font-extrabold lg:text-2xl text-base text-t-orange">
       GROUPEE
-    </div>
+    </a>
     <div class="flex md:gap-8 gap-4">
-      <div class="flex items-center gap-2">
+      <a href="/host/settings" class="flex items-center gap-2">
         <mat-icon
           aria-hidden="false"
           aria-label="Example home icon"
@@ -14,24 +14,25 @@
           class="mat-icon-outlined"
         ></mat-icon>
         <span class="hidden md:inline">Host</span>
-      </div>
-      <div class="flex items-center gap-2">
+      </a>
+      <a href="client/code" class="flex items-center gap-2">
         <mat-icon
           aria-hidden="false"
           aria-label="Example home icon"
           fontIcon="group"
         ></mat-icon>
         <span class="hidden md:inline">Participant</span>
-      </div>
+      </a>
     </div>
     <div class="flex md:gap-4 gap-2">
       <a href="#" class="flex items-center md:text-base text-sm">About Us</a>
-      <button
+      <a
+        href="/host/settings"
         class="md:p-4 p-2 bg-t-orange text-white font-bold py-2 rounded-3xl md:text-base text-sm flex"
       >
         <div>Create&nbsp;</div>
         <div class="md:block hidden">Session</div>
-      </button>
+      </a>
     </div>
   </div>
 </header>

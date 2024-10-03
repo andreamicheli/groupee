@@ -1,8 +1,9 @@
 <div id="main wrapper styles" class="font-poppins bg-t-light text-t-dark">
-  <div class="flex flex-col items-center w-full h-screen justify-around">
-    <app-navbar class="w-full flex justify-center"></app-navbar>
-    <app-landing
-      class="w-full flex flex-col justify-around h-full"
-    ></app-landing>
+  <div class="flex flex-col w-full min-h-screen">
+    <app-navbar class="w-full flex justify-center top-0"></app-navbar>
+    <!-- Change h-max to flex-grow to allow the content to expand -->
+    <div class="flex-grow flex">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>
