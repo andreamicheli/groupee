@@ -1,8 +1,11 @@
 <div id="main wrapper styles" class="font-poppins bg-t-light text-t-dark">
   <div class="flex flex-col items-center w-full h-screen justify-around">
-    <app-navbar class="w-full flex justify-center"></app-navbar>
-    <app-landing
-      class="w-full flex flex-col justify-around h-full"
-    ></app-landing>
+    <!-- <app-navbar class="w-full flex justify-center"></app-navbar> -->
+    <!-- <nav>
+      <a routerLink="/">Home</a>
+      |
+      <a routerLink="/host">Host</a>
+    </nav> -->
+    <router-outlet></router-outlet>
   </div>
 </div>

@@ -1,15 +1,17 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LandingComponent } from './pages/landing/landing.component';
+import { HostComponent } from './components/host/host.component';
+import { ParticipantComponent } from './components/participant/participant.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, MatIconModule, NavbarComponent, LandingComponent],
+  imports: [RouterLink, RouterOutlet, MatIconModule, NavbarComponent, LandingComponent, HostComponent, ParticipantComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
   title = 'Groupee';

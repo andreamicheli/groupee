@@ -1,0 +1,34 @@
+<h2>Host Dashboard</h2>
+<p>Your room ID: {{ roomId }}</p>
+<p>Share this link with participants:</p>
+<input type="text" [value]="participantLink" readonly />
+
+<div *ngIf="room">
+  <h3>Participants:</h3>
+  <ul>
+    <li *ngFor="let participant of room.participants">
+      {{ participant.name }}
+    </li>
+  </ul>
+  <!-- Questionnaire controls will be added later -->
+
+  <button *ngIf="!room.isQuestionnaireActive" (click)="startQuestionnaire()">
+    Start Questionnaire
+  </button>
+  
+  <div *ngIf="room.isQuestionnaireActive">
+    <h3>Question {{ room?.currentQuestionIndex + 1 }}:</h3>
+    <p>{{ getCurrentQuestion()?.title }}</p>
+    <ul>
+      <li *ngFor="let option of getCurrentQuestion()?.options">
+        {{ option.text }}
+      </li>
+    </ul>
+    <button (click)="nextQuestion()">Next Question</button>
+  </div>
+  
+  <div *ngIf="!room.isQuestionnaireActive && room.currentQuestionIndex >= questions.length">
+    <h3>Questionnaire Completed!</h3>
+    <!-- Display participant answers here -->
+  </div>
+</div>
