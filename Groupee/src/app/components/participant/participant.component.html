@@ -1,35 +1,51 @@
-<h2>Join Room {{ roomId }}</h2>
+<h2>Join Room {{ model.session.roomId() }}</h2>
 
-<form *ngIf="!participantName" (ngSubmit)="joinRoom(nameInput.value)">
+<form
+  *ngIf="!model.session.client.participantName()"
+  (ngSubmit)="joinRoom(nameInput.value)"
+>
   <input #nameInput type="text" placeholder="Enter your name" required />
   <button type="submit">Join Room</button>
 </form>
 
-<div *ngIf="participantName">
-  <p>Welcome, {{ participantName }}!</p>
+<div *ngIf="model.session.client.participantName">
+  <p>Welcome, {{ model.session.client.participantName }}!</p>
   <!-- Questionnaire view will be added later -->
 </div>
 
-<div *ngIf="room?.isQuestionnaireActive && currentQuestion">
-    <h3>Question {{ (room?.currentQuestionIndex ?? 0) + 1 }}:</h3>
-    <p>{{ currentQuestion?.text }}</p>
-    <form (ngSubmit)="submitAnswer()">
-      <div *ngFor="let option of currentQuestion?.options">
-        <label>
-          <input
-            type="radio"
-            [value]="option"
-            name="option"
-            [(ngModel)]="selectedOption"
-            required
-          />
-          {{ option.text }}
-        </label>
-      </div>
-      <button type="submit" [disabled]="!selectedOption">Submit Answer</button>
-    </form>
-  </div>
-  
-  <div *ngIf="!room?.isQuestionnaireActive">
-    <p>Waiting for the host to start the questionnaire...</p>
-  </div>
+<div
+  *ngIf="
+    model.session.currentPhase() === 'questions' &&
+    model.session.currentQuestionIndex() <= model.standardQuestions().length
+  "
+>
+  <h3>Question {{ model.session.currentQuestionIndex() + 1 }}:</h3>
+  <p>
+    {{ model.standardQuestions()[model.session.currentQuestionIndex()].title }}
+  </p>
+  <form (ngSubmit)="submitAnswer('test')">
+    <div
+      *ngFor="
+        let option of model.standardQuestions()[
+          model.session.currentQuestionIndex()
+        ].options
+      "
+    >
+      <label>
+        <input
+          type="radio"
+          [value]="option"
+          name="option"
+          [(ngModel)]="selectedOption"
+          required
+        />
+        {{ option.text }}
+      </label>
+    </div>
+    <button type="submit" [disabled]="!selectedOption">Submit Answer</button>
+  </form>
+</div>
+
+<div *ngIf="model.session.currentPhase() === 'waiting'">
+  <p>Waiting for the host to start the questionnaire...</p>
+</div>

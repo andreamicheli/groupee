@@ -2,13 +2,17 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Room, Participant } from '../models/room.model';
 import firebase from 'firebase/compat/app';
-import { Observable, of} from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { PlatformModelService } from '../dataStructures/PlatformModel.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RoomService {
-  constructor(private firestore: AngularFirestore) {}
+  constructor(
+    private firestore: AngularFirestore,
+    private model: PlatformModelService
+  ) {}
 
   createRoom(hostId: string): Promise<string> {
     const roomId = this.firestore.createId();
@@ -22,7 +26,10 @@ export class RoomService {
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     };
 
-    return this.firestore.collection('rooms').doc(roomId).set(roomData)
+    return this.firestore
+      .collection('rooms')
+      .doc(roomId)
+      .set(roomData)
       .then(() => roomId)
       .catch((error) => {
         console.error('Error setting room data:', error);
@@ -46,7 +53,6 @@ export class RoomService {
         participants: firebase.firestore.FieldValue.arrayUnion(participant),
       });
   }
-  
 
   endQuestionnaire(roomId: string) {
     return this.firestore.collection('rooms').doc(roomId).update({
@@ -64,9 +70,12 @@ export class RoomService {
 
   // Move to the next question
   incrementQuestionIndex(roomId: string) {
-    return this.firestore.collection('rooms').doc(roomId).update({
-      currentQuestionIndex: firebase.firestore.FieldValue.increment(1),
-    });
+    return this.firestore
+      .collection('rooms')
+      .doc(roomId)
+      .update({
+        currentQuestionIndex: firebase.firestore.FieldValue.increment(1),
+      });
   }
 
   submitAnswer(
@@ -89,6 +98,22 @@ export class RoomService {
       throw error;
     });
   }
-  
+
+  //mainly working only in creation and not following updates
+  updateModel(room: Room) {
+    this.model.session.currentPhase.set('waiting');
+    this.model.session.online.set(true);
+    this.model.session.roomId.set(room.roomId);
+    this.model.session.participants.set(room.participants);
+    this.model.session.currentQuestionIndex.set(room.currentQuestionIndex);
+    this.model.session.currentPhase.set(
+      room.isQuestionnaireActive ? 'questions' : 'waiting'
+    );
+    console.log(this.model);
+    // this.model.session.currentAnswers.set(
+    //   Object.keys(room.participantAnswers).length
+    // );
+  }
+
   // Additional methods will be added later
 }

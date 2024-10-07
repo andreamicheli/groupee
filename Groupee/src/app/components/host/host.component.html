@@ -1,33 +1,55 @@
 <h2>Host Dashboard</h2>
-<p>Your room ID: {{ roomId }}</p>
+<p>Your room ID: {{ model.session.roomId() | json }}</p>
 <p>Share this link with participants:</p>
-<input type="text" [value]="participantLink" readonly />
+<input type="text" [value]="model.session.participantLink()" readonly />
 
-<div *ngIf="room">
+<div *ngIf="model.session.online()">
   <h3>Participants:</h3>
   <ul>
-    <li *ngFor="let participant of room.participants">
+    <li *ngFor="let participant of model.session.participants()">
       {{ participant.name }}
     </li>
   </ul>
   <!-- Questionnaire controls will be added later -->
 
-  <button *ngIf="!room.isQuestionnaireActive" (click)="startQuestionnaire()">
+  <button
+    *ngIf="model.session.currentPhase() === 'waiting'"
+    (click)="startQuestionnaire()"
+  >
     Start Questionnaire
   </button>
-  
-  <div *ngIf="room.isQuestionnaireActive">
-    <h3>Question {{ room?.currentQuestionIndex + 1 }}:</h3>
+
+  <div
+    *ngIf="
+      !!model.session.online() && model.session.currentPhase() === 'questions'
+    "
+  >
+    <h3>
+      Question
+      {{ model.session.currentQuestionIndex() + 1 }}:
+    </h3>
     <p>{{ getCurrentQuestion()?.title }}</p>
     <ul>
-      <li *ngFor="let option of getCurrentQuestion()?.options">
-        {{ option.text }}
+      <li
+        *ngFor="
+          let option of model.standardQuestions()[
+            model.session.currentQuestionIndex()
+          ].options
+        "
+      >
+        {{ option?.text ? option?.text : option }}
       </li>
     </ul>
     <button (click)="nextQuestion()">Next Question</button>
   </div>
-  
-  <div *ngIf="!room.isQuestionnaireActive && room.currentQuestionIndex >= questions.length">
+
+  <div
+    *ngIf="
+      model.session.currentPhase() !== 'questions' &&
+      model.session.currentPhase() !== 'waiting' &&
+      model.session.currentQuestionIndex() >= model.standardQuestions().length
+    "
+  >
     <h3>Questionnaire Completed!</h3>
     <!-- Display participant answers here -->
   </div>
