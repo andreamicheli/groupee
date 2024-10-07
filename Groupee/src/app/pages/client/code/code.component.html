@@ -3,13 +3,40 @@
 >
   <h1 class="text-t-orange text-4xl">GROUPEE</h1>
   <div class="mt-5">
-    <input type="text" placeholder="Session Code" class="p-2 text-lg" />
+    <div *ngIf="credentials" class="">
+      connected to room <span class="font-bold">{{ sessionCode }}</span>
+    </div>
+    <input
+      *ngIf="!credentials"
+      type="text"
+      placeholder="Session Code"
+      class="p-2 text-lg transition-transform duration-500 ease-in-out transform"
+      [ngClass]="{
+        'translate-y-0 opacity-100': !credentials,
+        'translate-y-10 opacity-0': credentials
+      }"
+      [(ngModel)]="sessionCode"
+    />
+    <input
+      *ngIf="credentials"
+      type="text"
+      placeholder="Name"
+      class="p-2 text-lg transition-transform duration-500 ease-in-out transform"
+      [ngClass]="{
+        'translate-y-0 opacity-100': credentials,
+        'translate-y-10 opacity-0': !credentials
+      }"
+      [(ngModel)]="userName"
+    />
   </div>
   <div class="mt-5">
     <button
+      [disabled]="!credentials && sessionCode.length !== 20"
+      (click)="credentials ? joinRoom() : initializeParticipant()"
       class="px-5 py-2 text-lg bg-t-green text-white border-none cursor-pointer"
     >
       Continue
     </button>
   </div>
+  roomId model: {{ model.session.roomId() }}
 </div>

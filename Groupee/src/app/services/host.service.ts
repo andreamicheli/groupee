@@ -6,6 +6,7 @@ import { RoomService } from './room.service';
 import { AuthService } from './auth.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { PlatformModelService } from '../dataStructures/PlatformModel.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +20,7 @@ export class HostService {
     private roomService: RoomService,
     private authService: AuthService,
     private model: PlatformModelService,
+    private router: Router,
     private firestore: AngularFirestore
   ) {}
 
@@ -62,6 +64,8 @@ export class HostService {
               this.updateCurrentQuestion();
             }
             this.roomService.updateModel(room);
+            this.model.session.currentPhase.set('waiting');
+            this.router.navigate(['/host/waiting']);
           } else {
             console.error('Room not found');
           }

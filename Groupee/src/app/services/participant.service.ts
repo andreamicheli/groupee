@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RoomService } from './room.service';
 import { AuthService } from './auth.service';
 import { PlatformModelService } from '../dataStructures/PlatformModel.service';
@@ -19,6 +19,7 @@ export class ParticipantService {
     private roomService: RoomService,
     private authService: AuthService,
     private model: PlatformModelService,
+    private router: Router,
     private firestore: AngularFirestore
   ) {}
 
@@ -69,6 +70,8 @@ export class ParticipantService {
       name: this.model.session.client.participantName(),
     };
     this.roomService.addParticipant(this.model.session.roomId(), participant);
+    this.model.session.currentPhase.set('waiting');
+    this.router.navigate(['/client/waiting']);
   }
 
   loadQuestions() {

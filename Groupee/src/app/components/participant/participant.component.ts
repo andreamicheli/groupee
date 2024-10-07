@@ -28,11 +28,11 @@ export class ParticipantComponent implements OnInit {
 
   ngOnInit(): void {
     // Subscribe to the current user's ID
-    this.participantService.subscribeAuth();
+    this.participantService.subscribeAuth(); //implemented in participant/code first credentials=false phase
   }
 
   joinRoom(name: string) {
-    this.participantService.joinRoom(name);
+    this.participantService.joinRoom(name); //implemented in participant/code second credentials=true phase
   }
 
   submitAnswer(selectedOption: string) {

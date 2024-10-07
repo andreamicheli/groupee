@@ -25,11 +25,11 @@ export class HostComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.hostService.subscribeAuth();
+    this.hostService.subscribeAuth(); //implemented in host/settings
   }
 
   startQuestionnaire(): void {
-    this.hostService.startQuestionnaire();
+    this.hostService.startQuestionnaire(); //implemented in host/waiting
   }
 
   getCurrentQuestion(): Question {

@@ -1,1 +1,25 @@
-<p>waiting works!</p>
+<div class="flex flex-col items-center justify-center h-full">
+  <p>
+    Room id: <i>{{ model.session.roomId() }}</i>
+  </p>
+  <h1 class="text-4xl font-bold mb-4">Waiting...</h1>
+  <qrcode
+    [qrdata]="model.session.participantLink()"
+    style="
+      width: fit-content;
+      display: flex;
+      justify-content: center;
+      border-radius: 25px;
+      overflow: hidden;
+    "
+  ></qrcode>
+  <div class="fixed bottom-20 w-full flex justify-center">
+    <button
+      (click)="startQuestionnaire()"
+      href="/host/waiting"
+      class="bg-t-green text-white px-4 py-2 rounded-full"
+    >
+      Start
+    </button>
+  </div>
+</div>

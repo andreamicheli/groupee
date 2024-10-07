@@ -1,11 +1,16 @@
 import { Routes } from '@angular/router';
-import { HostComponent } from './components/host/host.component';
-import { ParticipantComponent } from './components/participant/participant.component';
 import { LandingComponent } from './pages/landing/landing.component';
+import { ClientCodeComponent } from './pages/client/code/code.component';
+import { ClientWaitingComponent } from './pages/client/waiting/waiting.component';
+import { HostSettingsComponent } from './pages/host/settings/settings.component';
+import { HostWaitingComponent } from './pages/host/waiting/waiting.component';
 
 export const routes: Routes = [
-  //{ path: '', component: LandingComponent },
-  { path: '', component: HostComponent },
-  { path: 'participant/:roomId', component: ParticipantComponent },
-  // Add any additional routes here
+  { path: 'landing', component: LandingComponent },
+  { path: 'client/code', component: ClientCodeComponent },
+  { path: 'client/waiting', component: ClientWaitingComponent },
+  { path: 'host/settings', component: HostSettingsComponent },
+  { path: 'host/waiting', component: HostWaitingComponent },
+  { path: '', redirectTo: '/landing', pathMatch: 'full' },
+  { path: '**', redirectTo: '/landing' }, // Wildcard route for a 404 page
 ];

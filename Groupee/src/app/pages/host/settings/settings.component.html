@@ -1,25 +1,33 @@
-<div class="w-full h-full flex flex-col justify-around justify-self-center">
-  <div class="p-6 flex flex-col w-2/3">
-    <div class="flex justify-between w-full">
-      <div class="bg-t-dark p-4 mb-4">
+<div class="w-full h-full flex flex-col items-center justify-center">
+  <div class="flex flex-col w-2/3 md:w-1/2">
+    <div class="flex md:flex-row flex-col justify-between w-full gap-8">
+      <div class="bg-t-dark p-4 rounded-3xl">
         <h2 class="text-white text-2xl mb-2">Number of groups</h2>
         <input
           type="text"
           class="w-full p-2 mb-2 border border-gray-300 rounded"
           placeholder="Enter number of groups"
+          value="auto"
         />
       </div>
-      <div class="bg-t-dark p-4 mb-4">
+      <div class="bg-t-dark p-4 rounded-3xl">
         <h2 class="text-white text-2xl mb-2">Number of people</h2>
         <input
           type="text"
           class="w-full p-2 mb-2 border border-gray-300 rounded"
           placeholder="Enter number of people"
+          value="auto"
         />
       </div>
     </div>
-    <div class="flex justify-end">
-      <button class="bg-t-green text-white p-2 rounded">Publish</button>
-    </div>
+  </div>
+  <div class="fixed bottom-20 right-[25%] flex justify-end w-full mt-4">
+    <button
+      (click)="createRoom()"
+      href="/host/waiting"
+      class="bg-t-green text-white px-4 py-2 rounded-full"
+    >
+      Publish
+    </button>
   </div>
 </div>
