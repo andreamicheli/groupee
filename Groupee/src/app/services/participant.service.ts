@@ -34,7 +34,7 @@ export class ParticipantService {
   }
 
   initializeParticipant(): void {
-    this.model.session.roomId.set(this.route.snapshot.paramMap.get('roomId')!);
+    // this.model.session.roomId.set(this.route.snapshot.paramMap.get('roomId')!);
     this.roomService.getRoom(this.model.session.roomId()).subscribe((room) => {
       if (room) {
         // Check if questionnaire just became active
@@ -56,6 +56,7 @@ export class ParticipantService {
         }
 
         this.roomService.updateModel(room);
+        this.router.navigate(['/client/credentials']);
         // this.room = this.model.session.online();
       } else {
         console.error('Room not found');
@@ -71,7 +72,7 @@ export class ParticipantService {
     };
     this.roomService.addParticipant(this.model.session.roomId(), participant);
     this.model.session.currentPhase.set('waiting');
-    this.router.navigate(['/client/waiting']);
+    this.router.navigateByUrl('/client/waiting'); //not working
   }
 
   loadQuestions() {

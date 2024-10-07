@@ -5,25 +5,23 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-client-code',
+  selector: 'app-client-credentials',
   standalone: true,
   imports: [FormsModule, CommonModule],
-  templateUrl: './code.component.html',
-  styleUrl: './code.component.css',
+
+  templateUrl: './credentials.component.html',
+  styleUrl: './credentials.component.css',
 })
-export class ClientCodeComponent {
+export class ClientCredentialsComponent {
   @HostBinding('class') className = 'w-full';
 
-  sessionCode: string = '';
+  userName: string = '';
 
   constructor(
     public model: PlatformModelService,
-
     private participantService: ParticipantService
   ) {}
-
-  initializeParticipant() {
-    this.model.session.roomId.set(this.sessionCode);
-    this.participantService.subscribeAuth();
+  joinRoom() {
+    this.participantService.joinRoom(this.userName);
   }
 }
