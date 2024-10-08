@@ -33,46 +33,50 @@ export class ParticipantService {
       });
   }
 
-  initializeParticipant(): void {
+  async initializeParticipant(): Promise<void> {
     // this.model.session.roomId.set(this.route.snapshot.paramMap.get('roomId')!);
-    this.roomService.getRoom(this.model.session.roomId()).subscribe((room) => {
-      if (room) {
-        // Check if questionnaire just became active
-        if (room.isQuestionnaireActive && !this.questionsLoaded) {
-          this.loadQuestions();
-          this.questionsLoaded = true;
-        }
+    await this.roomService
+      .getRoom(this.model.session.roomId())
+      .subscribe((room) => {
+        if (room) {
+          // Check if questionnaire just became active
+          // if (room.isQuestionnaireActive && !this.questionsLoaded) {
+          //   this.loadQuestions();
+          //   this.questionsLoaded = true;
+          // }
 
-        // Update current question if index changed
-        if (
-          this.model.standardQuestions().length > 0 &&
-          this.model.session.online() &&
-          room.currentQuestionIndex !==
-            this.model.session.currentQuestionIndex()
-        ) {
-          this.model.session.currentQuestionIndex.set(
-            room.currentQuestionIndex
-          );
+          // // Update current question if index changed
+          // if (
+          //   this.model.standardQuestions().length > 0 &&
+          //   this.model.session.online() &&
+          //   room.currentQuestionIndex !==
+          //     this.model.session.currentQuestionIndex()
+          // ) {
+          //   this.model.session.currentQuestionIndex.set(
+          //     room.currentQuestionIndex
+          //   );
+          // }
+          this.roomService.updateModel(room);
+          // this.room = this.model.session.online();
+        } else {
+          console.error('Room not found');
         }
-
-        this.roomService.updateModel(room);
-        this.router.navigate(['/client/credentials']);
-        // this.room = this.model.session.online();
-      } else {
-        console.error('Room not found');
-      }
-    });
+      });
+    this.router.navigate(['/client/credentials']);
   }
 
-  joinRoom(name: string) {
+  async joinRoom(name: string) {
     this.model.session.client.participantName.set(name);
     const participant: Participant = {
       participantId: this.model.session.client.participantId(),
       name: this.model.session.client.participantName(),
     };
-    this.roomService.addParticipant(this.model.session.roomId(), participant);
+    await this.roomService.addParticipant(
+      this.model.session.roomId(),
+      participant
+    );
+    this.router.navigate(['/client/waiting']);
     this.model.session.currentPhase.set('waiting');
-    this.router.navigateByUrl('/client/waiting'); //not working
   }
 
   loadQuestions() {

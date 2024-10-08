@@ -3,14 +3,12 @@
 >
   <h1 class="text-t-orange text-4xl">GROUPEE</h1>
   <div class="mt-5">
-    <div class="">
-      connected to room <span class="font-bold">{{ sessionCode }}</span>
-    </div>
     <input
       type="text"
       placeholder="Session Code"
       class="p-2 text-lg transition-transform duration-500 ease-in-out transform"
       [(ngModel)]="sessionCode"
+      (ngModelChange)="onInputTouched()"
     />
   </div>
   <div class="mt-5">
@@ -18,9 +16,17 @@
       [disabled]="sessionCode.length !== 20"
       (click)="initializeParticipant()"
       class="px-5 py-2 text-lg bg-t-green text-white border-none cursor-pointer"
+      [ngClass]="{
+        '!bg-t-dark cursor-not-allowed': sessionCode.length !== 20
+      }"
     >
       Continue
     </button>
   </div>
-  roomId model: {{ model.session.roomId() }}
+  <div
+    *ngIf="sessionCode.length !== 20 && inputTouched"
+    class="mt-2 text-red-500"
+  >
+    Invalid session code
+  </div>
 </div>

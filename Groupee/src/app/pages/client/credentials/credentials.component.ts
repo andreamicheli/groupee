@@ -3,6 +3,8 @@ import { PlatformModelService } from '../../../dataStructures/PlatformModel.serv
 import { ParticipantService } from '../../../services/participant.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-client-credentials',
@@ -12,15 +14,23 @@ import { CommonModule } from '@angular/common';
   templateUrl: './credentials.component.html',
   styleUrl: './credentials.component.css',
 })
-export class ClientCredentialsComponent {
+export class ClientCredentialsComponent implements OnInit {
   @HostBinding('class') className = 'w-full';
 
   userName: string = '';
 
   constructor(
     public model: PlatformModelService,
-    private participantService: ParticipantService
+    private participantService: ParticipantService,
+    private router: Router
   ) {}
+
+  ngOnInit() {
+    if (!this.model.session.online()) {
+      this.router.navigate(['client/code'], { replaceUrl: true });
+    }
+  }
+
   joinRoom() {
     this.participantService.joinRoom(this.userName);
   }
