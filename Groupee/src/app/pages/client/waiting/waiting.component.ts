@@ -1,4 +1,4 @@
-import { Component, HostBinding } from '@angular/core';
+import { Component, HostBinding, OnInit } from '@angular/core';
 import { PlatformModelService } from '../../../dataStructures/PlatformModel.service';
 import { Router } from '@angular/router';
 
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   templateUrl: './waiting.component.html',
   styleUrl: './waiting.component.css',
 })
-export class ClientWaitingComponent {
+export class ClientWaitingComponent implements OnInit {
   @HostBinding('class') className = 'w-full';
 
   constructor(public model: PlatformModelService, private router: Router) {}

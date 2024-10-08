@@ -1,4 +1,4 @@
-<div class="flex flex-col items-center justify-center h-full">
+<div class="flex flex-col items-center justify-center h-full relative">
   <p>
     Room id: <i>{{ model.session.roomId() }}</i>
   </p>
@@ -13,6 +13,25 @@
       overflow: hidden;
     "
   ></qrcode>
+  <!-- Participants Floating Names -->
+  <div class="absolute inset-0 pointer-events-none animate-light-bounce">
+    <ng-container *ngFor="let participant of model.session.participants()">
+      <div
+        class="absolute flex items-center justify-center flex-col"
+        [ngStyle]="getRandomPosition()"
+      >
+        <img
+          src="https://cliply.co/wp-content/uploads/2020/08/432008121_THUMBS_UP_3D_LIGHT_SKIN_TONE_400.png"
+          alt="icon"
+          class="w-20 h-20 mr-2"
+        />
+        <span class="text-xl text-black font-medium">{{
+          participant.name
+        }}</span>
+      </div>
+    </ng-container>
+  </div>
+
   <div class="fixed bottom-20 w-full flex justify-center">
     <button
       (click)="startQuestionnaire()"

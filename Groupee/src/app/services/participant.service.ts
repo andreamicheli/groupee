@@ -4,7 +4,7 @@ import { RoomService } from './room.service';
 import { AuthService } from './auth.service';
 import { PlatformModelService } from '../dataStructures/PlatformModel.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { delay, filter, firstValueFrom, retryWhen, take } from 'rxjs';
+import { delay, filter, finalize, firstValueFrom, retryWhen, take } from 'rxjs';
 import { Participant } from '../models/room.model';
 import { Question } from '../models/question.model';
 
@@ -47,7 +47,12 @@ export class ParticipantService {
     });
   }
 
+  private navigationInProgress = false;
+
   joinRoom(name: string): void {
+    if (this.navigationInProgress) return;
+
+    this.navigationInProgress = true;
     this.model.session.client.participantName.set(name);
     const participant: Participant = {
       participantId: this.model.session.client.participantId(),
@@ -56,13 +61,19 @@ export class ParticipantService {
 
     this.roomService
       .addParticipant(this.model.session.roomId(), participant)
-      .pipe(delay(100), take(1))
+      .pipe(take(1), delay(100))
       .subscribe({
         next: () => {
           this.router.navigate(['/client/waiting']);
           this.model.session.currentPhase.set('waiting');
         },
-        error: (error) => console.error('Error adding participant:', error),
+        error: (error) => {
+          console.error('Error adding participant:', error);
+          this.navigationInProgress = false; // Reset flag on error
+        },
+        complete: () => {
+          this.navigationInProgress = false; // Reset flag on completion
+        },
       });
   }
 
