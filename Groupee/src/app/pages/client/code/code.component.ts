@@ -1,4 +1,4 @@
-import { Component, HostBinding } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding } from '@angular/core';
 import { PlatformModelService } from '../../../dataStructures/PlatformModel.service';
 import { ParticipantService } from '../../../services/participant.service';
 import { FormsModule } from '@angular/forms';

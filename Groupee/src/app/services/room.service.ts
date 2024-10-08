@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Room, Participant } from '../models/room.model';
 import firebase from 'firebase/compat/app';
-import { Observable, of } from 'rxjs';
+import { from, Observable, of } from 'rxjs';
 import { PlatformModelService } from '../dataStructures/PlatformModel.service';
 
 @Injectable({
@@ -45,13 +45,15 @@ export class RoomService {
     return this.firestore.collection<Room>('rooms').doc(roomId).valueChanges();
   }
 
-  addParticipant(roomId: string, participant: Participant): Promise<void> {
-    return this.firestore
+  addParticipant(roomId: string, participant: Participant): Observable<void> {
+    const updatePromise = this.firestore
       .collection('rooms')
       .doc(roomId)
       .update({
         participants: firebase.firestore.FieldValue.arrayUnion(participant),
       });
+
+    return from(updatePromise);
   }
 
   endQuestionnaire(roomId: string) {

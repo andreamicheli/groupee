@@ -4,7 +4,7 @@ import { RoomService } from './room.service';
 import { AuthService } from './auth.service';
 import { PlatformModelService } from '../dataStructures/PlatformModel.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { filter } from 'rxjs';
+import { delay, filter, firstValueFrom, retryWhen, take } from 'rxjs';
 import { Participant } from '../models/room.model';
 import { Question } from '../models/question.model';
 
@@ -33,50 +33,37 @@ export class ParticipantService {
       });
   }
 
-  async initializeParticipant(): Promise<void> {
-    // this.model.session.roomId.set(this.route.snapshot.paramMap.get('roomId')!);
-    await this.roomService
-      .getRoom(this.model.session.roomId())
-      .subscribe((room) => {
+  initializeParticipant(): void {
+    this.roomService.getRoom(this.model.session.roomId()).subscribe({
+      next: (room) => {
         if (room) {
-          // Check if questionnaire just became active
-          // if (room.isQuestionnaireActive && !this.questionsLoaded) {
-          //   this.loadQuestions();
-          //   this.questionsLoaded = true;
-          // }
-
-          // // Update current question if index changed
-          // if (
-          //   this.model.standardQuestions().length > 0 &&
-          //   this.model.session.online() &&
-          //   room.currentQuestionIndex !==
-          //     this.model.session.currentQuestionIndex()
-          // ) {
-          //   this.model.session.currentQuestionIndex.set(
-          //     room.currentQuestionIndex
-          //   );
-          // }
           this.roomService.updateModel(room);
-          // this.room = this.model.session.online();
+          this.router.navigate(['/client/credentials']);
         } else {
           console.error('Room not found');
         }
-      });
-    this.router.navigate(['/client/credentials']);
+      },
+      error: (error) => console.error('Error fetching room:', error),
+    });
   }
 
-  async joinRoom(name: string) {
+  joinRoom(name: string): void {
     this.model.session.client.participantName.set(name);
     const participant: Participant = {
       participantId: this.model.session.client.participantId(),
       name: this.model.session.client.participantName(),
     };
-    await this.roomService.addParticipant(
-      this.model.session.roomId(),
-      participant
-    );
-    this.router.navigate(['/client/waiting']);
-    this.model.session.currentPhase.set('waiting');
+
+    this.roomService
+      .addParticipant(this.model.session.roomId(), participant)
+      .pipe(delay(100), take(1))
+      .subscribe({
+        next: () => {
+          this.router.navigate(['/client/waiting']);
+          this.model.session.currentPhase.set('waiting');
+        },
+        error: (error) => console.error('Error adding participant:', error),
+      });
   }
 
   loadQuestions() {
