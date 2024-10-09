@@ -34,6 +34,10 @@ export class HostWaitingComponent implements OnInit {
     }
   }
 
+  getLink(): string {
+    return window.location.origin + this.model.session.participantLink();
+  }
+
   startQuestionnaire(): void {
     this.hostService.startQuestionnaire();
   }

@@ -39,9 +39,7 @@ export class HostService {
       .then((generatedRoomId) => {
         this.model.session.roomId.set(generatedRoomId); // Assign the generated room ID
         this.model.session.participantLink.set(
-          `${
-            window.location.origin
-          }/client/${this.model.session.roomId()}/credentials`
+          `/client/${this.model.session.roomId()}/credentials`
         );
         this.subscribeToRoom();
       })

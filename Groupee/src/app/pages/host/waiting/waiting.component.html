@@ -4,7 +4,7 @@
   </p>
   <h1 class="text-4xl font-bold mb-4">Waiting...</h1>
   <qrcode
-    [qrdata]="model.session.participantLink()"
+    [qrdata]="getLink()"
     style="
       width: fit-content;
       display: flex;
