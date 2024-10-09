@@ -15,6 +15,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class HostWaitingComponent implements OnInit {
   @HostBinding('class') className = 'w-full';
 
+  private URL: string = 'https://groupee-fi.web.app';
+
   constructor(
     public model: PlatformModelService,
     private router: Router,
@@ -35,7 +37,7 @@ export class HostWaitingComponent implements OnInit {
   }
 
   getLink(): string {
-    return window.location.origin + this.model.session.participantLink();
+    return this.URL + this.model.session.participantLink();
   }
 
   startQuestionnaire(): void {
