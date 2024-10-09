@@ -38,9 +38,16 @@ export class ParticipantService {
       next: (room) => {
         if (room) {
           this.roomService.updateModel(room);
-          this.router.navigate([
-            `/client/${this.model.session.roomId()}/credentials`,
-          ]);
+          if (
+            this.router.url ===
+            `/client/${this.model.session.roomId()}/credentials`
+          ) {
+            console.log('Already on the credentials page');
+          } else {
+            this.router.navigate([
+              `/client/${this.model.session.roomId()}/credentials`,
+            ]);
+          }
         } else {
           console.error('Room not found');
         }

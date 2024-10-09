@@ -25,8 +25,8 @@ export class ClientCodeComponent {
   ) {}
 
   toCredentials() {
-    // this.model.session.roomId.set(this.sessionCode);
-    // this.participantService.subscribeAuth();
+    this.model.session.roomId.set(this.sessionCode);
+    this.participantService.subscribeAuth();
     this.router.navigate([`client/${this.sessionCode}/credentials`], {
       replaceUrl: true,
     });
