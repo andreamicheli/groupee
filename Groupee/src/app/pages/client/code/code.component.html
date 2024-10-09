@@ -14,7 +14,7 @@
   <div class="mt-5">
     <button
       [disabled]="sessionCode.length !== 20"
-      (click)="initializeParticipant()"
+      (click)="toWaiting()"
       class="px-5 py-2 text-lg bg-t-green text-white border-none cursor-pointer"
       [ngClass]="{
         '!bg-t-dark cursor-not-allowed': sessionCode.length !== 20

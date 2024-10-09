@@ -9,10 +9,10 @@ import { ClientCredentialsComponent } from './pages/client/credentials/credentia
 export const routes: Routes = [
   { path: 'landing', component: LandingComponent },
   { path: 'client/code', component: ClientCodeComponent },
-  { path: 'client/credentials', component: ClientCredentialsComponent },
-  { path: 'client/waiting', component: ClientWaitingComponent },
+  { path: 'client/:roomId/credentials', component: ClientCredentialsComponent },
+  { path: 'client/:roomId/waiting', component: ClientWaitingComponent },
   { path: 'host/settings', component: HostSettingsComponent },
-  { path: 'host/waiting', component: HostWaitingComponent },
+  { path: 'host/:roomId/waiting', component: HostWaitingComponent },
   { path: '', redirectTo: '/landing', pathMatch: 'full' },
   { path: '**', redirectTo: '/landing' }, // Wildcard route for a 404 page
 ];

@@ -38,7 +38,9 @@ export class ParticipantService {
       next: (room) => {
         if (room) {
           this.roomService.updateModel(room);
-          this.router.navigate(['/client/credentials']);
+          this.router.navigate([
+            `/client/${this.model.session.roomId()}/credentials`,
+          ]);
         } else {
           console.error('Room not found');
         }
@@ -64,7 +66,9 @@ export class ParticipantService {
       .pipe(take(1), delay(100))
       .subscribe({
         next: () => {
-          this.router.navigate(['/client/waiting']);
+          this.router.navigate([
+            `/client/${this.model.session.roomId()}/waiting`,
+          ]);
           this.model.session.currentPhase.set('waiting');
         },
         error: (error) => {

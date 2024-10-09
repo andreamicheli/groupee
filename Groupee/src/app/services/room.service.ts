@@ -103,6 +103,7 @@ export class RoomService {
 
   //mainly working only in creation and not following updates
   updateModel(room: Room) {
+    this.model.session.participantLink.set(`client/${room.roomId}/credentials`);
     this.model.session.currentPhase.set('waiting');
     this.model.session.online.set(true);
     this.model.session.roomId.set(room.roomId);

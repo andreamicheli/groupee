@@ -3,7 +3,7 @@ import { QRCodeComponent, QRCodeModule } from 'angularx-qrcode';
 import { PlatformModelService } from '../../../dataStructures/PlatformModel.service';
 import { HostService } from '../../../services/host.service';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-host-waiting',
@@ -18,11 +18,18 @@ export class HostWaitingComponent implements OnInit {
   constructor(
     public model: PlatformModelService,
     private router: Router,
-    private hostService: HostService
+    private hostService: HostService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
+    const roomId = this.route.snapshot.paramMap.get('roomId');
     if (!this.model.session.online()) {
+      if (roomId?.length == 20) {
+        this.model.session.roomId.set(roomId);
+        this.hostService.subscribeToRoom();
+      }
+
       this.router.navigate(['/'], { replaceUrl: true });
     }
   }
@@ -32,8 +39,23 @@ export class HostWaitingComponent implements OnInit {
   }
 
   getRandomPosition(): { [key: string]: string } {
-    const x = Math.random() * 80; // Random X position (in %)
-    const y = Math.random() * 80; // Random Y position (in %)
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
+    const centralWidth = 250;
+    const centralHeight = 250;
+
+    let x, y;
+
+    do {
+      x = Math.random() * 80; // Random X position (in %)
+      y = Math.random() * 80; // Random Y position (in %)
+    } while (
+      (x * screenWidth) / 100 > (screenWidth - centralWidth) / 2 &&
+      (x * screenWidth) / 100 < (screenWidth + centralWidth) / 2 &&
+      (y * screenHeight) / 100 > (screenHeight - centralHeight) / 2 &&
+      (y * screenHeight) / 100 < (screenHeight + centralHeight) / 2
+    );
+
     return {
       position: 'absolute',
       top: `${y}%`,

@@ -1,6 +1,7 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { PlatformModelService } from '../../../dataStructures/PlatformModel.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ParticipantService } from '../../../services/participant.service';
 
 @Component({
   selector: 'app-client-waiting',
@@ -12,7 +13,12 @@ import { Router } from '@angular/router';
 export class ClientWaitingComponent implements OnInit {
   @HostBinding('class') className = 'w-full';
 
-  constructor(public model: PlatformModelService, private router: Router) {}
+  constructor(
+    public model: PlatformModelService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private participantService: ParticipantService
+  ) {}
 
   ngOnInit() {
     if (!this.model.session.online()) {

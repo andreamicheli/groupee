@@ -24,9 +24,10 @@ export class ClientCodeComponent {
     private participantService: ParticipantService
   ) {}
 
-  initializeParticipant() {
-    this.model.session.roomId.set(this.sessionCode);
-    this.participantService.subscribeAuth();
+  toWaiting() {
+    this.router.navigate([`client/${this.sessionCode}/waiting`], {
+      replaceUrl: true,
+    });
   }
 
   onInputTouched() {

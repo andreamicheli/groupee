@@ -39,7 +39,7 @@ export class HostService {
       .then((generatedRoomId) => {
         this.model.session.roomId.set(generatedRoomId); // Assign the generated room ID
         this.model.session.participantLink.set(
-          `${window.location.origin}/participant/${this.model.session.roomId()}`
+          `client/${this.model.session.roomId()}/credentials`
         );
         this.subscribeToRoom();
       })
@@ -65,7 +65,9 @@ export class HostService {
             }
             this.roomService.updateModel(room);
             this.model.session.currentPhase.set('waiting');
-            this.router.navigate(['/host/waiting']);
+            this.router.navigate([
+              `host/${this.model.session.roomId()}/waiting`,
+            ]);
           } else {
             console.error('Room not found');
           }

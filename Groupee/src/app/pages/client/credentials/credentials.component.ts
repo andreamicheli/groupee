@@ -3,7 +3,7 @@ import { PlatformModelService } from '../../../dataStructures/PlatformModel.serv
 import { ParticipantService } from '../../../services/participant.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { OnInit } from '@angular/core';
 
 @Component({
@@ -22,12 +22,21 @@ export class ClientCredentialsComponent implements OnInit {
   constructor(
     public model: PlatformModelService,
     private participantService: ParticipantService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    if (!this.model.session.online()) {
-      this.router.navigate(['client/code'], { replaceUrl: true });
+    const roomId = this.route.snapshot.paramMap.get('roomId');
+    if (roomId?.length == 20) {
+      if (this.model.session.online() && this.model.session.roomId()) {
+        return;
+      } else {
+        this.model.session.roomId.set(roomId);
+        this.participantService.subscribeAuth();
+      }
+    } else {
+      this.router.navigate(['/']);
     }
   }
 
