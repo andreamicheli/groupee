@@ -24,8 +24,10 @@ export class ClientCodeComponent {
     private participantService: ParticipantService
   ) {}
 
-  toWaiting() {
-    this.router.navigate([`client/${this.sessionCode}/waiting`], {
+  toCredentials() {
+    // this.model.session.roomId.set(this.sessionCode);
+    // this.participantService.subscribeAuth();
+    this.router.navigate([`client/${this.sessionCode}/credentials`], {
       replaceUrl: true,
     });
   }

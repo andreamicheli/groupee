@@ -43,6 +43,7 @@ export class HostWaitingComponent implements OnInit {
     const screenHeight = window.innerHeight;
     const centralWidth = 250;
     const centralHeight = 250;
+    const topOffset = 120;
 
     let x, y;
 
@@ -52,8 +53,9 @@ export class HostWaitingComponent implements OnInit {
     } while (
       (x * screenWidth) / 100 > (screenWidth - centralWidth) / 2 &&
       (x * screenWidth) / 100 < (screenWidth + centralWidth) / 2 &&
-      (y * screenHeight) / 100 > (screenHeight - centralHeight) / 2 &&
-      (y * screenHeight) / 100 < (screenHeight + centralHeight) / 2
+      (y * screenHeight) / 100 >
+        (screenHeight - centralHeight) / 2 + topOffset &&
+      (y * screenHeight) / 100 < (screenHeight + centralHeight) / 2 + topOffset
     );
 
     return {
