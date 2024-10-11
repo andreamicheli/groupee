@@ -10,7 +10,15 @@ export class AuthService {
   currentUserId$: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
 
   constructor(private afAuth: AngularFireAuth) {
-    this.signInAnonymously();
+    this.afAuth.authState.subscribe((user) => {
+      if (user) {
+        this.currentUserId$.next(user.uid);
+        console.log('User authenticated with UID:', user.uid);
+      } else {
+        // Sign in anonymously if not signed in
+        this.signInAnonymously();
+      }
+    });
   }
 
   private async signInAnonymously() {

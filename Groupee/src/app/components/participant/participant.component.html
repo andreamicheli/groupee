@@ -1,35 +1,53 @@
+<!-- participant.component.html -->
+
 <h2>Join Room {{ roomId }}</h2>
 
+<!-- Join Room Form -->
 <form *ngIf="!participantName" (ngSubmit)="joinRoom(nameInput.value)">
   <input #nameInput type="text" placeholder="Enter your name" required />
   <button type="submit">Join Room</button>
 </form>
 
-<div *ngIf="participantName">
+<!-- Welcome Message and Waiting for Questionnaire -->
+<div *ngIf="participantName && participantState === ParticipantState.WaitingForQuestion">
   <p>Welcome, {{ participantName }}!</p>
-  <!-- Questionnaire view will be added later -->
+  <p>Waiting for the host to start the questionnaire...</p>
 </div>
 
-<div *ngIf="room?.isQuestionnaireActive && currentQuestion">
-    <h3>Question {{ (room?.currentQuestionIndex ?? 0) + 1 }}:</h3>
-    <p>{{ currentQuestion?.text }}</p>
-    <form (ngSubmit)="submitAnswer()">
-      <div *ngFor="let option of currentQuestion?.options">
-        <label>
-          <input
-            type="radio"
-            [value]="option"
-            name="option"
-            [(ngModel)]="selectedOption"
-            required
-          />
-          {{ option.text }}
-        </label>
-      </div>
-      <button type="submit" [disabled]="!selectedOption">Submit Answer</button>
-    </form>
-  </div>
-  
-  <div *ngIf="!room?.isQuestionnaireActive">
-    <p>Waiting for the host to start the questionnaire...</p>
-  </div>
+<!-- Viewing a question -->
+<div *ngIf="participantState === ParticipantState.ViewingQuestion && currentQuestion">
+  <h2>{{ currentQuestion.title }}</h2>
+  <form (ngSubmit)="submitAnswer()">
+    <div *ngFor="let option of currentQuestion.options">
+      <label>
+        <input
+          type="radio"
+          name="option"
+          [value]="option.text"
+          [(ngModel)]="selectedOption"
+          required
+        />
+        {{ option.text }}
+      </label>
+    </div>
+    <button type="submit">Submit Answer</button>
+  </form>
+</div>
+
+<!-- Waiting for the host to proceed to the next question -->
+<div *ngIf="participantState === ParticipantState.WaitingForNextQuestion">
+  <h2>Please wait for the next question...</h2>
+</div>
+
+<!-- Questionnaire finished -->
+<div *ngIf="participantState === ParticipantState.QuestionnaireFinished">
+  <h2>The questionnaire has finished. Thank you for your participation!</h2>
+  <h3>Your Results:</h3>
+  <ul>
+    <li>Element 1: {{ participant?.cumulativeResult.element1 }}</li>
+    <li>Element 2: {{ participant?.cumulativeResult.element2 }}</li>
+    <li>Element 3: {{ participant?.cumulativeResult.element3 }}</li>
+    <li>Element 4: {{ participant?.cumulativeResult.element4 }}</li>
+    <li>Element 5: {{ participant?.cumulativeResult.element5 }}</li>
+  </ul>
+</div>

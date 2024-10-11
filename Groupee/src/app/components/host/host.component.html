@@ -3,10 +3,13 @@
 <p>Share this link with participants:</p>
 <input type="text" [value]="participantLink" readonly />
 
+
+
+
 <div *ngIf="room">
   <h3>Participants:</h3>
   <ul>
-    <li *ngFor="let participant of room.participants">
+    <li *ngFor="let participant of participants">
       {{ participant.name }}
     </li>
   </ul>
@@ -24,11 +27,29 @@
         {{ option.text }}
       </li>
     </ul>
-    <button (click)="nextQuestion()">Next Question</button>
+    <button *ngIf="room?.isQuestionnaireActive" (click)="nextQuestion()">Next Question</button>
   </div>
   
   <div *ngIf="!room.isQuestionnaireActive && room.currentQuestionIndex >= questions.length">
     <h3>Questionnaire Completed!</h3>
     <!-- Display participant answers here -->
   </div>
+</div>
+
+<!-- Questionnaire finished -->
+<div *ngIf="room?.isQuestionnaireEnded">
+  <h2>The questionnaire has finished.</h2>
+  <h3>Participants' Results:</h3>
+  <ul>
+    <li *ngFor="let participant of participants">
+      {{ participant.name }}:
+      <ul>
+        <li>Element 1: {{ participant.cumulativeResult.element1 }}</li>
+        <li>Element 2: {{ participant.cumulativeResult.element2 }}</li>
+        <li>Element 3: {{ participant.cumulativeResult.element3 }}</li>
+        <li>Element 4: {{ participant.cumulativeResult.element4 }}</li>
+        <li>Element 5: {{ participant.cumulativeResult.element5 }}</li>
+      </ul>
+    </li>
+  </ul>
 </div>

@@ -1,31 +1,34 @@
 // host.component.ts
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RoomService } from '../../services/room.service';
 import { AuthService } from '../../services/auth.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Room } from '../../models/room.model';
+import { Room, Participant } from '../../models/room.model';
 import { Question } from '../../models/question.model';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { filter } from 'rxjs/operators';
-
+import { JsonUploaderComponent } from '../../json-uploader/json-uploader.component'
 
 @Component({
   selector: 'app-host',
   standalone: true,
   templateUrl: './host.component.html',
   styleUrls: ['./host.component.css'],
-  imports: [CommonModule],
+  imports: [CommonModule, JsonUploaderComponent],
 })
 export class HostComponent implements OnInit {
   roomId: string = '';
   room: Room | undefined;
   participantLink: string = '';
   questions: Question[] = [];
+  participants: Participant[] = [];
+  private participantsSubscription: Subscription | undefined;
   private authSubscription: Subscription | undefined;
   private roomSubscription: Subscription | undefined;
   private questionsSubscription: Subscription | undefined;
+
 
   constructor(
     private roomService: RoomService,
@@ -41,6 +44,9 @@ export class HostComponent implements OnInit {
         // Create a new room for the authenticated user
         this.createRoom(uid);
       });
+
+   
+    
   }
 
   /**
@@ -52,6 +58,16 @@ export class HostComponent implements OnInit {
       this.roomId = generatedRoomId; // Assign the generated room ID
       this.participantLink = `${window.location.origin}/participant/${this.roomId}`;
       this.subscribeToRoom();
+
+      // Subscribe to participants in the room
+      this.participantsSubscription = this.roomService
+      .getParticipants(this.roomId)
+      .subscribe((participants) => {
+        console.log('Participants updated:', participants);
+        this.participants = participants;
+      });
+
+
     }).catch((error) => {
       console.error('Error creating room:', error);
     });
@@ -64,6 +80,9 @@ export class HostComponent implements OnInit {
     if (this.roomId) {
       this.roomSubscription = this.roomService.getRoom(this.roomId).subscribe((room) => {
         if (room) {
+          // Store previous state before updating this.room
+          const wasQuestionnaireActive = this.room?.isQuestionnaireActive;
+  
           // Update current question if index changed
           if (
             this.questions.length > 0 &&
@@ -73,13 +92,25 @@ export class HostComponent implements OnInit {
             this.updateCurrentQuestion();
           }
   
+          // Update the room
           this.room = room;
+  
+          // Check if questionnaire has ended
+          if (wasQuestionnaireActive && !room.isQuestionnaireActive) {
+            // Questionnaire has ended
+            this.endQuestionnaire();
+          }
         } else {
           console.error('Room not found');
         }
       });
     }
   }
+
+  // handleQuestionnaireEnd(): void {
+  //   console.log('Questionnaire has ended.');
+  //   this.room?.isQuestionnairEnded = true;
+  // }
 
   updateCurrentQuestion() {
     if (
@@ -147,5 +178,6 @@ export class HostComponent implements OnInit {
     this.authSubscription?.unsubscribe();
     this.roomSubscription?.unsubscribe();
     this.questionsSubscription?.unsubscribe();
+    this.participantsSubscription?.unsubscribe();
   }
 }

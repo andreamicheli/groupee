@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Room, Participant } from '../models/room.model';
+import { Room, Participant, CumulativeResult } from '../models/room.model';
 import firebase from 'firebase/compat/app';
 import { Observable, of} from 'rxjs';
 
@@ -14,11 +14,10 @@ export class RoomService {
     const roomId = this.firestore.createId();
     const roomData: Room = {
       roomId: roomId,
-      hostId: hostId,
-      participants: [],
+      hostId: hostId, 
       isQuestionnaireActive: false,
       currentQuestionIndex: -1,
-      participantAnswers: {},
+      isQuestionnairEnded: false,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     };
 
@@ -35,22 +34,79 @@ export class RoomService {
       console.error('getRoom called with empty roomId');
       return of(undefined);
     }
+    console.log('Fetching room with ID:', roomId);
     return this.firestore.collection<Room>('rooms').doc(roomId).valueChanges();
   }
 
   addParticipant(roomId: string, participant: Participant): Promise<void> {
-    return this.firestore
+  if (!roomId) {
+    console.error('addParticipant called with empty roomId');
+    return Promise.reject('roomId is required');
+  }
+  if (!participant.participantId) {
+    console.error('addParticipant called with empty participantId');
+    return Promise.reject('participantId is required');
+  }
+
+  console.log('Adding participant with ID:', participant.participantId, 'to room:', roomId);
+
+  const participantRef = this.firestore
+    .collection('rooms')
+    .doc(roomId)
+    .collection('participants')
+    .doc(participant.participantId);
+
+  return participantRef.set(participant);
+}
+  
+  updateParticipantCumulativeResult(
+    roomId: string,
+    participantId: string,
+    optionValues: CumulativeResult
+  ): Promise<void> {
+    const participantRef = this.firestore
       .collection('rooms')
       .doc(roomId)
-      .update({
-        participants: firebase.firestore.FieldValue.arrayUnion(participant),
-      });
+      .collection('participants')
+      .doc(participantId);
+  
+    return this.firestore.firestore.runTransaction(async (transaction) => {
+      const participantDoc = await transaction.get(participantRef.ref);
+  
+      if (!participantDoc.exists) {
+        throw new Error('Participant does not exist');
+      }
+  
+      const participantData = participantDoc.data() as Participant;
+  
+      // Initialize cumulativeResult if not present
+      if (!participantData.cumulativeResult) {
+        participantData.cumulativeResult = {
+          element1: 0,
+          element2: 0,
+          element3: 0,
+          element4: 0,
+          element5: 0,
+        };
+      }
+  
+      // Update cumulativeResult
+      participantData.cumulativeResult.element1 += optionValues.element1;
+      participantData.cumulativeResult.element2 += optionValues.element2;
+      participantData.cumulativeResult.element3 += optionValues.element3;
+      participantData.cumulativeResult.element4 += optionValues.element4;
+      participantData.cumulativeResult.element5 += optionValues.element5;
+  
+      // Update the participant document
+      transaction.update(participantRef.ref, participantData);
+    });
   }
   
 
   endQuestionnaire(roomId: string) {
     return this.firestore.collection('rooms').doc(roomId).update({
       isQuestionnaireActive: false,
+      isQuestionnaireEnded: true,
     });
   }
 
@@ -67,6 +123,27 @@ export class RoomService {
     return this.firestore.collection('rooms').doc(roomId).update({
       currentQuestionIndex: firebase.firestore.FieldValue.increment(1),
     });
+  }
+
+  getParticipants(roomId: string): Observable<Participant[]> {
+    return this.firestore
+      .collection('rooms')
+      .doc(roomId)
+      .collection<Participant>('participants')
+      .valueChanges();
+  }
+  
+  getParticipant(roomId: string, participantId: string): Observable<Participant | undefined> {
+    if (!roomId || !participantId) {
+      console.error('getParticipant called with empty roomId or participantId');
+      return of(undefined);
+    }
+    return this.firestore
+      .collection('rooms')
+      .doc(roomId)
+      .collection<Participant>('participants')
+      .doc(participantId)
+      .valueChanges();
   }
 
   submitAnswer(
