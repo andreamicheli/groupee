@@ -8,44 +8,54 @@
   <button type="submit">Join Room</button>
 </form>
 
-<div *ngIf="model.session.client.participantName">
-  <p>Welcome, {{ model.session.client.participantName }}!</p>
-  <!-- Questionnaire view will be added later -->
-</div>
-
+<!-- Welcome Message and Waiting for Questionnaire -->
 <div
   *ngIf="
-    model.session.currentPhase() === 'questions' &&
-    model.session.currentQuestionIndex() <= model.standardQuestions().length
+    participantName && participantState === ParticipantState.WaitingForQuestion
   "
 >
-  <h3>Question {{ model.session.currentQuestionIndex() + 1 }}:</h3>
-  <p>
-    {{ model.standardQuestions()[model.session.currentQuestionIndex()].title }}
-  </p>
-  <form (ngSubmit)="submitAnswer('test')">
-    <div
-      *ngFor="
-        let option of model.standardQuestions()[
-          model.session.currentQuestionIndex()
-        ].options
-      "
-    >
+  <p>Welcome, {{ participantName }}!</p>
+  <p>Waiting for the host to start the questionnaire...</p>
+</div>
+
+<!-- Viewing a question -->
+<div
+  *ngIf="
+    participantState === ParticipantState.ViewingQuestion && currentQuestion
+  "
+>
+  <h2>{{ currentQuestion.title }}</h2>
+  <form (ngSubmit)="submitAnswer()">
+    <div *ngFor="let option of currentQuestion.options">
       <label>
         <input
           type="radio"
-          [value]="option"
           name="option"
+          [value]="option.text"
           [(ngModel)]="selectedOption"
           required
         />
         {{ option.text }}
       </label>
     </div>
-    <button type="submit" [disabled]="!selectedOption">Submit Answer</button>
+    <button type="submit">Submit Answer</button>
   </form>
 </div>
 
-<div *ngIf="model.session.currentPhase() === 'waiting'">
-  <p>Waiting for the host to start the questionnaire...</p>
+<!-- Waiting for the host to proceed to the next question -->
+<div *ngIf="participantState === ParticipantState.WaitingForNextQuestion">
+  <h2>Please wait for the next question...</h2>
 </div>
+
+<!-- Questionnaire finished -->
+<!-- <div *ngIf="participantState === ParticipantState.QuestionnaireFinished">
+  <h2>The questionnaire has finished. Thank you for your participation!</h2>
+  <h3>Your Results:</h3>
+  <ul>
+    <li>Element 1: {{ participant?.cumulativeResult.element1 }}</li>
+    <li>Element 2: {{ participant?.cumulativeResult.element2 }}</li>
+    <li>Element 3: {{ participant?.cumulativeResult.element3 }}</li>
+    <li>Element 4: {{ participant?.cumulativeResult.element4 }}</li>
+    <li>Element 5: {{ participant?.cumulativeResult.element5 }}</li>
+  </ul>
+</div> -->

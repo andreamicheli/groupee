@@ -54,6 +54,21 @@ export class ParticipantService {
       },
       error: (error) => console.error('Error fetching room:', error),
     });
+
+    // this.roomService
+    //   .getParticipant(
+    //     this.model.session.roomId(),
+    //     this.model.session.client.participantId()
+    //   )
+    //   .subscribe({
+    //     next: (participants) => {
+    //       console.log('Participants updated:', participants);
+    //       this.model.session.client.participantId.set(participants);
+    //     },
+    //     error: (error) => {
+    //       console.error('Error fetching participants:', error);
+    //     },
+    //   });
   }
 
   private navigationInProgress = false;
@@ -66,6 +81,7 @@ export class ParticipantService {
     const participant: Participant = {
       participantId: this.model.session.client.participantId(),
       name: this.model.session.client.participantName(),
+      cumulativeResult: this.model.session.client.cumulativeResult(),
     };
 
     this.roomService

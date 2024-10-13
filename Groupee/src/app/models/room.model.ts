@@ -1,23 +1,33 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 
+export interface CumulativeResult {
+  element1: number;
+  element2: number;
+  element3: number;
+  element4: number;
+  element5: number;
+}
+
 
 export interface Participant {
     participantId: string;
     name: string;
+    cumulativeResult: CumulativeResult;
   }
   
-  export interface Room {
+export interface Room {
     roomId: string;
     hostId: string;
-    participants: Participant[];
+    //participants: Participant[];
     isQuestionnaireActive: boolean;
     currentQuestionIndex: number;
-    participantAnswers: {
-      [participantId: string]: {
-        [questionIndex: number]: string;
-      };
-    };
+    isQuestionnairEnded: false;
+    // participantAnswers: {
+    //   [participantId: string]: {
+    //     [questionIndex: number]: string;
+    //   };
+    // };
     createdAt: firebase.firestore.FieldValue | Date;
   }
   

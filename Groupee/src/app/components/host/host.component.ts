@@ -6,13 +6,14 @@ import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { HostService } from '../../services/host.service';
 import { PlatformModelService } from '../../dataStructures/PlatformModel.service';
+import { JsonUploaderComponent } from '../../json-uploader/json-uploader.component';
 
 @Component({
   selector: 'app-host',
   standalone: true,
   templateUrl: './host.component.html',
   styleUrls: ['./host.component.css'],
-  imports: [CommonModule],
+  imports: [CommonModule, JsonUploaderComponent],
 })
 export class HostComponent implements OnInit {
   private authSubscription: Subscription | undefined;
@@ -45,5 +46,6 @@ export class HostComponent implements OnInit {
     this.authSubscription?.unsubscribe();
     this.roomSubscription?.unsubscribe();
     this.questionsSubscription?.unsubscribe();
+    // this.participantsSubscription?.unsubscribe();
   }
 }

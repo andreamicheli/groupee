@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { Question } from '../models/question.model';
-import { Participant } from '../models/room.model';
+import { CumulativeResult, Participant } from '../models/room.model';
 
 @Injectable({
   providedIn: 'root', // Ensures a single instance across the app
@@ -24,6 +24,13 @@ export class PlatformModelService {
     client: {
       participantName: signal<string>(''), // Relevant for client, can be ignored by host
       participantId: signal<string>(''),
+      cumulativeResult: signal<CumulativeResult>({
+        element1: 0,
+        element2: 0,
+        element3: 0,
+        element4: 0,
+        element5: 0,
+      }),
     }, // Relevant for client, can be ignored by host
   };
 

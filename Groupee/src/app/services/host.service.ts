@@ -42,6 +42,17 @@ export class HostService {
           `/client/${this.model.session.roomId()}/credentials`
         );
         this.subscribeToRoom();
+        this.roomService
+          .getParticipants(this.model.session.roomId())
+          .subscribe({
+            next: (participants) => {
+              console.log('Participants updated:', participants);
+              this.model.session.participants.set(participants);
+            },
+            error: (error) => {
+              console.error('Error fetching participants:', error);
+            },
+          });
       })
       .catch((error) => {
         console.error('Error creating room:', error);
@@ -55,14 +66,13 @@ export class HostService {
         .subscribe((room) => {
           if (room) {
             console.log('firebase fethed room', room);
-            // Update current question if index changed
-            if (
-              this.model.standardQuestions().length > 0 &&
-              room &&
-              room.currentQuestionIndex !== room.currentQuestionIndex
-            ) {
-              this.updateCurrentQuestion();
-            }
+            // if (
+            //   this.model.standardQuestions().length > 0 &&
+            //   room &&
+            //   room.currentQuestionIndex !== room.currentQuestionIndex
+            // ) {
+            //   this.updateCurrentQuestion();
+            // }
             this.roomService.updateModel(room);
             this.model.session.currentPhase.set('waiting');
             this.router.navigate([
@@ -75,35 +85,35 @@ export class HostService {
     }
   }
 
-  updateCurrentQuestion() {
-    if (
-      this.model.session.online() &&
-      this.model.standardQuestions().length > 0 &&
-      this.model.session.currentQuestionIndex() <
-        this.model.standardQuestions().length
-    ) {
-      // No need to store currentQuestion if you're using getCurrentQuestion()
-      // But you can update any other state here if necessary
-      console.log('Current question updated:', this.getCurrentQuestion());
-    }
-  }
+  // updateCurrentQuestion() {
+  //   if (
+  //     this.model.session.online() &&
+  //     this.model.standardQuestions().length > 0 &&
+  //     this.model.session.currentQuestionIndex() <
+  //       this.model.standardQuestions().length
+  //   ) {
+  //     // No need to store currentQuestion if you're using getCurrentQuestion()
+  //     // But you can update any other state here if necessary
+  //     console.log('Current question updated:', this.getCurrentQuestion());
+  //   }
+  // }
 
   startQuestionnaire(): void {
     this.questionsSubscription = this.firestore
       .collection<Question>('questions', (ref) => ref.orderBy('order'))
       .valueChanges()
-      .subscribe(
-        (questions) => {
+      .subscribe({
+        next: (questions) => {
           this.model.standardQuestions.set(questions);
           // console.log('Questions fetched:', this.questions); // Debugging
           this.roomService.startQuestionnaire(this.model.session.roomId());
           this.model.session.currentQuestionIndex.set(0);
           this.model.session.currentPhase.set('questions');
         },
-        (error) => {
+        error: (error) => {
           console.error('Error fetching questions:', error);
-        }
-      );
+        },
+      });
   }
 
   nextQuestion(): void {
