@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Room } from '../models/room.model';
 import { Question } from '../models/question.model';
-import { filter, Subscription } from 'rxjs';
+import { delay, filter, map, Subscription, switchMap, take } from 'rxjs';
 import { RoomService } from './room.service';
 import { AuthService } from './auth.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
@@ -23,6 +23,18 @@ export class HostService {
     private router: Router,
     private firestore: AngularFirestore
   ) {}
+
+  unsubscribeAll(): void {
+    if (this.authSubscription) {
+      this.authSubscription.unsubscribe();
+    }
+    if (this.roomSubscription) {
+      this.roomSubscription.unsubscribe();
+    }
+    if (this.questionsSubscription) {
+      this.questionsSubscription.unsubscribe;
+    }
+  }
 
   subscribeAuth(): void {
     this.authSubscription = this.authService.currentUserId$
@@ -99,16 +111,28 @@ export class HostService {
   // }
 
   startQuestionnaire(): void {
-    this.questionsSubscription = this.firestore
-      .collection<Question>('questions', (ref) => ref.orderBy('order'))
-      .valueChanges()
-      .subscribe({
-        next: (questions) => {
+    this.questionsSubscription = this.roomService
+      .getQuestions()
+      .pipe(
+        take(1),
+        delay(100),
+        map((questions) => {
           this.model.standardQuestions.set(questions);
-          // console.log('Questions fetched:', this.questions); // Debugging
           this.roomService.startQuestionnaire(this.model.session.roomId());
           this.model.session.currentQuestionIndex.set(0);
           this.model.session.currentPhase.set('questions');
+        }),
+        switchMap(() => {
+          return this.router.navigate(
+            [`host/${this.model.session.roomId()}/question`],
+            { replaceUrl: true }
+          );
+        })
+      )
+      .subscribe({
+        next: (questions) => {
+          // Adjust time as needed for testing
+          // console.log('Questions fetched:', this.questions); // Debugging
         },
         error: (error) => {
           console.error('Error fetching questions:', error);

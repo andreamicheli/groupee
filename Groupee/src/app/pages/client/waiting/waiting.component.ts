@@ -1,4 +1,4 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { Component, DoCheck, HostBinding, OnInit } from '@angular/core';
 import { PlatformModelService } from '../../../dataStructures/PlatformModel.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ParticipantService } from '../../../services/participant.service';
@@ -10,8 +10,10 @@ import { ParticipantService } from '../../../services/participant.service';
   templateUrl: './waiting.component.html',
   styleUrl: './waiting.component.css',
 })
-export class ClientWaitingComponent implements OnInit {
+export class ClientWaitingComponent implements OnInit, DoCheck {
   @HostBinding('class') className = 'w-full';
+
+  sessionCode: string = '';
 
   constructor(
     public model: PlatformModelService,
@@ -20,9 +22,21 @@ export class ClientWaitingComponent implements OnInit {
     private participantService: ParticipantService
   ) {}
 
+  ngDoCheck() {
+    if (this.model.session.currentPhase() === 'questions') {
+      this.participantService.loadQuestions();
+      // this.router.navigate([`client/${this.model.session.roomId()}/question`], {
+      //   replaceUrl: true,
+      // });
+      // console.log('Navigating to questions ', this.router.routerState.snapshot);
+    }
+  }
+
   ngOnInit() {
     if (!this.model.session.online()) {
-      this.router.navigate(['client/code'], { replaceUrl: true });
+      console.log('No online session');
+
+      this.router.navigate([[`client/code`]], { replaceUrl: true });
     }
   }
 }

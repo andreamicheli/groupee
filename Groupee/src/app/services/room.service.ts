@@ -3,7 +3,9 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Room, Participant, CumulativeResult } from '../models/room.model';
 import firebase from 'firebase/compat/app';
 import { from, Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { PlatformModelService } from '../dataStructures/PlatformModel.service';
+import { Question } from '../models/question.model';
 
 @Injectable({
   providedIn: 'root',
@@ -53,6 +55,12 @@ export class RoomService {
       .doc(participant.participantId);
 
     return from(participantRef.set(participant));
+  }
+
+  getQuestions(): Observable<Question[]> {
+    return this.firestore
+      .collection<Question>('questions', (ref) => ref.orderBy('order'))
+      .valueChanges();
   }
 
   updateParticipantCumulativeResult(
@@ -152,20 +160,22 @@ export class RoomService {
     participantId: string,
     answer: string,
     questionIndex: number
-  ): Promise<void> {
+  ): Observable<void> {
     if (!roomId || !participantId) {
       console.error('submitAnswer called with empty roomId or participantId');
-      return Promise.reject('roomId and participantId are required');
+      return of(undefined);
     }
     const roomRef = this.firestore.collection('rooms').doc(roomId);
     const participantAnswerPath = `participantAnswers.${participantId}.${questionIndex}`;
     const updateData = {
       [participantAnswerPath]: answer,
     };
-    return roomRef.update(updateData).catch((error) => {
-      console.error('Error submitting answer:', error);
-      throw error;
-    });
+    return from(roomRef.update(updateData)).pipe(
+      catchError((error) => {
+        console.error('Error submitting answer:', error);
+        throw error;
+      })
+    );
   }
 
   //mainly working only in creation and not following updates

@@ -4,7 +4,17 @@ import { RoomService } from './room.service';
 import { AuthService } from './auth.service';
 import { PlatformModelService } from '../dataStructures/PlatformModel.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { delay, filter, finalize, firstValueFrom, retryWhen, take } from 'rxjs';
+import {
+  delay,
+  filter,
+  finalize,
+  firstValueFrom,
+  retryWhen,
+  Subject,
+  Subscription,
+  take,
+  takeUntil,
+} from 'rxjs';
 import { Participant } from '../models/room.model';
 import { Question } from '../models/question.model';
 
@@ -23,9 +33,15 @@ export class ParticipantService {
     private firestore: AngularFirestore
   ) {}
 
+  private unsubscribe$ = new Subject<void>(); //needed to unsubscribe from observables and avoid navigation issues
+
   subscribeAuth(): void {
+    // this.authSubscription = this.authService.currentUserId$
     this.authService.currentUserId$
-      .pipe(filter((uid): uid is string => uid !== null))
+      .pipe(
+        filter((uid): uid is string => uid !== null),
+        takeUntil(this.unsubscribe$)
+      )
       .subscribe((uid: string) => {
         this.model.session.client.participantId.set(uid);
         // Now proceed with setting roomId and subscribing to room updates
@@ -34,26 +50,22 @@ export class ParticipantService {
   }
 
   initializeParticipant(): void {
-    this.roomService.getRoom(this.model.session.roomId()).subscribe({
-      next: (room) => {
-        if (room) {
-          this.roomService.updateModel(room);
-          if (
-            this.router.url ===
-            `/client/${this.model.session.roomId()}/credentials`
-          ) {
-            console.log('Already on the credentials page');
-          } else {
-            this.router.navigate([
-              `/client/${this.model.session.roomId()}/credentials`,
-            ]);
-          }
-        } else {
-          console.error('Room not found');
-        }
-      },
-      error: (error) => console.error('Error fetching room:', error),
-    });
+    if (this.model.session.roomId()) {
+      // this.roomSubscription = this.roomService
+      this.roomService
+        .getRoom(this.model.session.roomId())
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe({
+          next: (room) => {
+            if (room) {
+              this.roomService.updateModel(room);
+            } else {
+              console.error('Room not found');
+            }
+          },
+          error: (error) => console.error('Error fetching room:', error),
+        });
+    }
 
     // this.roomService
     //   .getParticipant(
@@ -71,12 +83,7 @@ export class ParticipantService {
     //   });
   }
 
-  private navigationInProgress = false;
-
   joinRoom(name: string): void {
-    if (this.navigationInProgress) return;
-
-    this.navigationInProgress = true;
     this.model.session.client.participantName.set(name);
     const participant: Participant = {
       participantId: this.model.session.client.participantId(),
@@ -84,9 +91,10 @@ export class ParticipantService {
       cumulativeResult: this.model.session.client.cumulativeResult(),
     };
 
+    // this.roomSubscription = this.roomService
     this.roomService
       .addParticipant(this.model.session.roomId(), participant)
-      .pipe(take(1), delay(100))
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: () => {
           this.router.navigate([
@@ -96,32 +104,45 @@ export class ParticipantService {
         },
         error: (error) => {
           console.error('Error adding participant:', error);
-          this.navigationInProgress = false; // Reset flag on error
-        },
-        complete: () => {
-          this.navigationInProgress = false; // Reset flag on completion
         },
       });
   }
 
   loadQuestions() {
-    this.firestore
-      .collection<Question>('questions', (ref) => ref.orderBy('order'))
-      .valueChanges()
-      .subscribe((questions) => {
-        this.model.standardQuestions.set(questions);
-        // this.updateCurrentQuestion();
+    // this.roomSubscription = this.roomService
+    this.roomService
+      .getQuestions()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: (questions) => {
+          this.model.standardQuestions.set(questions);
+          this.questionsLoaded = true;
+          console.log('Questions loaded:', questions);
+          this.router.navigate(
+            [`client/${this.model.session.roomId()}/question`],
+            {
+              replaceUrl: true,
+            }
+          );
+        },
+        error: (error) => {
+          console.error('Error fetching questions:', error);
+        },
       });
   }
 
   submitAnswer(selectedOption: string) {
     if (this.model.session.online() && this.model.session.roomId()) {
-      this.roomService.submitAnswer(
-        this.model.session.roomId(),
-        this.model.session.client.participantId(),
-        selectedOption,
-        this.model.session.currentQuestionIndex()
-      );
+      // this.roomSubscription = this.roomService
+      this.roomService
+        .submitAnswer(
+          this.model.session.roomId(),
+          this.model.session.client.participantId(),
+          selectedOption,
+          this.model.session.currentQuestionIndex()
+        )
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe();
       // Clear selection after submission
       //this.selectedOption = null;
     } else {

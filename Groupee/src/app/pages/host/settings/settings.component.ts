@@ -1,4 +1,4 @@
-import { Component, HostBinding } from '@angular/core';
+import { Component, HostBinding, OnDestroy } from '@angular/core';
 import { HostService } from '../../../services/host.service';
 
 @Component({
@@ -8,12 +8,16 @@ import { HostService } from '../../../services/host.service';
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.css',
 })
-export class HostSettingsComponent {
+export class HostSettingsComponent implements OnDestroy {
   @HostBinding('class') className = 'w-full';
 
   constructor(private hostService: HostService) {}
 
   createRoom(): void {
     this.hostService.subscribeAuth();
+  }
+
+  ngOnDestroy(): void {
+    this.hostService.unsubscribeAll();
   }
 }

@@ -1,4 +1,4 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
 import { QRCodeComponent, QRCodeModule } from 'angularx-qrcode';
 import { PlatformModelService } from '../../../dataStructures/PlatformModel.service';
 import { HostService } from '../../../services/host.service';
@@ -12,7 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './waiting.component.html',
   styleUrl: './waiting.component.css',
 })
-export class HostWaitingComponent implements OnInit {
+export class HostWaitingComponent implements OnInit, OnDestroy {
   @HostBinding('class') className = 'w-full';
 
   private URL: string = 'https://groupee-fi.web.app';
@@ -31,7 +31,6 @@ export class HostWaitingComponent implements OnInit {
         this.model.session.roomId.set(roomId);
         this.hostService.subscribeToRoom();
       }
-
       this.router.navigate(['/'], { replaceUrl: true });
     }
   }
@@ -70,5 +69,9 @@ export class HostWaitingComponent implements OnInit {
       left: `${x}%`,
       transform: 'translate(-50%, -50%)', // Center the name on the position
     };
+  }
+
+  ngOnDestroy() {
+    this.hostService.unsubscribeAll();
   }
 }

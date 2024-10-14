@@ -1,1 +1,36 @@
-<p>question works!</p>
+<!-- <div
+  *ngIf="
+    participantState === ParticipantState.ViewingQuestion && currentQuestion
+  "
+> -->
+<div>
+  <h2>
+    {{ model.standardQuestions()[model.session.currentQuestionIndex()].title }}
+  </h2>
+  <form (ngSubmit)="submitAnswer()">
+    <div
+      *ngFor="
+        let option of model.standardQuestions()[
+          model.session.currentQuestionIndex()
+        ].options
+      "
+    >
+      <label>
+        <input
+          type="radio"
+          name="option"
+          [value]="option.text"
+          [(ngModel)]="selectedOption"
+          required
+        />
+        {{ option.text }}
+      </label>
+    </div>
+    <button type="submit">Submit Answer</button>
+  </form>
+</div>
+
+<!-- Waiting for the host to proceed to the next question -->
+<!-- <div *ngIf="participantState === ParticipantState.WaitingForNextQuestion">
+  <h2>Please wait for the next question...</h2>
+</div> -->

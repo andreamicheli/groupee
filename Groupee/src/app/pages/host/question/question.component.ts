@@ -1,10 +1,30 @@
 import { Component } from '@angular/core';
+import { PlatformModelService } from '../../../dataStructures/PlatformModel.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { HostService } from '../../../services/host.service';
+import { Question } from '../../../models/question.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-host-question',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './question.component.html',
   styleUrl: './question.component.css',
 })
-export class HostQuestionComponent {}
+export class HostQuestionComponent {
+  constructor(
+    public model: PlatformModelService,
+    private router: Router,
+    private hostService: HostService,
+    private route: ActivatedRoute
+  ) {}
+
+  getCurrentQuestion(): Question {
+    return this.hostService.getCurrentQuestion();
+  }
+
+  //   ngOnDestroy() {
+  //   this.hostService.unsubscribeAll();
+  // }
+}
