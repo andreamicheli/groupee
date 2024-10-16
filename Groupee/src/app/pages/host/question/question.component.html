@@ -7,11 +7,24 @@
     Question
     {{ model.session.currentQuestionIndex() + 1 }}:
   </h3>
-  <p>{{ getCurrentQuestion().title }}</p>
+  <p>
+    {{ model.standardQuestions()[model.session.currentQuestionIndex()].title }}
+  </p>
   <ul>
-    <li *ngFor="let option of getCurrentQuestion()?.options">
+    <li
+      *ngFor="
+        let option of model.standardQuestions()[
+          model.session.currentQuestionIndex()
+        ]?.options
+      "
+    >
       {{ option?.text ? option?.text : option }}
     </li>
   </ul>
-  <!-- <button *ngIf="room?.isQuestionnaireActive" (click)="nextQuestion()">Next Question</button> -->
+  <button
+    *ngIf="this.model.session.currentPhase() == 'questions'"
+    (click)="nextQuestion()"
+  >
+    Next Question
+  </button>
 </div>

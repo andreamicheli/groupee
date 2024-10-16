@@ -3,6 +3,14 @@ import { PlatformModelService } from '../../../dataStructures/PlatformModel.serv
 import { Option } from '../../../models/question.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ParticipantService } from '../../../services/participant.service';
+
+export enum ParticipantState {
+  WaitingForQuestion,
+  ViewingQuestion,
+  WaitingForNextQuestion,
+  QuestionnaireFinished,
+}
 
 @Component({
   selector: 'app-client-question',
@@ -12,9 +20,19 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './question.component.css',
 })
 export class ClientQuestionComponent {
-  selectedOption: Option | null = null;
+  selectedOption: number | null = null;
 
-  constructor(public model: PlatformModelService) {}
+  ParticipantStateTypes = ParticipantState;
 
-  submitAnswer() {}
+  constructor(
+    public model: PlatformModelService,
+    private participantService: ParticipantService
+  ) {}
+
+  submitAnswer() {
+    if (this.selectedOption === null) {
+      return;
+    }
+    this.participantService.submitAnswer(this.selectedOption);
+  }
 }

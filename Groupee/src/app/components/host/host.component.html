@@ -3,73 +3,79 @@
 <p>Share this link with participants:</p>
 <input type="text" [value]="model.session.participantLink()" readonly />
 
-<!-- <div *ngIf="room"> -->
-<div>
-  <h3>Participants:</h3>
-  <ul>
-    <!-- <li *ngFor="let participant of participants">
+<div *ngIf="model.session.online()">
+  <div>
+    <h3>Participants:</h3>
+    <ul>
+      <!-- <li *ngFor="let participant of participants">
       {{ participant.name }}
     </li> -->
-  </ul>
-  <!-- Questionnaire controls will be added later -->
+    </ul>
+    <!-- Questionnaire controls will be added later -->
 
-  <button
-    *ngIf="model.session.currentPhase() === 'waiting'"
-    (click)="startQuestionnaire()"
-  >
-    Start Questionnaire
-  </button>
+    <button
+      *ngIf="model.session.currentPhase() === 'waiting'"
+      (click)="startQuestionnaire()"
+    >
+      Start Questionnaire
+    </button>
 
-  <div
-    *ngIf="
-      !!model.session.online() && model.session.currentPhase() === 'questions'
-    "
-  >
-    <h3>
-      Question
-      {{ model.session.currentQuestionIndex() + 1 }}:
-    </h3>
-    <p>{{ getCurrentQuestion()?.title }}</p>
-    <ul>
-      <li
-        *ngFor="
-          let option of model.standardQuestions()[
-            model.session.currentQuestionIndex()
-          ].options
-        "
+    <div
+      *ngIf="
+        !!model.session.online() && model.session.currentPhase() === 'questions'
+      "
+    >
+      <h3>
+        Question
+        {{ model.session.currentQuestionIndex() + 1 }}:
+      </h3>
+      <p>{{ getCurrentQuestion()?.title }}</p>
+      <ul>
+        <li
+          *ngFor="
+            let option of model.standardQuestions()[
+              model.session.currentQuestionIndex()
+            ].options
+          "
+        >
+          {{ option?.text ? option?.text : option }}
+        </li>
+      </ul>
+      <button
+        *ngIf="this.model.session.currentPhase() === 'questions'"
+        (click)="nextQuestion()"
       >
-        {{ option?.text ? option?.text : option }}
+        Next Question
+      </button>
+    </div>
+
+    <div
+      *ngIf="
+        model.session.currentPhase() !== 'questions' &&
+        model.session.currentPhase() !== 'waiting' &&
+        model.session.currentQuestionIndex() >= model.standardQuestions().length
+      "
+    >
+      <h3>Questionnaire Completed!</h3>
+      <!-- Display participant answers here -->
+    </div>
+  </div>
+
+  <!-- Questionnaire finished -->
+  <div *ngIf="model.session.currentPhase() !== 'tree'">
+    <h2>The questionnaire has finished.</h2>
+    <h3>Participants' Results:</h3>
+    <ul>
+      <li *ngFor="let participant of model.session.participants()">
+        {{ participant.name }}:
+        <ul>
+          <li>Element 1: {{ participant.cumulativeResult.element1 }}</li>
+          <li>Element 2: {{ participant.cumulativeResult.element2 }}</li>
+          <li>Element 3: {{ participant.cumulativeResult.element3 }}</li>
+          <li>Element 4: {{ participant.cumulativeResult.element4 }}</li>
+          <li>Element 5: {{ participant.cumulativeResult.element5 }}</li>
+        </ul>
       </li>
     </ul>
-    <!-- <button *ngIf="room?.isQuestionnaireActive" (click)="nextQuestion()">Next Question</button> -->
-  </div>
-
-  <div
-    *ngIf="
-      model.session.currentPhase() !== 'questions' &&
-      model.session.currentPhase() !== 'waiting' &&
-      model.session.currentQuestionIndex() >= model.standardQuestions().length
-    "
-  >
-    <h3>Questionnaire Completed!</h3>
-    <!-- Display participant answers here -->
   </div>
 </div>
-
-<!-- Questionnaire finished -->
-<!-- <div *ngIf="room?.isQuestionnaireEnded">
-  <h2>The questionnaire has finished.</h2>
-  <h3>Participants' Results:</h3>
-  <ul>
-    <li *ngFor="let participant of participants">
-      {{ participant.name }}:
-      <ul>
-        <li>Element 1: {{ participant.cumulativeResult.element1 }}</li>
-        <li>Element 2: {{ participant.cumulativeResult.element2 }}</li>
-        <li>Element 3: {{ participant.cumulativeResult.element3 }}</li>
-        <li>Element 4: {{ participant.cumulativeResult.element4 }}</li>
-        <li>Element 5: {{ participant.cumulativeResult.element5 }}</li>
-      </ul>
-    </li>
-  </ul>
-</div> -->

@@ -147,15 +147,12 @@ export class HostService {
         this.model.standardQuestions().length
     ) {
       this.roomService.incrementQuestionIndex(this.model.session.roomId());
+      this.model.session.currentQuestionIndex.set(
+        this.model.session.currentQuestionIndex() + 1
+      );
     } else {
       this.endQuestionnaire();
     }
-  }
-
-  getCurrentQuestion(): Question {
-    return this.model.standardQuestions()[
-      this.model.session.currentQuestionIndex()
-    ];
   }
 
   endQuestionnaire(): void {

@@ -1,36 +1,46 @@
-<!-- <div
-  *ngIf="
-    participantState === ParticipantState.ViewingQuestion && currentQuestion
-  "
-> -->
-<div>
-  <h2>
-    {{ model.standardQuestions()[model.session.currentQuestionIndex()].title }}
-  </h2>
-  <form (ngSubmit)="submitAnswer()">
-    <div
-      *ngFor="
-        let option of model.standardQuestions()[
-          model.session.currentQuestionIndex()
-        ].options
-      "
-    >
-      <label>
-        <input
-          type="radio"
-          name="option"
-          [value]="option.text"
-          [(ngModel)]="selectedOption"
-          required
-        />
-        {{ option.text }}
-      </label>
-    </div>
-    <button type="submit">Submit Answer</button>
-  </form>
-</div>
+<div *ngIf="!!model.standardQuestions()[model.session.currentQuestionIndex()]">
+  <h2>{{ this.model.session.client.participantState() | json }}</h2>
+  <div
+    *ngIf="
+      this.model.session.client.participantState() ===
+      ParticipantStateTypes.ViewingQuestion
+    "
+  >
+    <h2>
+      {{
+        model.standardQuestions()[model.session.currentQuestionIndex()].title
+      }}
+    </h2>
+    <form (ngSubmit)="submitAnswer()">
+      <div
+        *ngFor="
+          let option of model.standardQuestions()[
+            model.session.currentQuestionIndex()
+          ].options
+        "
+      >
+        <label>
+          <input
+            type="radio"
+            name="option"
+            [value]="option.id"
+            [(ngModel)]="selectedOption"
+            required
+          />
+          {{ option.text }}
+        </label>
+      </div>
+      <button type="submit">Submit Answer</button>
+    </form>
+  </div>
 
-<!-- Waiting for the host to proceed to the next question -->
-<!-- <div *ngIf="participantState === ParticipantState.WaitingForNextQuestion">
-  <h2>Please wait for the next question...</h2>
-</div> -->
+  <!-- Waiting for the host to proceed to the next question -->
+  <div
+    *ngIf="
+      this.model.session.client.participantState() ===
+      ParticipantStateTypes.WaitingForNextQuestion
+    "
+  >
+    <h2>Please wait for the next question...</h2>
+  </div>
+</div>

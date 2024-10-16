@@ -5,17 +5,20 @@ import { AuthService } from './auth.service';
 import { PlatformModelService } from '../dataStructures/PlatformModel.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import {
+  catchError,
   delay,
+  EMPTY,
   filter,
   finalize,
   firstValueFrom,
   retryWhen,
   Subject,
   Subscription,
+  switchMap,
   take,
   takeUntil,
 } from 'rxjs';
-import { Participant } from '../models/room.model';
+import { Participant, ParticipantState } from '../models/room.model';
 import { Question } from '../models/question.model';
 
 @Injectable({
@@ -131,20 +134,39 @@ export class ParticipantService {
       });
   }
 
-  submitAnswer(selectedOption: string) {
+  submitAnswer(selectedOptionId: number) {
     if (this.model.session.online() && this.model.session.roomId()) {
-      // this.roomSubscription = this.roomService
       this.roomService
-        .submitAnswer(
+        .updateParticipantCumulativeResult(
           this.model.session.roomId(),
           this.model.session.client.participantId(),
-          selectedOption,
-          this.model.session.currentQuestionIndex()
+          this.model
+            .standardQuestions()
+            [this.model.session.currentQuestionIndex()].options.find(
+              (item) => item.id === selectedOptionId
+            )?.values!
         )
-        .pipe(takeUntil(this.unsubscribe$))
-        .subscribe();
-      // Clear selection after submission
-      //this.selectedOption = null;
+        .pipe(
+          takeUntil(this.unsubscribe$),
+          switchMap(() =>
+            this.roomService.submitAnswer(
+              this.model.session.roomId(),
+              this.model.session.client.participantId(),
+              selectedOptionId,
+              this.model.session.currentQuestionIndex()
+            )
+          ),
+          catchError((error) => {
+            console.error('Error submitting answer:', error);
+            return EMPTY; // Handles the error and completes the observable
+          })
+        )
+        .subscribe(() => {
+          this.model.session.client.participantState.set(
+            ParticipantState.WaitingForNextQuestion
+          );
+          console.log('Answer submitted successfully');
+        });
     } else {
       console.error('Room data is not available');
     }
@@ -158,13 +180,10 @@ export class ParticipantService {
   //       this.model.standardQuestions().length
   //     // this.room.currentQuestionIndex !== undefined &&
   //   ) {
-  //     this.model.session.currentQuestionIndex.set()
-  //       this.model.standardQuestions()[
-  //         this.model.session.currentQuestionIndex()
-  //       ];
-  //     console.log('Current question updated:', this.currentQuestion); // Debugging
-  //   } else {
-  //     this.currentQuestion = undefined;
+  //     this.model.session.client.participantState.set(
+  //       ParticipantState.ViewingQuestion
+  //     );
+  //     // console.log('Current question updated:', this.currentQuestion); // Debugging
   //   }
   // }
 }

@@ -20,8 +20,8 @@ export class HostQuestionComponent {
     private route: ActivatedRoute
   ) {}
 
-  getCurrentQuestion(): Question {
-    return this.hostService.getCurrentQuestion();
+  nextQuestion(): void {
+    this.hostService.nextQuestion();
   }
 
   //   ngOnDestroy() {

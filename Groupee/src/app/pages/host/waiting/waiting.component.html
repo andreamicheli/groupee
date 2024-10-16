@@ -1,6 +1,11 @@
 <div class="flex flex-col items-center justify-center h-full relative">
   <p>
-    Room id: <i>{{ model.session.roomId() }}</i>
+    Room id:
+    <span
+      class="hover:underline active:text-t-orange cursor-pointer"
+      (click)="copyRoomIdToClipboard()"
+      ><i>{{ model.session.roomId() }}</i></span
+    >
   </p>
   <h1 class="text-4xl font-bold mb-4">Waiting...</h1>
   <qrcode

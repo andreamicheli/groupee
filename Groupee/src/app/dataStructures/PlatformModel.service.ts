@@ -1,6 +1,10 @@
 import { Injectable, signal } from '@angular/core';
 import { Question } from '../models/question.model';
-import { CumulativeResult, Participant } from '../models/room.model';
+import {
+  CumulativeResult,
+  Participant,
+  ParticipantState,
+} from '../models/room.model';
 
 @Injectable({
   providedIn: 'root', // Ensures a single instance across the app
@@ -31,6 +35,9 @@ export class PlatformModelService {
         element4: 0,
         element5: 0,
       }),
+      participantState: signal<ParticipantState>(
+        ParticipantState.WaitingForQuestion
+      ),
     }, // Relevant for client, can be ignored by host
   };
 

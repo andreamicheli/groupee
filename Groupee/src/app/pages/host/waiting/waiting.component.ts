@@ -74,4 +74,8 @@ export class HostWaitingComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.hostService.unsubscribeAll();
   }
+
+  copyRoomIdToClipboard(): void {
+    navigator.clipboard.writeText(this.model.session.roomId());
+  }
 }
