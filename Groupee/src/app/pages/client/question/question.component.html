@@ -41,6 +41,21 @@
       ParticipantStateTypes.WaitingForNextQuestion
     "
   >
-    <h2>Please wait for the next question...</h2>
+    <div
+      *ngIf="
+        this.model.session.currentQuestionIndex() >=
+        this.model.standardQuestions().length - 1
+      "
+    >
+      <h2>The system is analyzing the data..</h2>
+    </div>
+    <div
+      *ngIf="
+        this.model.session.currentQuestionIndex() <
+        this.model.standardQuestions().length - 1
+      "
+    >
+      <h2>Please wait for the next question...</h2>
+    </div>
   </div>
 </div>

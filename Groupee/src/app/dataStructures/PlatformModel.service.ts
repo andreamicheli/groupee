@@ -23,7 +23,11 @@ export class PlatformModelService {
     currentPhase: signal<null | 'waiting' | 'questions' | 'tree' | 'groups'>(
       null
     ),
-    currentAnswers: signal<null | number>(null), // Relevant for host, can be ignored by client
+    currentAnswers: signal<{
+      [participantId: string]: {
+        [questionIndex: number]: string;
+      };
+    }>({}), // Relevant for host, can be ignored by client
     participants: signal<Array<Participant>>([]),
     client: {
       participantName: signal<string>(''), // Relevant for client, can be ignored by host

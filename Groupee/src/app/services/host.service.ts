@@ -150,12 +150,18 @@ export class HostService {
       this.model.session.currentQuestionIndex.set(
         this.model.session.currentQuestionIndex() + 1
       );
-    } else {
+    } else if (
+      this.model.session.currentQuestionIndex() + 1 >=
+      this.model.standardQuestions().length
+    ) {
       this.endQuestionnaire();
     }
   }
 
   endQuestionnaire(): void {
-    this.roomService.endQuestionnaire(this.model.session.roomId());
+    this.roomService.endQuestionnaire(this.model.session.roomId()).then(() => {
+      this.model.session.currentPhase.set('tree');
+      this.router.navigate([`host/${this.model.session.roomId()}/tree`]);
+    });
   }
 }

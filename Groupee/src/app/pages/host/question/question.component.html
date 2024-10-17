@@ -21,8 +21,17 @@
       {{ option?.text ? option?.text : option }}
     </li>
   </ul>
+  <p>
+    answer count:
+    {{
+      countTotalAnswers(
+        model.session.currentQuestionIndex(),
+        model.session.currentAnswers()
+      )
+    }}/{{ model.session.participants().length }}
+  </p>
   <button
-    *ngIf="this.model.session.currentPhase() == 'questions'"
+    *ngIf="model.session.currentPhase() == 'questions'"
     (click)="nextQuestion()"
   >
     Next Question

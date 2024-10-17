@@ -150,7 +150,7 @@
 //         if (this.room?.isQuestionnaireActive) {
 //           this.participantState = ParticipantState.ViewingQuestion;
 //           console.log('Participant state set to ViewingQuestion');
-//         } else if (this.room?.isQuestionnairEnded == false){
+//         } else if (this.room?.isQuestionnaireEnded == false){
 //           this.participantState = ParticipantState.WaitingForQuestion;
 //           console.log('Participant state set to WaitingForQuestion');
 //         }

@@ -8,7 +8,7 @@ import {
 } from '../models/room.model';
 import firebase from 'firebase/compat/app';
 import { from, Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { PlatformModelService } from '../dataStructures/PlatformModel.service';
 import { Question } from '../models/question.model';
 
@@ -28,7 +28,9 @@ export class RoomService {
       hostId: hostId,
       isQuestionnaireActive: false,
       currentQuestionIndex: -1,
-      isQuestionnairEnded: false,
+      isQuestionnaireEnded: false,
+      participants: [],
+      participantAnswers: {},
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     };
 
@@ -177,30 +179,51 @@ export class RoomService {
     const roomRef = this.firestore.collection('rooms').doc(roomId);
     const participantAnswerPath = `participantAnswers.${participantId}.${questionIndex}`;
     const updateData = {
-      [participantAnswerPath]: answer, //i'm sending here the id of the option answered
+      [participantAnswerPath]: answer, // I'm sending here the id of the option answered
     };
     return from(roomRef.update(updateData)).pipe(
       catchError((error) => {
         console.error('Error submitting answer:', error);
         throw error;
+      }),
+      // Update the model after successfully storing the data in Firebase
+      tap(() => {
+        // Update the currentAnswers signal with the new answer
+        const currentAnswersValue = this.model.session.currentAnswers();
+
+        // Initialize the participant's answers if not present
+        if (!currentAnswersValue[participantId]) {
+          currentAnswersValue[participantId] = {};
+        }
+
+        // Update the specific question index with the new answer
+        currentAnswersValue[participantId][questionIndex] = String(answer); // Store as string or as needed
+        this.model.session.currentAnswers.set(currentAnswersValue); // Update the signal with new state
       })
     );
   }
 
-  //mainly working only in creation and not following updates
   updateModel(room: Room) {
+    console.log('model updated!!!');
+
     const currentQuestionIndexSnapshot =
       this.model.session.currentQuestionIndex();
     this.model.session.participantLink.set(
       `/client/${room.roomId}/credentials`
     );
-    this.model.session.currentPhase.set('waiting');
+    if (!room.isQuestionnaireActive && !room.isQuestionnaireEnded)
+      this.model.session.currentPhase.set('waiting');
     this.model.session.online.set(true);
     this.model.session.roomId.set(room.roomId);
-    // this.model.session.participants.set(room.participants);
+    this.model.session.currentAnswers.set(room.participantAnswers);
+    this.getParticipants(this.model.session.roomId()).subscribe({
+      next: (participants) => {
+        this.model.session.participants.set(participants);
+      },
+    });
     if (room.isQuestionnaireActive)
       this.model.session.currentPhase.set('questions');
-    if (room.isQuestionnairEnded) {
+    if (room.isQuestionnaireEnded) {
       this.model.session.currentPhase.set('tree');
     }
     if (currentQuestionIndexSnapshot !== room.currentQuestionIndex) {

@@ -18,15 +18,15 @@ export interface Participant {
 export interface Room {
   roomId: string;
   hostId: string;
-  //participants: Participant[];
+  participants: Participant[];
   isQuestionnaireActive: boolean;
   currentQuestionIndex: number;
-  isQuestionnairEnded: false;
-  // participantAnswers: {
-  //   [participantId: string]: {
-  //     [questionIndex: number]: string;
-  //   };
-  // };
+  isQuestionnaireEnded: false;
+  participantAnswers: {
+    [participantId: string]: {
+      [questionIndex: number]: string;
+    };
+  };
   createdAt: firebase.firestore.FieldValue | Date;
 }
 
