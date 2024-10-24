@@ -1,0 +1,33 @@
+<div *ngIf="group; else noGroup">
+    <h2>Il Tuo Gruppo: {{ group.name }}</h2>
+    <p><strong>Partecipanti del Gruppo:</strong></p>
+    <ul>
+      <li *ngFor="let participant of group.participants">
+        {{ participant.name }} <span *ngIf="participant.participantId === participantId">(Tu)</span>
+      </li>
+    </ul>
+  </div>
+  <ng-template #noGroup>
+    <p>Non sei assegnato a nessun gruppo.</p>
+  </ng-template>
+  
+  <style>   
+
+        h2 {
+        color: #333;
+        }
+
+        ul {
+        list-style-type: none;
+        padding: 0;
+        }
+
+        ul li {
+        padding: 8px 0;
+        border-bottom: 1px solid #e0e0e0;
+        }
+
+        ul li:last-child {
+        border-bottom: none;
+}
+  </style>

@@ -15,18 +15,25 @@ export interface Participant {
   cumulativeResult: CumulativeResult;
 }
 
+export interface Group {
+  name: string;
+  id: string;
+  participants: Participant[];
+  totalVariables: number[];
+}
+
 export interface Room {
   roomId: string;
   hostId: string;
-  participants: Participant[];
+  //participants: Participant[];
   isQuestionnaireActive: boolean;
   currentQuestionIndex: number;
   isQuestionnaireEnded: false;
-  participantAnswers: {
-    [participantId: string]: {
-      [questionIndex: number]: string;
-    };
-  };
+  // participantAnswers: {
+  //   [participantId: string]: {
+  //     [questionIndex: number]: string;
+  //   };
+  // };
   createdAt: firebase.firestore.FieldValue | Date;
 }
 

@@ -29,8 +29,8 @@ export class RoomService {
       isQuestionnaireActive: false,
       currentQuestionIndex: -1,
       isQuestionnaireEnded: false,
-      participants: [],
-      participantAnswers: {},
+      // participants: [],
+      // participantAnswers: {},
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     };
 
@@ -215,7 +215,7 @@ export class RoomService {
       this.model.session.currentPhase.set('waiting');
     this.model.session.online.set(true);
     this.model.session.roomId.set(room.roomId);
-    this.model.session.currentAnswers.set(room.participantAnswers);
+    //this.model.session.currentAnswers.set(room.participantAnswers);
     this.getParticipants(this.model.session.roomId()).subscribe({
       next: (participants) => {
         this.model.session.participants.set(participants);

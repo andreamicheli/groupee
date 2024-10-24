@@ -23,6 +23,7 @@ export class HostWaitingComponent implements OnInit, OnDestroy {
     private hostService: HostService,
     private route: ActivatedRoute
   ) {}
+  
 
   ngOnInit() {
     const roomId = this.route.snapshot.paramMap.get('roomId');
@@ -78,4 +79,5 @@ export class HostWaitingComponent implements OnInit, OnDestroy {
   copyRoomIdToClipboard(): void {
     navigator.clipboard.writeText(this.model.session.roomId());
   }
+  
 }

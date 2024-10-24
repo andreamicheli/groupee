@@ -1,0 +1,55 @@
+<p>Gruppi Creati con Successo!</p>
+<div *ngIf="groups && groups.length > 0; else noGroups">
+  <h2>Elenco dei Gruppi</h2>
+  <div *ngFor="let group of groups" class="group-container">
+    <h3> <strong> Group {{ group.name }}</strong></h3>
+    <p><strong>Variabili Totali:</strong> {{ group.totalVariables.join(', ') }}</p>
+    <ul>
+      <li *ngFor="let participant of group.participants">
+        {{ participant.name }} (ID: {{ participant.participantId }})
+      </li>
+    </ul>
+  </div>
+</div>
+<ng-template #noGroups>
+  <p>Nessun gruppo trovato.</p>
+</ng-template>
+
+<!-- Stili CSS direttamente nell'HTML -->
+<style>
+  /* Contenitore del gruppo */
+  .group-container {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+  }
+
+  /* Titolo del gruppo */
+  .group-container h3 {
+    margin-top: 0;
+    color: #333;
+  }
+
+  /* Testo delle variabili totali */
+  .group-container p {
+    font-size: 14px;
+    color: #555;
+  }
+
+  /* Lista dei partecipanti */
+  .group-container ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  .group-container ul li {
+    padding: 4px 0;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .group-container ul li:last-child {
+    border-bottom: none;
+  }
+</style>

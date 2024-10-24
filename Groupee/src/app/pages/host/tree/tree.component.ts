@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PlatformModelService } from '../../../dataStructures/PlatformModel.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { HostService } from '../../../services/host.service';
 
 @Component({
   selector: 'app-host-tree',
@@ -11,7 +12,11 @@ import { Router } from '@angular/router';
   styleUrl: './tree.component.css',
 })
 export class HostTreeComponent implements OnInit {
-  constructor(public model: PlatformModelService, private router: Router) {}
+  constructor(
+    public model: PlatformModelService,
+    private router: Router,
+    private hostService: HostService
+  ){}
 
   ngOnInit(): void {
     if (
@@ -20,6 +25,11 @@ export class HostTreeComponent implements OnInit {
     ) {
       this.router.navigate(['/']);
     }
+  }
+
+  createGroups(): void {
+    //call the createGroups function
+    this.hostService.createGroups();
   }
 
   // ngOnDestroy() {

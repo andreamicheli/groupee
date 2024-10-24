@@ -63,11 +63,11 @@
 
   <!-- Questionnaire finished -->
   <div *ngIf="model.session.currentPhase() !== 'tree'">
-    <h2>The questionnaire has finished.</h2>
+    <h1>The questionnaire has finished.</h1>
     <h3>Participants' Results:</h3>
     <ul>
       <li *ngFor="let participant of model.session.participants()">
-        {{ participant.name }}:
+        {{ participant.name }}:©
         <ul>
           <li>Element 1: {{ participant.cumulativeResult.element1 }}</li>
           <li>Element 2: {{ participant.cumulativeResult.element2 }}</li>
@@ -77,5 +77,7 @@
         </ul>
       </li>
     </ul>
+
+    
   </div>
 </div>
