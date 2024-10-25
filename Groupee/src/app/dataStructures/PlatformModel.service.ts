@@ -47,8 +47,8 @@ export class PlatformModelService {
 
   // Settings for the group created, shared across host and client
   groupSettings = {
-    groupsNumber: signal<'auto' | number>('auto'), // Used by host, optional for client
-    clientsInGroup: signal<'auto' | number>('auto'), // Used by host, optional for client
+    groupsNumber: signal<number>(-1), // Used by host, optional for client
+    clientsInGroup: signal<number>(-1), // Used by host, optional for client
     extraQuestions: signal<
       Array<{
         title: string;
@@ -117,12 +117,4 @@ export class PlatformModelService {
       skillTree: any; // Define as necessary
     }>
   >([]);
-
-
-
-
-
-
-
-  
 }
