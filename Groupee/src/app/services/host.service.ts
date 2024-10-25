@@ -241,7 +241,7 @@ export class HostService {
           );
 
           // Determine group size or number of groups
-          const groupSize = 5; // Set your desired group size
+          const groupSize = this.model.groupSettings.clientsInGroup(); // Set your desired group size
           const numberOfGroups = Math.ceil(
             formattedParticipants.length / groupSize
           );
