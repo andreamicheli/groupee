@@ -35,6 +35,9 @@ export class HostService {
     if (this.questionsSubscription) {
       this.questionsSubscription.unsubscribe;
     }
+    if (this.answersSubscription) {
+      this.answersSubscription.unsubscribe;
+    }
   }
 
   subscribeAuth(): void {
