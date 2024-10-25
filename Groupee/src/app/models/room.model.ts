@@ -29,11 +29,11 @@ export interface Room {
   isQuestionnaireActive: boolean;
   currentQuestionIndex: number;
   isQuestionnaireEnded: false;
-  // participantAnswers: {
-  //   [participantId: string]: {
-  //     [questionIndex: number]: string;
-  //   };
-  // };
+  participantAnswers: {
+    [participantId: string]: {
+      [questionIndex: number]: string;
+    };
+  };
   createdAt: firebase.firestore.FieldValue | Date;
 }
 

@@ -30,7 +30,7 @@ export class RoomService {
       currentQuestionIndex: -1,
       isQuestionnaireEnded: false,
       // participants: [],
-      // participantAnswers: {},
+      participantAnswers: {},
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     };
 
@@ -198,6 +198,13 @@ export class RoomService {
 
         // Update the specific question index with the new answer
         currentAnswersValue[participantId][questionIndex] = String(answer); // Store as string or as needed
+        console.log(
+          'annswer:',
+          answer,
+          ' currentAnswersValue:',
+          currentAnswersValue
+        );
+
         this.model.session.currentAnswers.set(currentAnswersValue); // Update the signal with new state
       })
     );
@@ -232,6 +239,7 @@ export class RoomService {
         ParticipantState.ViewingQuestion
       );
     }
+    this.model.session.currentAnswers.set(room.participantAnswers);
     console.log(this.model);
     // this.model.session.currentAnswers.set(
     //   Object.keys(room.participantAnswers).length

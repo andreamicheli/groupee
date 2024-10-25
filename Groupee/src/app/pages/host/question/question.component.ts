@@ -30,6 +30,7 @@ export class HostQuestionComponent implements OnInit {
     ) {
       this.router.navigate(['/']);
     }
+    this.hostService.checkAnswers();
   }
 
   /**
