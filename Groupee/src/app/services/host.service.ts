@@ -35,9 +35,13 @@ export class HostService {
     if (this.questionsSubscription) {
       this.questionsSubscription.unsubscribe;
     }
+    if (this.answersSubscription) {
+      this.answersSubscription.unsubscribe;
+    }
   }
 
   subscribeAuth(): void {
+    console.log(this.model.groupSettings.clientsInGroup());
     this.authSubscription = this.authService.currentUserId$
       .pipe(filter((uid): uid is string => uid !== null)) // Filter out null values
       .subscribe((uid: string) => {
@@ -171,149 +175,194 @@ export class HostService {
   }
 
   createGroups(): void {
-    this.roomService.getParticipants(this.model.session.roomId()).pipe(take(1)).subscribe((participants: Participant[]) => {
-      if (participants.length > 0) {
-        // Define ParticipantData and Group interfaces
-        interface ParticipantData {
-          participantId: string;
-          name: string;
-          variables: number[]; // Array of 5 numbers between 1 and 10
-        }
-  
-        interface Group {
-          id: string; // Use string IDs for Firestore document IDs
-          name: string; // Random group name
-          participants: ParticipantData[];
-          totalVariables: number[]; // Sum of variables in the group
-        }
-  
-        // Array of possible group names
-        const groupNames = [
-          'Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon',
-          'Zeta', 'Eta', 'Theta', 'Iota', 'Kappa',
-          'Lambda', 'Mu', 'Nu', 'Xi', 'Omicron',
-          'Pi', 'Rho', 'Sigma', 'Tau', 'Upsilon',
-          'Phi', 'Chi', 'Psi', 'Omega'
-        ];
-  
-        // Shuffle the group names array to ensure randomness
-        const shuffledGroupNames = groupNames.sort(() => 0.5 - Math.random());
-  
-        // Map participants to the required format
-        const formattedParticipants: ParticipantData[] = participants.map((p: Participant) => ({
-          participantId: p.participantId,
-          name: p.name,
-          variables: [
-            p.cumulativeResult.element1,
-            p.cumulativeResult.element2,
-            p.cumulativeResult.element3,
-            p.cumulativeResult.element4,
-            p.cumulativeResult.element5
-          ]
-        }));
-  
-        // Determine group size or number of groups
-        const groupSize = 5; // Set your desired group size
-        const numberOfGroups = Math.ceil(formattedParticipants.length / groupSize);
-  
-        // Initialize groups with random names
-        const groups: Group[] = [];
-        for (let i = 0; i < numberOfGroups; i++) {
-          const groupName = shuffledGroupNames[i % shuffledGroupNames.length] || `Group_${i + 1}`;
-          groups.push({
-            id: `group_${i + 1}`,
-            name: groupName,
-            participants: [],
-            totalVariables: [0, 0, 0, 0, 0]
-          });
-        }
-  
-        // Calculate total variables
-        const totalVariables = [0, 0, 0, 0, 0];
-        formattedParticipants.forEach(participant => {
-          participant.variables.forEach((value, index) => {
-            totalVariables[index] += value;
-          });
-        });
-  
-        // Calculate target variables per group
-        const targetVariablesPerGroup = totalVariables.map(total => total / numberOfGroups);
-  
-        // Sort participants based on sum of variables (descending)
-        formattedParticipants.sort((a, b) => {
-          const sumA = a.variables.reduce((acc, val) => acc + val, 0);
-          const sumB = b.variables.reduce((acc, val) => acc + val, 0);
-          return sumB - sumA;
-        });
-  
-        // Assign participants to groups
-        formattedParticipants.forEach(participant => {
-          let bestGroup: Group | null = null;
-          let minimalError = Infinity;
-  
-          for (const group of groups) {
-            if (group.participants.length >= groupSize) {
-              continue; // Skip if group is already full
-            }
-  
-            // Calculate new total variables if participant is added
-            const newTotalVariables = group.totalVariables.map((value, index) => value + participant.variables[index]);
-  
-            // Calculate error (deviation from target variables)
-            const error = newTotalVariables.reduce((acc, value, index) => {
-              const deviation = Math.abs(value - targetVariablesPerGroup[index]);
-              return acc + deviation;
-            }, 0);
-  
-            if (error < minimalError) {
-              minimalError = error;
-              bestGroup = group;
-            }
+    this.roomService
+      .getParticipants(this.model.session.roomId())
+      .pipe(take(1))
+      .subscribe((participants: Participant[]) => {
+        if (participants.length > 0) {
+          // Define ParticipantData and Group interfaces
+          interface ParticipantData {
+            participantId: string;
+            name: string;
+            variables: number[]; // Array of 5 numbers between 1 and 10
           }
-  
-          if (bestGroup) {
-            bestGroup.participants.push(participant);
-            bestGroup.totalVariables = bestGroup.totalVariables.map((value, index) => value + participant.variables[index]);
-          } else {
-            console.error('Unable to assign participant:', participant.participantId);
+
+          interface Group {
+            id: string; // Use string IDs for Firestore document IDs
+            name: string; // Random group name
+            participants: ParticipantData[];
+            totalVariables: number[]; // Sum of variables in the group
           }
-        });
-  
-        // Store each group as a document in the 'groups' subcollection inside the room document
-        const roomDocRef = this.firestore.collection('rooms').doc(this.model.session.roomId());
-  
-        const batch = this.firestore.firestore.batch(); // Use Firestore batch for atomic writes
-  
-        groups.forEach(group => {
-          const groupDocRef = roomDocRef.collection('groups').doc(group.id);
-        
-          const groupData = {
-            name: group.name,
-            participants: group.participants.map(p => ({
+
+          // Array of possible group names
+          const groupNames = [
+            'Alpha',
+            'Beta',
+            'Gamma',
+            'Delta',
+            'Epsilon',
+            'Zeta',
+            'Eta',
+            'Theta',
+            'Iota',
+            'Kappa',
+            'Lambda',
+            'Mu',
+            'Nu',
+            'Xi',
+            'Omicron',
+            'Pi',
+            'Rho',
+            'Sigma',
+            'Tau',
+            'Upsilon',
+            'Phi',
+            'Chi',
+            'Psi',
+            'Omega',
+          ];
+
+          // Shuffle the group names array to ensure randomness
+          const shuffledGroupNames = groupNames.sort(() => 0.5 - Math.random());
+
+          // Map participants to the required format
+          const formattedParticipants: ParticipantData[] = participants.map(
+            (p: Participant) => ({
               participantId: p.participantId,
-              name: p.name
-            })),
-            participantIds: group.participants.map(p => p.participantId), // Add this line
-            totalVariables: group.totalVariables
-          };
-        
-          batch.set(groupDocRef.ref, groupData);
-        });
-  
-        // Commit the batch write
-        batch.commit().then(() => {
-          console.log('Groups successfully created and stored in Firebase');
-          // Update the session phase and navigate
-          this.model.session.currentPhase.set('groups');
-          this.router.navigate([`host/${this.model.session.roomId()}/groups`]);
-        }).catch(error => {
-          console.error('Error storing groups in Firebase:', error);
-        });
-  
-      } else {
-        console.error('No participants found to create groups');
-      }
-    });
+              name: p.name,
+              variables: [
+                p.cumulativeResult.element1,
+                p.cumulativeResult.element2,
+                p.cumulativeResult.element3,
+                p.cumulativeResult.element4,
+                p.cumulativeResult.element5,
+              ],
+            })
+          );
+
+          // Determine group size or number of groups
+          const groupSize = 5; // Set your desired group size
+          const numberOfGroups = Math.ceil(
+            formattedParticipants.length / groupSize
+          );
+
+          // Initialize groups with random names
+          const groups: Group[] = [];
+          for (let i = 0; i < numberOfGroups; i++) {
+            const groupName =
+              shuffledGroupNames[i % shuffledGroupNames.length] ||
+              `Group_${i + 1}`;
+            groups.push({
+              id: `group_${i + 1}`,
+              name: groupName,
+              participants: [],
+              totalVariables: [0, 0, 0, 0, 0],
+            });
+          }
+
+          // Calculate total variables
+          const totalVariables = [0, 0, 0, 0, 0];
+          formattedParticipants.forEach((participant) => {
+            participant.variables.forEach((value, index) => {
+              totalVariables[index] += value;
+            });
+          });
+
+          // Calculate target variables per group
+          const targetVariablesPerGroup = totalVariables.map(
+            (total) => total / numberOfGroups
+          );
+
+          // Sort participants based on sum of variables (descending)
+          formattedParticipants.sort((a, b) => {
+            const sumA = a.variables.reduce((acc, val) => acc + val, 0);
+            const sumB = b.variables.reduce((acc, val) => acc + val, 0);
+            return sumB - sumA;
+          });
+
+          // Assign participants to groups
+          formattedParticipants.forEach((participant) => {
+            let bestGroup: Group | null = null;
+            let minimalError = Infinity;
+
+            for (const group of groups) {
+              if (group.participants.length >= groupSize) {
+                continue; // Skip if group is already full
+              }
+
+              // Calculate new total variables if participant is added
+              const newTotalVariables = group.totalVariables.map(
+                (value, index) => value + participant.variables[index]
+              );
+
+              // Calculate error (deviation from target variables)
+              const error = newTotalVariables.reduce((acc, value, index) => {
+                const deviation = Math.abs(
+                  value - targetVariablesPerGroup[index]
+                );
+                return acc + deviation;
+              }, 0);
+
+              if (error < minimalError) {
+                minimalError = error;
+                bestGroup = group;
+              }
+            }
+
+            if (bestGroup) {
+              bestGroup.participants.push(participant);
+              bestGroup.totalVariables = bestGroup.totalVariables.map(
+                (value, index) => value + participant.variables[index]
+              );
+            } else {
+              console.error(
+                'Unable to assign participant:',
+                participant.participantId
+              );
+            }
+          });
+
+          // Store each group as a document in the 'groups' subcollection inside the room document
+          const roomDocRef = this.firestore
+            .collection('rooms')
+            .doc(this.model.session.roomId());
+
+          const batch = this.firestore.firestore.batch(); // Use Firestore batch for atomic writes
+
+          groups.forEach((group) => {
+            const groupDocRef = roomDocRef.collection('groups').doc(group.id);
+
+            const groupData = {
+              name: group.name,
+              participants: group.participants.map((p) => ({
+                participantId: p.participantId,
+                name: p.name,
+              })),
+              participantIds: group.participants.map((p) => p.participantId), // Add this line
+              totalVariables: group.totalVariables,
+            };
+
+            batch.set(groupDocRef.ref, groupData);
+          });
+
+          // Commit the batch write
+          batch
+            .commit()
+            .then(() => {
+              console.log('Groups successfully created and stored in Firebase');
+              // Update the session phase and navigate
+              this.model.session.currentPhase.set('groups');
+              this.router.navigate([
+                `host/${this.model.session.roomId()}/groups`,
+              ]);
+            })
+            .catch((error) => {
+              console.error('Error storing groups in Firebase:', error);
+            });
+        } else {
+          console.error('No participants found to create groups');
+        }
+      });
   }
 
   endQuestionnaire(): void {
