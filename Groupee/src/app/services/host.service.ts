@@ -41,6 +41,7 @@ export class HostService {
   }
 
   subscribeAuth(): void {
+    console.log(this.model.groupSettings.clientsInGroup());
     this.authSubscription = this.authService.currentUserId$
       .pipe(filter((uid): uid is string => uid !== null)) // Filter out null values
       .subscribe((uid: string) => {
@@ -240,7 +241,8 @@ export class HostService {
           );
 
           // Determine group size or number of groups
-          const groupSize = 5; // Set your desired group size
+          const groupSize = this.model.groupSettings.clientsInGroup(); // Set your desired group size: ;
+          console.log(this.model.groupSettings.groupsNumber());
           const numberOfGroups = Math.ceil(
             formattedParticipants.length / groupSize
           );
