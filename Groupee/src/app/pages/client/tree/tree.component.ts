@@ -32,15 +32,14 @@ export class ClientTreeComponent implements OnInit {
     ) {
       this.router.navigate(['/']);
     }
-    this.listenForPhaseChanges();
+    console.log('Current phase:', this.model.session.currentPhase());
   }
 
-  listenForPhaseChanges() {
-    this.firestore.collection('rooms').doc(this.roomId).valueChanges().subscribe((roomData: any) => {
-      if (roomData && roomData.currentPhase === 'groups') {
-        // Navigate to the grouping component
-        this.router.navigate([`participant/${this.roomId}/grouping`]);
-      }
-    });
+  ngDoCheck(): void {
+    if (this.model.session.currentPhase() === 'groups') {
+      this.router.navigate([`client/${this.model.session.roomId()}/groups`]);
+    }
   }
+
+
 }
