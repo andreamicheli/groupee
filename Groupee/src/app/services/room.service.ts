@@ -233,6 +233,18 @@ export class RoomService {
     if (room.isQuestionnaireEnded) {
       this.model.session.currentPhase.set('tree');
     }
+
+    this.firestore
+      .collection('rooms')
+      .doc(room.roomId)
+      .collection('groups')
+      .snapshotChanges()
+      .subscribe((changes) => {
+        if (changes.length > 0) {
+          this.model.session.currentPhase.set('groups');
+        }
+      });
+
     if (currentQuestionIndexSnapshot !== room.currentQuestionIndex) {
       this.model.session.currentQuestionIndex.set(room.currentQuestionIndex);
       this.model.session.client.participantState.set(

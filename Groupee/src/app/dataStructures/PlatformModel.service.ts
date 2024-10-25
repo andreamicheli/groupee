@@ -104,17 +104,20 @@ export class PlatformModelService {
   // Group members for both host (viewing) and client (participating)
   group = signal<
     Array<{
+      name: string;
+      participants: Array<Participant>;
       id: number;
-      image: string;
-      anagraphics: {
-        name: string;
-        surname: string;
-        phone: string | number;
-        email: string;
-      };
-      role: any; // Define as necessary
-      description: string;
-      skillTree: any; // Define as necessary
+      totalVariables: number[];
+      // image: string;
+      // anagraphics: {
+      //   name: string;
+      //   surname: string;
+      //   phone: string | number;
+      //   email: string;
+      // };
+      // role: any; // Define as necessary
+      // description: string;
+      // skillTree: any; // Define as necessary
     }>
   >([]);
 
