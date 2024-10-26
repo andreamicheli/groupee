@@ -11,10 +11,15 @@ module.exports = {
       "t-orange": "#FF6433",
       "t-orange-hover": "#FF4D00",
       "t-orange-active": "#992400", // 50% brightness of #FF6433
-      "t-blue": "#00FFFF",
       "t-green": "#28DDB1",
       "t-green-hover": "#00deb2",
       "t-green-active": "#008062",
+      "t-burgundy": "#A02B2B",
+      "t-burgundy-hover": "#7E1E1E",
+      "t-burgundy-active": "#4F0F0F",
+      "t-purple": "#6C5CE7",
+      "t-purple-hover": "#4A3EBE",
+      "t-purple-active": "#2B1F7D",
       unactive: "#3B8383",
     },
     fontFamily: {

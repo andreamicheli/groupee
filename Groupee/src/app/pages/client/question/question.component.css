@@ -1,0 +1,17 @@
+.scale-texto {
+  font-size: calc(
+    1em + 1vw
+  ); /* Adjusts the base size based on viewport width */
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transform-origin: center;
+  transform: scale(
+    calc(200px / 100%)
+  ); /* Adjust this based on container width */
+}
+
+.scale-text  {
+  font-weight: bold;
+}

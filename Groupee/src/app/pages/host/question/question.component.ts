@@ -1,18 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostBinding, OnInit } from '@angular/core';
 import { PlatformModelService } from '../../../dataStructures/PlatformModel.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HostService } from '../../../services/host.service';
 import { Question } from '../../../models/question.model';
 import { CommonModule } from '@angular/common';
+import { ButtonComponent } from '../../../components/button/button.component';
 
 @Component({
   selector: 'app-host-question',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ButtonComponent],
   templateUrl: './question.component.html',
   styleUrl: './question.component.css',
 })
 export class HostQuestionComponent implements OnInit {
+  @HostBinding('class') className = 'w-full';
+
   constructor(
     public model: PlatformModelService,
     private router: Router,
@@ -20,6 +23,8 @@ export class HostQuestionComponent implements OnInit {
   ) {}
 
   nextQuestion(): void {
+    console.log('Next question');
+
     this.hostService.nextQuestion();
   }
 
