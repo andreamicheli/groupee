@@ -5,11 +5,12 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OnInit } from '@angular/core';
+import { ButtonComponent } from '../../../components/button/button.component';
 
 @Component({
   selector: 'app-client-credentials',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, ButtonComponent],
 
   templateUrl: './credentials.component.html',
   styleUrl: './credentials.component.css',

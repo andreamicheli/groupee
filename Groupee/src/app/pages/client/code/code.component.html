@@ -1,30 +1,41 @@
 <div
-  class="w-full h-full flex flex-col justify-center items-center self-center text-center"
+  class="w-full h-full flex flex-col justify-center items-center self-center text-center p-12"
 >
-  <h1 class="text-t-orange text-4xl">GROUPEE</h1>
-  <div class="mt-5">
+  <h1 class="font-extrabold text-6xl text-t-orange">GROUPEE</h1>
+  <div class="mt-16">
     <input
       type="text"
       placeholder="Session Code"
-      class="p-2 text-lg transition-transform duration-500 ease-in-out transform"
+      class="p-4 w-72 rounded-2xl py-6 border-[.5px] border-unactive text-lg transition-transform duration-500 ease-in-out transform"
       [(ngModel)]="sessionCode"
       (ngModelChange)="onInputTouched()"
     />
   </div>
-  <div class="mt-5">
-    <button
+  <div class="mt-5 w-full flex justify-center">
+    <groupee-button
+      [action]="toCredentials.bind(this)"
+      [disabled]="sessionCode.length !== 20"
+      [color]="'green'"
+      [type]="'wide'"
+      [icon]="'arrow_circle_right'"
+      [text]="'Continue'"
+    />
+
+    <!-- <button
       [disabled]="sessionCode.length !== 20"
       (click)="toCredentials()"
       class="px-5 py-2 text-lg bg-t-green text-white border-none cursor-pointer"
       [ngClass]="{
-        '!bg-t-dark cursor-not-allowed': sessionCode.length !== 20
+        '!opacity-70 cursor-not-allowed': sessionCode.length !== 20
       }"
     >
       Continue
-    </button>
+    </button> -->
   </div>
   <div
-    *ngIf="sessionCode.length !== 20 && inputTouched"
+    *ngIf="
+      sessionCode.length !== 20 && inputTouched && sessionCode.length !== 0
+    "
     class="mt-2 text-red-500"
   >
     Invalid session code

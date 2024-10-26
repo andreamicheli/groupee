@@ -9,11 +9,12 @@ import { ParticipantService } from '../../../services/participant.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { ButtonComponent } from '../../../components/button/button.component';
 
 @Component({
   selector: 'app-client-code',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, ButtonComponent],
   templateUrl: './code.component.html',
   styleUrl: './code.component.css',
 })

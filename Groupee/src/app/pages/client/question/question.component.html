@@ -1,12 +1,13 @@
-<div *ngIf="!!model.standardQuestions()[model.session.currentQuestionIndex()]">
-  <h2>{{ this.model.session.client.participantState() | json }}</h2>
+<div>
+  <!-- <div *ngIf="!!model.standardQuestions()[model.session.currentQuestionIndex()]"> -->
   <div
     *ngIf="
       this.model.session.client.participantState() ===
       ParticipantStateTypes.ViewingQuestion
     "
+    class="p-8"
   >
-    <h2>
+    <h2 class="text-t-dark font-bold text-xl">
       {{
         model.standardQuestions()[model.session.currentQuestionIndex()].title
       }}
