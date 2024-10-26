@@ -15,6 +15,7 @@ module.exports = {
       "t-green": "#28DDB1",
       "t-green-hover": "#00deb2",
       "t-green-active": "#008062",
+      // unactive: "#3B8383",
     },
     fontFamily: {
       poppins: ["Poppins", "sans-serif"],
