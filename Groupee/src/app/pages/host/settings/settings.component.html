@@ -12,8 +12,8 @@
         <input
           type="number"
           min="1"
-          class="md:w-28 w-20 h-20 md:h-28 bg-unactive aspect-square rounded-2xl focus:brightness-110 border-none outline-none p-2 mb-2 bg-transparent md:text-7xl text-5xl text-center text-white font-bold"
-          [(ngModel)]="peopleNumber"
+          class="md:w-28 w-20 h-20 md:h-28 bg-unactive aspect-square rounded-2xl focus:brightness-110 border-none outline-none p-2 bg-transparent md:text-3xl text-2xl text-center text-white font-bold"
+          placeholder="auto"
           disabled
         />
       </div>
@@ -21,7 +21,7 @@
       <div
         class="bg-t-dark lg:p-8 p-4 gap-4 rounded-3xl flex lg:gap-8 items-center justify-between"
       >
-        <div class="flex flex-col gap-4 w-min">
+        <div class="flex flex-col md:gap-4 gap-2 w-min">
           <h2 class="text-white text-3xl lg:text-4xl text-pretty">
             Number <span class="text-nowrap">of people</span>
           </h2>
@@ -34,7 +34,7 @@
         <input
           type="number"
           min="1"
-          class="md:w-28 w-20 h-20 md:h-28 bg-unactive aspect-square rounded-2xl focus:brightness-110 border-none outline-none p-2 mb-2 bg-transparent md:text-7xl text-5xl text-center text-white font-bold"
+          class="md:w-28 w-20 h-20 md:h-28 bg-unactive aspect-square rounded-2xl focus:brightness-110 border-none outline-none p-2 bg-transparent md:text-7xl text-5xl text-center text-white font-bold"
           [(ngModel)]="peopleNumber"
         />
       </div>
@@ -43,7 +43,7 @@
   <div class="fixed bottom-20 right-[25%] flex justify-end w-full mt-4">
     <groupee-button
       [text]="'Publish'"
-      (click)="createRoom.bind(this)"
+      [action]="createRoom.bind(this)"
       [disabled]="peopleNumber < 1"
       [icon]="'publish'"
       [color]="'green'"

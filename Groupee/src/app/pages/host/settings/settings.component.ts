@@ -21,7 +21,13 @@ export class HostSettingsComponent implements OnDestroy {
     public model: PlatformModelService
   ) {}
 
+  test() {
+    console.log('ciao');
+  }
+
   createRoom(): void {
+    console.log('ciao');
+
     this.model.groupSettings.clientsInGroup.set(this.peopleNumber);
     this.hostService.subscribeAuth();
   }

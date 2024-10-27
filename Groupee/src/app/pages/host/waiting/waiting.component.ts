@@ -4,11 +4,12 @@ import { PlatformModelService } from '../../../dataStructures/PlatformModel.serv
 import { HostService } from '../../../services/host.service';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ButtonComponent } from '../../../components/button/button.component';
 
 @Component({
   selector: 'app-host-waiting',
   standalone: true,
-  imports: [QRCodeModule, CommonModule],
+  imports: [QRCodeModule, CommonModule, ButtonComponent],
   templateUrl: './waiting.component.html',
   styleUrl: './waiting.component.css',
 })
@@ -23,7 +24,6 @@ export class HostWaitingComponent implements OnInit, OnDestroy {
     private hostService: HostService,
     private route: ActivatedRoute
   ) {}
-  
 
   ngOnInit() {
     const roomId = this.route.snapshot.paramMap.get('roomId');
@@ -34,6 +34,12 @@ export class HostWaitingComponent implements OnInit, OnDestroy {
       }
       this.router.navigate(['/'], { replaceUrl: true });
     }
+
+    //FOR STYILING OFFLINE
+    // this.model.session.roomId.set(roomId!);
+    // this.model.session.participantLink.set(
+    //   this.URL + roomId + 'client/waiting'
+    // );
   }
 
   getLink(): string {
@@ -79,5 +85,4 @@ export class HostWaitingComponent implements OnInit, OnDestroy {
   copyRoomIdToClipboard(): void {
     navigator.clipboard.writeText(this.model.session.roomId());
   }
-  
 }
