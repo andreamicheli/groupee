@@ -2,18 +2,19 @@ import { Component, HostBinding, OnDestroy } from '@angular/core';
 import { HostService } from '../../../services/host.service';
 import { FormsModule } from '@angular/forms';
 import { PlatformModelService } from '../../../dataStructures/PlatformModel.service';
+import { ButtonComponent } from '../../../components/button/button.component';
 
 @Component({
   selector: 'app-host-settings',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, ButtonComponent],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.css',
 })
 export class HostSettingsComponent implements OnDestroy {
   @HostBinding('class') className = 'w-full';
 
-  peopleNumber: number = 0;
+  peopleNumber: number = 1;
 
   constructor(
     private hostService: HostService,

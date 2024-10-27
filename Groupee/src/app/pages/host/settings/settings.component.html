@@ -1,33 +1,60 @@
 <div class="w-full h-full flex flex-col items-center justify-center">
   <div class="flex flex-col w-2/3 md:w-1/2">
-    <div class="flex md:flex-row flex-col justify-between w-full gap-8">
-      <div class="bg-t-dark opacity-85 p-4 rounded-3xl border-t-dark border-2">
-        <h2 class="text-white text-2xl mb-2">Number of groups</h2>
+    <div class="flex lg:flex-row flex-col justify-between w-full gap-8">
+      <div
+        class="bg-t-dark lg:p-8 p-4 gap-4 rounded-3xl justify-between flex lg:gap-8 items-center opacity-85"
+      >
+        <div class="flex flex-col gap-4 w-min">
+          <h2 class="text-white text-3xl lg:text-4xl text-pretty">
+            Number <span class="text-nowrap">of groups</span>
+          </h2>
+        </div>
         <input
-          type="text"
-          class="w-full p-2 mb-2 border border-gray-300 rounded"
-          placeholder="Enter number of groups"
-          value="auto"
+          type="number"
+          min="1"
+          class="md:w-28 w-20 h-20 md:h-28 bg-unactive aspect-square rounded-2xl focus:brightness-110 border-none outline-none p-2 mb-2 bg-transparent md:text-7xl text-5xl text-center text-white font-bold"
+          [(ngModel)]="peopleNumber"
           disabled
         />
       </div>
-      <div class="bg-t-dark p-4 rounded-3xl">
-        <h2 class="text-white text-2xl mb-2">Number of people</h2>
+
+      <div
+        class="bg-t-dark lg:p-8 p-4 gap-4 rounded-3xl flex lg:gap-8 items-center justify-between"
+      >
+        <div class="flex flex-col gap-4 w-min">
+          <h2 class="text-white text-3xl lg:text-4xl text-pretty">
+            Number <span class="text-nowrap">of people</span>
+          </h2>
+          <h2
+            class="text-white text-xl lg:text-2xl text-pretty font-extralight"
+          >
+            in a group
+          </h2>
+        </div>
         <input
           type="number"
-          class="w-full p-2 mb-2 border border-gray-300 rounded"
-          placeholder="Enter number of people"
+          min="1"
+          class="md:w-28 w-20 h-20 md:h-28 bg-unactive aspect-square rounded-2xl focus:brightness-110 border-none outline-none p-2 mb-2 bg-transparent md:text-7xl text-5xl text-center text-white font-bold"
           [(ngModel)]="peopleNumber"
         />
       </div>
     </div>
   </div>
   <div class="fixed bottom-20 right-[25%] flex justify-end w-full mt-4">
+    <groupee-button
+      [text]="'Publish'"
+      (click)="createRoom.bind(this)"
+      [disabled]="peopleNumber < 1"
+      [icon]="'publish'"
+      [color]="'green'"
+      type="normal"
+    />
+    <!-- 
     <button
       (click)="createRoom()"
       class="bg-t-green text-white px-4 py-2 rounded-full"
     >
       Publish
-    </button>
+    </button> -->
   </div>
 </div>

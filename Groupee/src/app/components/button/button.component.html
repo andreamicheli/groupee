@@ -4,7 +4,7 @@
   (mouseleave)="changeHover(false)"
   class="cursor-pointer shadow-sm flex justify-center items-center gap-2 py-2 text-white rounded-2xl transform hover:scale-105 active:scale-95 transition duration-300 ease-in-out brightness-100"
   [ngClass]="{
-    'w-36 p-2 justify-center font-bold': type === 'small',
+    'w-36 p-2 justify-center font-bold': type === 'small' || type === 'normal',
     'w-72 p-2 px-4 justify-between font-normal': type === 'wide',
     'bg-t-orange hover:bg-t-orange-hover active:bg-t-orange-active':
     color === 'orange',
@@ -32,7 +32,7 @@
   >
   <mat-icon
     style="overflow: visible !important"
-    *ngIf="icon && type === 'wide'"
+    *ngIf="(icon && type === 'wide') || (icon && type === 'normal')"
     aria-hidden="false"
     aria-label="Example home icon"
     fontIcon="{{ icon }}"

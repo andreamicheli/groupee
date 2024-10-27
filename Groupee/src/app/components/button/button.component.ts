@@ -15,7 +15,7 @@ export class ButtonComponent {
   @Input() disabled?: boolean;
   @Input() icon?: string;
   @Input() text: string = 'Button';
-  @Input() type: 'small' | 'wide' = 'small';
+  @Input() type: 'small' | 'wide' | 'normal' = 'small';
 
   hover: boolean = false;
 
