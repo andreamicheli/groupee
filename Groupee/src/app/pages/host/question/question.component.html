@@ -36,7 +36,7 @@
   </div>
   <div style="position: absolute; bottom: 20px; right: 20px">
     <p
-      class="text-t-dark text-6xl font-extrabold"
+      class="text-t-dark md:text-6xl text-3xl font-extrabold"
       [ngClass]="{
         'text-t-green':
           countTotalAnswers(
@@ -64,7 +64,10 @@
     </p>
   </div>
 
-  <div style="position: absolute; bottom: 20px">
+  <div
+    class="md:right:auto md:left:auto left-[20px]"
+    style="position: absolute; bottom: 20px"
+  >
     <groupee-button
       *ngIf="model.session.currentPhase() == 'questions'"
       [action]="nextQuestion.bind(this)"
