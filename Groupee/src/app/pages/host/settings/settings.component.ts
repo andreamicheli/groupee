@@ -3,6 +3,7 @@ import { HostService } from '../../../services/host.service';
 import { FormsModule } from '@angular/forms';
 import { PlatformModelService } from '../../../dataStructures/PlatformModel.service';
 import { ButtonComponent } from '../../../components/button/button.component';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-host-settings',
@@ -18,8 +19,14 @@ export class HostSettingsComponent implements OnDestroy {
 
   constructor(
     private hostService: HostService,
-    public model: PlatformModelService
+    public model: PlatformModelService,
+    private auth: AuthService
   ) {}
+
+
+  logout() {
+    this.auth.signOut();
+  }
 
   test() {
     console.log('ciao');

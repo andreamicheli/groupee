@@ -19,7 +19,7 @@ import { JsonUploaderComponent } from './json-uploader/json-uploader.component';
     MatIconModule,
     NavbarComponent,
     LandingComponent,
-    // HostComponent,
+    // HostComponent, 
     // ParticipantComponent
   ],
   templateUrl: './app.component.html',
