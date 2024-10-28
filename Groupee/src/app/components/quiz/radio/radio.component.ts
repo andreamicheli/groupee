@@ -13,7 +13,7 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './radio.component.html',
-  styleUrl: './radio.component.css',
+  styleUrls: ['./radio.component.css'],
 })
 export class RadioComponent {
   @HostBinding('class') className = 'w-full flex justify-center';
@@ -22,14 +22,59 @@ export class RadioComponent {
   @Input() selectedOptionIndex: number | null = null;
   @Output() optionSelected = new EventEmitter<any>();
 
-  private holdTimer: any;
-  private progressInterval: any;
+  private holdStartTimes: number[] = [];
   private holdTime = 700; // .7 seconds
+  public holdProgress: number[] = []; // Track each option's progress independently
+  private animationFrameId: number | null = null;
 
-  public holdProgress = 0; // Track progress as percentage
+  constructor() {
+    // Initialize holdProgress for each option
+    this.options.forEach(() => this.holdProgress.push(0));
+  }
 
   private isHapticSupported(): boolean {
     return 'vibrate' in navigator;
+  }
+
+  triggerHapticFeedback() {
+    if (this.isHapticSupported()) {
+      navigator.vibrate(50); // Vibrate for 50 milliseconds
+    }
+  }
+
+  startHold(option: any, index: number): void {
+    this.triggerHapticFeedback();
+    this.holdProgress[index] = 0; // Reset progress for this option
+    this.holdStartTimes[index] = Date.now();
+
+    const updateProgress = () => {
+      const elapsedTime = Date.now() - this.holdStartTimes[index];
+      this.holdProgress[index] = Math.min(
+        (elapsedTime / this.holdTime) * 100,
+        100
+      );
+
+      if (this.holdProgress[index] < 100) {
+        this.animationFrameId = requestAnimationFrame(updateProgress);
+      } else {
+        this.optionSelected.emit(option);
+        this.cancelHold(index);
+      }
+    };
+
+    this.animationFrameId = requestAnimationFrame(updateProgress);
+  }
+
+  cancelHold(index: number): void {
+    if (this.animationFrameId) {
+      cancelAnimationFrame(this.animationFrameId);
+      this.animationFrameId = null;
+    }
+    this.holdProgress[index] = 0;
+  }
+
+  preventContextMenu(event: MouseEvent): void {
+    event.preventDefault();
   }
 
   getOptionClass(index: number): string {
@@ -50,41 +95,5 @@ export class RadioComponent {
       'bg-t-purple',
     ];
     return colorClasses[index] || '';
-  }
-
-  triggerHapticFeedback() {
-    if (this.isHapticSupported()) {
-      navigator.vibrate(50); // Vibrate for 50 milliseconds
-    }
-  }
-
-  startHold(option: any): void {
-    this.triggerHapticFeedback();
-
-    this.holdProgress = 0;
-
-    // Start a timer to track progress
-    this.progressInterval = setInterval(() => {
-      this.holdProgress += 100 / (this.holdTime / 10); // Increment progress
-      if (this.holdProgress >= 100) {
-        clearInterval(this.progressInterval);
-      }
-    }, 10);
-
-    // Start hold timer
-    this.holdTimer = setTimeout(() => {
-      this.optionSelected.emit(option);
-      this.resetProgress();
-    }, this.holdTime);
-  }
-
-  cancelHold(): void {
-    clearTimeout(this.holdTimer);
-    clearInterval(this.progressInterval);
-    this.resetProgress();
-  }
-
-  private resetProgress(): void {
-    this.holdProgress = 0;
   }
 }

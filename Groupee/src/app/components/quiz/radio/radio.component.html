@@ -5,23 +5,24 @@
     *ngFor="let option of options; let i = index"
     [ngClass]="getOptionClass(i)"
     class="min-h-20 text-center text-balance p-4 rounded-2xl lg:aspect-square flex items-center justify-center cursor-pointer select-none relative overflow-hidden"
-    (mouseup)="cancelHold()"
-    (mouseleave)="cancelHold()"
-    (mousedown)="startHold(option)"
-    (touchstart)="startHold(option)"
-    (touchend)="cancelHold()"
+    (mouseup)="cancelHold(i)"
+    (mouseleave)="cancelHold(i)"
+    (mousedown)="startHold(option, i)"
+    (touchstart)="startHold(option, i)"
+    (touchend)="cancelHold(i)"
+    (contextmenu)="preventContextMenu($event)"
   >
-    <!-- Loading bar -->
+    <!-- Loading bar with smoother transition -->
     <div
       class="absolute top-0 left-0 h-full bg-opacity-30"
-      style="transition: width 0.1s"
       [ngClass]="getLoadingBarClass(i)"
-      [style.width.%]="holdProgress"
+      [style.width.%]="holdProgress[i]"
+      style="transition: width 0.1s ease-out"
     ></div>
 
     <!-- Option text -->
-    <span class="text-t-light font-bold lg:text-2xl relative z-10">{{
-      option.text
-    }}</span>
+    <span class="text-t-light font-bold lg:text-2xl relative z-10">
+      {{ option.text }}
+    </span>
   </div>
 </div>
