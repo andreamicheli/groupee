@@ -55,6 +55,7 @@
       [action]="createRoom.bind(this)"
       [icon]="'publish'"
       [color]="'green'"
+      [disabled]="!!peopleNumber && peopleNumber < 1"
       type="normal"
     />
     <!-- 

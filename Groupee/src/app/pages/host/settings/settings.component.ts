@@ -27,7 +27,7 @@ export class HostSettingsComponent implements OnDestroy {
 
   createRoom(): void {
     console.log('ciao');
-    if (this.peopleNumber !== null) {
+    if (!!this.peopleNumber && this.peopleNumber > 0) {
       this.model.groupSettings.clientsInGroup.set(this.peopleNumber);
     }
     this.hostService.subscribeAuth();
