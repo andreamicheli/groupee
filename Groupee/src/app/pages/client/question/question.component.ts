@@ -27,20 +27,21 @@ export enum ParticipantState {
 export class ClientQuestionComponent implements DoCheck {
   @HostBinding('class') className = 'w-full';
 
-  selectedOption: number | null = null;
-
-  ParticipantStateTypes = ParticipantState;
-
-  feedback: string =
-    feedbackList.feedback[
-      Math.floor(Math.random() * feedbackList.feedback.length)
-    ];
+  public feedback: string[] = [];
 
   constructor(
     public model: PlatformModelService,
     public router: Router,
     private participantService: ParticipantService
   ) {
+    this.feedback = Array.from(
+      { length: this.model.standardQuestions().length },
+      () =>
+        feedbackList.feedback[
+          Math.floor(Math.random() * feedbackList.feedback.length)
+        ]
+    );
+
     // //_______
     // this.model.standardQuestions.set(questions as Question[]);
     // this.model.session.currentQuestionIndex.set(1);
@@ -48,6 +49,10 @@ export class ClientQuestionComponent implements DoCheck {
     //   ParticipantState.ViewingQuestion
     // );
   }
+
+  selectedOption: number | null = null;
+
+  ParticipantStateTypes = ParticipantState;
 
   ngDoCheck(): void {
     if (this.model.session.currentPhase() === 'tree') {
