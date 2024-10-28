@@ -7,6 +7,7 @@ import { ParticipantService } from '../../../services/participant.service';
 import { Router } from '@angular/router';
 import '../../../../../questions.json';
 import questions from '../../../../../questions.json';
+import { RadioComponent } from '../../../components/quiz/radio/radio.component';
 
 export enum ParticipantState {
   WaitingForQuestion,
@@ -18,7 +19,7 @@ export enum ParticipantState {
 @Component({
   selector: 'app-client-question',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RadioComponent],
   templateUrl: './question.component.html',
   styleUrl: './question.component.css',
 })
@@ -34,12 +35,12 @@ export class ClientQuestionComponent implements DoCheck {
     public router: Router,
     private participantService: ParticipantService
   ) {
-    // //_______
-    // this.model.standardQuestions.set(questions as Question[]);
-    // this.model.session.currentQuestionIndex.set(1);
-    // this.model.session.client.participantState.set(
-    //   ParticipantState.ViewingQuestion
-    // );
+    //_______
+    this.model.standardQuestions.set(questions as Question[]);
+    this.model.session.currentQuestionIndex.set(1);
+    this.model.session.client.participantState.set(
+      ParticipantState.ViewingQuestion
+    );
   }
 
   ngDoCheck(): void {

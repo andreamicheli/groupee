@@ -2,7 +2,7 @@
   <div class="flex flex-col w-2/3 md:w-1/2">
     <div class="flex lg:flex-row flex-col justify-between w-full gap-8">
       <div
-        class="bg-t-dark lg:p-8 p-4 gap-4 rounded-3xl justify-between flex lg:gap-8 items-center opacity-85"
+        class="bg-t-dark lg:p-8 p-4 gap-4 rounded-3xl justify-between flex lg:gap-8 items-center opacity-70"
       >
         <div class="flex flex-col gap-4 w-min">
           <h2 class="text-white text-3xl lg:text-4xl text-pretty">
@@ -34,9 +34,18 @@
         <input
           type="number"
           min="1"
-          class="md:w-28 w-20 h-20 md:h-28 bg-unactive aspect-square rounded-2xl focus:brightness-110 border-none outline-none p-2 bg-transparent md:text-7xl text-5xl text-center text-white font-bold"
+          class="md:w-28 w-20 h-20 md:h-28 bg-unactive aspect-square rounded-2xl md:placeholder:-translate-y-4 placeholder:-translate-y-2 focus:brightness-110 border-none outline-none p-2 bg-transparent md:text-7xl text-5xl md:placeholder:text-3xl placeholder:text-2xl text-center text-white font-bold"
+          placeholder="auto"
           [(ngModel)]="peopleNumber"
         />
+
+        <!-- <input
+          type="number"
+          min="1"
+          class="md:w-28 w-20 h-20 md:h-28 bg-unactive aspect-square rounded-2xl focus:brightness-110 border-none outline-none p-2 bg-transparent md:text-7xl text-5xl text-center text-white font-bold md:placeholder:text-3xl placeholder:text-2xl"
+          placeholder="auto"
+          [(ngModel)]="peopleNumber"
+        /> -->
       </div>
     </div>
   </div>
@@ -44,7 +53,6 @@
     <groupee-button
       [text]="'Publish'"
       [action]="createRoom.bind(this)"
-      [disabled]="peopleNumber < 1"
       [icon]="'publish'"
       [color]="'green'"
       type="normal"

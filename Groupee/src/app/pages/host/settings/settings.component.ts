@@ -14,7 +14,7 @@ import { ButtonComponent } from '../../../components/button/button.component';
 export class HostSettingsComponent implements OnDestroy {
   @HostBinding('class') className = 'w-full';
 
-  peopleNumber: number = 1;
+  peopleNumber: number | null = null;
 
   constructor(
     private hostService: HostService,
@@ -27,8 +27,9 @@ export class HostSettingsComponent implements OnDestroy {
 
   createRoom(): void {
     console.log('ciao');
-
-    this.model.groupSettings.clientsInGroup.set(this.peopleNumber);
+    if (this.peopleNumber !== null) {
+      this.model.groupSettings.clientsInGroup.set(this.peopleNumber);
+    }
     this.hostService.subscribeAuth();
   }
 
