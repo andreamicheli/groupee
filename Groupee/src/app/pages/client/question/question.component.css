@@ -1,17 +1,43 @@
-.scale-texto {
-  font-size: calc(
-    1em + 1vw
-  ); /* Adjusts the base size based on viewport width */
-  line-height: 1;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  transform-origin: center;
-  transform: scale(
-    calc(200px / 100%)
-  ); /* Adjust this based on container width */
+/* Base Spinner Container */
+.border-spinner {
+  border: 2px solid transparent; /* Optional border for container */
+  position: relative;
+  overflow: visible;
 }
 
-.scale-text  {
-  font-weight: bold;
+/* Animated border path */
+.border-spinner::before {
+  overflow: visible;
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: scaleX(1.02) scaleY(1.07);
+  width: 100%;
+  height: 100%;
+  border: 6px solid #ff6433; /* Color of the animated border */
+  border-radius: inherit; /* Matches container shape */
+  box-sizing: border-box;
+  animation: border-path 2s linear infinite;
+  clip-path: inset(0); /* Ensures the line stays within the container */
+  /* box-shadow: 0 0 10px 2px rgba(255, 100, 51, 0.7);  */
+}
+
+/* Keyframes for animating the line around all four sides */
+@keyframes border-path {
+  0% {
+    clip-path: inset(0 100% 0 0); /* Left side only */
+  }
+  25% {
+    clip-path: inset(0 0 100% 0); /* Top and right */
+  }
+  50% {
+    clip-path: inset(0 0 0 100%); /* Right side */
+  }
+  75% {
+    clip-path: inset(100% 0 0 0); /* Bottom */
+  }
+  100% {
+    clip-path: inset(0 100% 0 0); /* Return to start */
+  }
 }

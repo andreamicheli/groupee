@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import '../../../../../questions.json';
 import questions from '../../../../../questions.json';
 import { RadioComponent } from '../../../components/quiz/radio/radio.component';
+import feedbackList from '../../../../assets/static_data/feedbacks.json';
 
 export enum ParticipantState {
   WaitingForQuestion,
@@ -30,17 +31,22 @@ export class ClientQuestionComponent implements DoCheck {
 
   ParticipantStateTypes = ParticipantState;
 
+  feedback: string =
+    feedbackList.feedback[
+      Math.floor(Math.random() * feedbackList.feedback.length)
+    ];
+
   constructor(
     public model: PlatformModelService,
     public router: Router,
     private participantService: ParticipantService
   ) {
-    //_______
-    this.model.standardQuestions.set(questions as Question[]);
-    this.model.session.currentQuestionIndex.set(1);
-    this.model.session.client.participantState.set(
-      ParticipantState.ViewingQuestion
-    );
+    // //_______
+    // this.model.standardQuestions.set(questions as Question[]);
+    // this.model.session.currentQuestionIndex.set(1);
+    // this.model.session.client.participantState.set(
+    //   ParticipantState.ViewingQuestion
+    // );
   }
 
   ngDoCheck(): void {
