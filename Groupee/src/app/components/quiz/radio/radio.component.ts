@@ -22,6 +22,12 @@ export class RadioComponent {
   @Input() selectedOptionIndex: number | null = null;
   @Output() optionSelected = new EventEmitter<any>();
 
+  private holdTimer: any;
+  private progressInterval: any;
+  private holdTime = 700; // .7 seconds
+
+  public holdProgress = 0; // Track progress as percentage
+
   getOptionClass(index: number): string {
     const colorClasses = [
       'bg-t-orange hover:bg-t-orange-hover active:bg-t-orange-active',
@@ -32,7 +38,41 @@ export class RadioComponent {
     return colorClasses[index] || '';
   }
 
-  onOptionClick(option: any): void {
-    this.optionSelected.emit(option);
+  getLoadingBarClass(index: number): string {
+    const colorClasses = [
+      'bg-t-orange',
+      'bg-t-green',
+      'bg-t-burgundy',
+      'bg-t-purple',
+    ];
+    return colorClasses[index] || '';
+  }
+
+  startHold(option: any): void {
+    this.holdProgress = 0;
+
+    // Start a timer to track progress
+    this.progressInterval = setInterval(() => {
+      this.holdProgress += 100 / (this.holdTime / 10); // Increment progress
+      if (this.holdProgress >= 100) {
+        clearInterval(this.progressInterval);
+      }
+    }, 10);
+
+    // Start hold timer
+    this.holdTimer = setTimeout(() => {
+      this.optionSelected.emit(option);
+      this.resetProgress();
+    }, this.holdTime);
+  }
+
+  cancelHold(): void {
+    clearTimeout(this.holdTimer);
+    clearInterval(this.progressInterval);
+    this.resetProgress();
+  }
+
+  private resetProgress(): void {
+    this.holdProgress = 0;
   }
 }
