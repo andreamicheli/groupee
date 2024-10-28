@@ -42,12 +42,12 @@ export class ClientQuestionComponent implements DoCheck {
         ]
     );
 
-    // //_______
-    // this.model.standardQuestions.set(questions as Question[]);
-    // this.model.session.currentQuestionIndex.set(1);
-    // this.model.session.client.participantState.set(
-    //   ParticipantState.ViewingQuestion
-    // );
+    //_______
+    this.model.standardQuestions.set(questions as Question[]);
+    this.model.session.currentQuestionIndex.set(1);
+    this.model.session.client.participantState.set(
+      ParticipantState.ViewingQuestion
+    );
   }
 
   selectedOption: number | null = null;
