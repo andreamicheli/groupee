@@ -28,6 +28,10 @@ export class RadioComponent {
 
   public holdProgress = 0; // Track progress as percentage
 
+  private isHapticSupported(): boolean {
+    return 'vibrate' in navigator;
+  }
+
   getOptionClass(index: number): string {
     const colorClasses = [
       'bg-t-orange hover:bg-t-orange-hover active:bg-t-orange-active',
@@ -48,7 +52,15 @@ export class RadioComponent {
     return colorClasses[index] || '';
   }
 
+  triggerHapticFeedback() {
+    if (this.isHapticSupported()) {
+      navigator.vibrate(50); // Vibrate for 50 milliseconds
+    }
+  }
+
   startHold(option: any): void {
+    this.triggerHapticFeedback();
+
     this.holdProgress = 0;
 
     // Start a timer to track progress
