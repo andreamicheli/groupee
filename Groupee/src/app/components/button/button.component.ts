@@ -10,7 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './button.component.css',
 })
 export class ButtonComponent {
-  @Input() color: 'orange' | 'green' = 'orange';
+  @Input() color: 'orange' | 'green' | 'red' = 'orange';
   @Input() action: () => void = () => {};
   @Input() disabled?: boolean;
   @Input() icon?: string;

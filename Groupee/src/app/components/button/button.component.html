@@ -7,10 +7,11 @@
     'w-36 p-2 justify-center font-bold': type === 'small' || type === 'normal',
     'w-72 p-2 px-4 justify-between font-normal': type === 'wide',
     'bg-t-orange hover:bg-t-orange-hover active:bg-t-orange-active':
-    color === 'orange',
+      color === 'orange',
     'bg-t-green hover:bg-t-green-hover active:bg-t-green-active':
-    color === 'green',
+      color === 'green',
     '!bg-t-dark !pointer-events-none opacity-75': disabled,
+    'bg-t-error active:bg-t-dark hover:bg-t-orange-active': color === 'red'
   }"
 >
   <mat-icon

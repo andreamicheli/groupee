@@ -49,7 +49,15 @@
       </div>
     </div>
   </div>
-  <div class="fixed bottom-20 right-[25%] flex justify-end w-full mt-4">
+  <div class="fixed bottom-20 flex justify-between mt-4 w-2/3">
+    <groupee-button
+      [text]="'Logout'"
+      [action]="logout.bind(this)"
+      [icon]="'logout'"
+      [color]="'red'"
+      type="normal"
+    />
+
     <groupee-button
       [text]="'Publish'"
       [action]="createRoom.bind(this)"
@@ -58,14 +66,5 @@
       [disabled]="!!peopleNumber && peopleNumber < 1"
       type="normal"
     />
-    <!-- 
-    <button
-      (click)="createRoom()"
-      class="bg-t-green text-white px-4 py-2 rounded-full"
-    >
-      Publish
-    </button> -->
-
-    <button (click)="logout()">Logout</button>
   </div>
 </div>
