@@ -88,13 +88,19 @@ export class ParticipantService {
 
   joinRoom(name: string): void {
     this.model.session.client.participantName.set(name);
+    const participantId = this.model.session.client.participantId();
+
+    if (!participantId) {
+      console.error('Participant ID is empty');
+      return;
+    }
+  
     const participant: Participant = {
-      participantId: this.model.session.client.participantId(),
+      participantId: participantId,
       name: this.model.session.client.participantName(),
       cumulativeResult: this.model.session.client.cumulativeResult(),
     };
-
-    // this.roomSubscription = this.roomService
+  
     this.roomService
       .addParticipant(this.model.session.roomId(), participant)
       .pipe(takeUntil(this.unsubscribe$))

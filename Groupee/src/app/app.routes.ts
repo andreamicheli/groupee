@@ -11,6 +11,8 @@ import { HostQuestionComponent } from './pages/host/question/question.component'
 import { HostTreeComponent } from './pages/host/tree/tree.component';
 import { HostGroupingComponent } from './pages/host/grouping/grouping.component';
 import { ClientGroupingComponent } from './pages/client/grouping/grouping.component';
+import { AuthGuard } from './guards/auth.guard';
+import { HostLoginComponent } from './pages/host/login/login.component';
 
 export const routes: Routes = [
   { path: 'landing', component: LandingComponent },
@@ -20,7 +22,9 @@ export const routes: Routes = [
   { path: 'client/:roomId/question', component: ClientQuestionComponent },
   { path: 'client/:roomId/groups', component: ClientGroupingComponent },
   { path: 'client/:roomId/tree', component: ClientTreeComponent },
-  { path: 'host/settings', component: HostSettingsComponent },
+  //©{ path: 'host/settings', component: HostSettingsComponent },
+  { path: 'host/login', component: HostLoginComponent },
+  { path: 'host/settings', component: HostSettingsComponent, canActivate: [AuthGuard] },
   { path: 'host/:roomId/waiting', component: HostWaitingComponent },
   { path: 'host/:roomId/question', component: HostQuestionComponent },
   { path: 'host/:roomId/tree', component: HostTreeComponent },

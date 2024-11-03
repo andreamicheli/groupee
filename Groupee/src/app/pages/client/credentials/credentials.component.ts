@@ -6,6 +6,8 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OnInit } from '@angular/core';
 import { ButtonComponent } from '../../../components/button/button.component';
+import { AuthService } from '../../../services/auth.service';
+
 
 @Component({
   selector: 'app-client-credentials',
@@ -24,10 +26,14 @@ export class ClientCredentialsComponent implements OnInit {
     public model: PlatformModelService,
     private participantService: ParticipantService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private auth : AuthService
   ) {}
 
   ngOnInit() {
+    this.auth.signInAnonymously();
+
+
     const roomId = this.route.snapshot.paramMap.get('roomId');
     if (roomId?.length == 20) {
       if (this.model.session.online() && this.model.session.roomId()) {
