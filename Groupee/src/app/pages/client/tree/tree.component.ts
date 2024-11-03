@@ -1,30 +1,51 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostBinding, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PlatformModelService } from '../../../dataStructures/PlatformModel.service';
 import { Participant } from '../../../models/room.model';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { CommonModule } from '@angular/common';
+import { ButtonComponent } from '../../../components/button/button.component';
 
 @Component({
   selector: 'app-client-tree',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, ButtonComponent],
   templateUrl: './tree.component.html',
   styleUrl: './tree.component.css',
 })
 export class ClientTreeComponent implements OnInit {
+  @HostBinding('class') className = 'w-full';
+
   roomId: string = '';
   participant: Participant | undefined;
-  constructor(public model: PlatformModelService, private router: Router,  private firestore: AngularFirestore,  private route: ActivatedRoute) {
+
+  constructor(
+    public model: PlatformModelService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
     this.participant = this.model.session
       .participants()
       .find(
         (p) => p.participantId === this.model.session.client.participantId()
       );
+
+    // FOR DEBUGGING
+    // this.participant = {
+    //   participantId: '0',
+    //   name: 'jhon',
+    //   cumulativeResult: {
+    //     element1: 30,
+    //     element2: 38,
+    //     element3: 33,
+    //     element4: 32,
+    //     element5: 25,
+    //   },
+    // };
   }
 
   ngOnInit(): void {
     const roomId = this.route.snapshot.paramMap.get('roomId');
-    console.log(this.model.session.participants());
 
     if (
       this.model.session.currentPhase() !== 'tree' ||
@@ -32,14 +53,9 @@ export class ClientTreeComponent implements OnInit {
     ) {
       this.router.navigate(['/']);
     }
-    console.log('Current phase:', this.model.session.currentPhase());
   }
 
-  ngDoCheck(): void {
-    if (this.model.session.currentPhase() === 'groups') {
-      this.router.navigate([`client/${this.model.session.roomId()}/groups`]);
-    }
+  buttonClick() {
+    this.router.navigate([`client/${this.model.session.roomId()}/groups`]);
   }
-
-
 }

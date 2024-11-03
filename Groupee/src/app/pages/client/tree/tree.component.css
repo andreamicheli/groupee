@@ -1,0 +1,3 @@
+.crop {
+  clip-path: inset(25% 25% 25% 25%); /* adjust these percentages to crop */
+}
