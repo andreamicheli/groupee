@@ -184,6 +184,8 @@ export class HostService {
           interface ParticipantData {
             participantId: string;
             name: string;
+            email: string;
+            phone: string;
             variables: number[]; // Array of 5 numbers between 1 and 10
           }
 
@@ -230,6 +232,8 @@ export class HostService {
             (p: Participant) => ({
               participantId: p.participantId,
               name: p.name,
+              email: p.email,
+              phone: p.phone,
               variables: [
                 p.cumulativeResult.element1,
                 p.cumulativeResult.element2,
@@ -341,6 +345,8 @@ export class HostService {
               participants: group.participants.map((p) => ({
                 participantId: p.participantId,
                 name: p.name,
+                email: p.email,
+                phone: p.phone,
               })),
               participantIds: group.participants.map((p) => p.participantId), // Add this line
               totalVariables: group.totalVariables,
