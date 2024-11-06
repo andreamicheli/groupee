@@ -86,8 +86,10 @@ export class ParticipantService {
     //   });
   }
 
-  joinRoom(name: string): void {
+  joinRoom(name: string, email: string, phone: string): void {
     this.model.session.client.participantName.set(name);
+    this.model.session.client.participantEmail.set(email);
+    this.model.session.client.participantPhone.set(phone);
     const participantId = this.model.session.client.participantId();
 
     if (!participantId) {
@@ -98,6 +100,8 @@ export class ParticipantService {
     const participant: Participant = {
       participantId: participantId,
       name: this.model.session.client.participantName(),
+      email: this.model.session.client.participantEmail(),
+      phone: this.model.session.client.participantPhone(),
       cumulativeResult: this.model.session.client.cumulativeResult(),
     };
   
