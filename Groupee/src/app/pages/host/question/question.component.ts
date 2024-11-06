@@ -5,11 +5,12 @@ import { HostService } from '../../../services/host.service';
 import { Question } from '../../../models/question.model';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../../components/button/button.component';
+import { RadioComponent } from '../../../components/quiz/host/radio/radio.component';
 
 @Component({
   selector: 'app-host-question',
   standalone: true,
-  imports: [CommonModule, ButtonComponent],
+  imports: [CommonModule, ButtonComponent, RadioComponent],
   templateUrl: './question.component.html',
   styleUrl: './question.component.css',
 })

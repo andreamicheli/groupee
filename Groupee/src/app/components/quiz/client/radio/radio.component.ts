@@ -9,7 +9,7 @@ import {
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-radio',
+  selector: 'app-client-radio',
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './radio.component.html',

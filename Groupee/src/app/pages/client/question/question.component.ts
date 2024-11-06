@@ -7,7 +7,7 @@ import { ParticipantService } from '../../../services/participant.service';
 import { Router } from '@angular/router';
 import '../../../../../questions.json';
 import questions from '../../../../../questions.json';
-import { RadioComponent } from '../../../components/quiz/radio/radio.component';
+import { RadioComponent } from '../../../components/quiz/client/radio/radio.component';
 import feedbackList from '../../../../assets/static_data/feedbacks.json';
 
 export enum ParticipantState {

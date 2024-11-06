@@ -12,13 +12,13 @@
         model.standardQuestions()[model.session.currentQuestionIndex()].title
       }}
     </h2>
-    <app-radio
+    <app-client-radio
       [options]="
         model.standardQuestions()[model.session.currentQuestionIndex()].options
       "
       [selectedOptionIndex]="selectedOption"
       (optionSelected)="clickedAnswer($event)"
-    ></app-radio>
+    ></app-client-radio>
   </div>
 
   <!-- Waiting for the host to proceed to the next question -->
