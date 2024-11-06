@@ -9,8 +9,16 @@
         {{ participant.name }} (ID: {{ participant.participantId }})
       </li>
     </ul>
+
+    
   </div>
 </div>
+<button
+    (click)="generateReport()"
+    class="bg-blue-500 hover:bg-blue-700 text-t-error font-bold py-2 px-4 rounded"
+    >
+    Download Groups Excel
+  </button>
 <ng-template #noGroups>
   <p>Nessun gruppo trovato.</p>
 </ng-template>
