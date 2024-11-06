@@ -244,8 +244,9 @@ export class HostService {
           const groupSize: number =
             this.model.groupSettings.clientsInGroup() > 0
               ? this.model.groupSettings.clientsInGroup()
-              : Math.ceil(Math.sqrt(this.model.session.participants.length)); // Set your desired group size: ;
-          const numberOfGroups = Math.ceil(
+              : Math.ceil(Math.sqrt(this.model.session.participants().length)); // Set your desired group size: ;
+          
+              const numberOfGroups = Math.ceil(
             formattedParticipants.length / groupSize
           );
 
