@@ -7,7 +7,7 @@
     <p>{{ group.name }}</p>
   </div>
   <swiper-container
-    class="mySwiper w-60 h-80"
+    class="mySwiper w-70 h-100"
     effect="cards"
     grab-cursor="true"
   >
@@ -15,10 +15,10 @@
       *ngFor="let participant of group.participants"
       class="flex items-center justify-center rounded-2xl font-bold bg-white border-4"
       [ngClass]="{
-        'border-t-green': participant.cumulativeResult.element1 % 4 === 0,
-        'border-t-orange': participant.cumulativeResult.element1 % 4 === 2,
-        'border-t-purple': participant.cumulativeResult.element1 % 4 === 1,
-        'border-t-burgundy': participant.cumulativeResult.element1 % 4 === 3
+        'border-t-green': cleanId(participant.participantId) % 4 === 0,
+        'border-t-orange': cleanId(participant.participantId) % 4 === 2,
+        'border-t-purple': cleanId(participant.participantId) % 4 === 1,
+        'border-t-burgundy': cleanId(participant.participantId) % 4 === 3
       }"
     >
       <div class="flex flex-col items-center">
@@ -27,9 +27,48 @@
           alt="icon"
           class="w-52 h-52"
         />
-        <div class="text-3xl">
-          {{ participant.name }}
-          <span *ngIf="participant.participantId === participantId">(You)</span>
+        <div class="flex flex-col gap-1 items-center">
+          <div class="text-3xl text-center break-words mb-2">
+            {{ participant.name }}
+            <span *ngIf="participant.participantId === participantId"
+              >(You)</span
+            >
+          </div>
+          <div
+            class="w-fit text-sm cursor-pointer px-2 shadow-sm flex justify-center items-center gap-2 py-2 text-black rounded-2xl transform hover:scale-105 active:scale-95 transition duration-300 ease-in-out brightness-100 border-t-orange border-2"
+            (click)="copyToClipboard(participant.email)"
+          >
+            <mat-icon
+              style="overflow: visible !important"
+              aria-hidden="false"
+              fontIcon="{{ 'mail' }}"
+              class="mat-icon-borderd transition overflow-visible fill-t-orange text-t-orange"
+            ></mat-icon>
+
+            {{ participant.email }}
+          </div>
+          <div
+            class="w-fit text-sm cursor-pointer px-2 shadow-sm flex justify-center items-center gap-2 py-2 text-black rounded-2xl transform hover:scale-105 active:scale-95 transition duration-300 ease-in-out brightness-100 border-t-green border-2"
+            (click)="copyToClipboard(participant.phone)"
+          >
+            <mat-icon
+              style="overflow: visible !important"
+              aria-hidden="false"
+              fontIcon="{{ 'call' }}"
+              class="mat-icon-outlined transition overflow-visible fill-t-green text-t-green"
+            ></mat-icon>
+
+            {{ participant.phone }}
+          </div>
+          <div class="p-2">
+            <groupee-button
+              [text]="'Export'"
+              [color]="'green'"
+              [type]="'normal'"
+              [icon]="'download'"
+              [action]="exportContact.bind(this, participant)"
+            ></groupee-button>
+          </div>
         </div>
       </div>
     </swiper-slide>
@@ -42,6 +81,14 @@
     [icon]="'forum'"
     [text]="'Contact Group'"
   />
+</div>
+
+<div
+  *ngIf="showCopiedMessage"
+  class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-t-dark text-white rounded-2xl p-4 transition-opacity"
+  [ngClass]="{ 'opacity-0': !showCopiedMessage }"
+>
+  Copied!
 </div>
 <ng-template #noGroup>
   <p>You are not assigned to any group.</p>

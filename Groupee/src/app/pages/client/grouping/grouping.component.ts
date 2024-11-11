@@ -28,6 +28,7 @@ export class ClientGroupingComponent implements OnInit {
   participantId: string = '';
   group: any; // The group the participant belongs to
   isLoading = true;
+  showCopiedMessage = false;
 
   constructor(
     public model: PlatformModelService,
@@ -149,5 +150,44 @@ export class ClientGroupingComponent implements OnInit {
           this.isLoading = false;
         }
       );
+  }
+
+  cleanId(id: string): number {
+    return id.split('').reduce((sum, char) => sum + char.charCodeAt(0), 0);
+  }
+
+  copyToClipboard(text: string): void {
+    navigator.clipboard.writeText(text);
+    this.showCopiedMessage = true;
+    setTimeout(() => {
+      this.showCopiedMessage = false;
+    }, 1000);
+  }
+
+  exportContact(participant: Participant | any): void {
+    const contact = {
+      name: participant.name,
+      phone: participant.phone,
+      email: participant.email,
+    };
+
+    const vCard = `
+  BEGIN:VCARD
+  VERSION:3.0
+  FN:${contact.name}
+  TEL:${contact.phone}
+  EMAIL:${contact.email}
+  END:VCARD
+    `;
+
+    const blob = new Blob([vCard], { type: 'text/vcard' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${contact.name}.vcf`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   }
 }
