@@ -12,6 +12,7 @@ import { AuthService } from '../../../services/auth.service';
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.css',
 })
+
 export class HostSettingsComponent implements OnDestroy {
   @HostBinding('class') className = 'w-full';
 

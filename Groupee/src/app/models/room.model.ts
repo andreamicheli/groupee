@@ -12,6 +12,8 @@ export interface CumulativeResult {
 export interface Participant {
   participantId: string;
   name: string;
+  email: string;
+  phone: string;
   cumulativeResult: CumulativeResult;
 }
 

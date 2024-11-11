@@ -28,6 +28,9 @@ export class HostTreeComponent implements OnInit {
   }
 
   createGroups(): void {
+    console.log(this.model.session.participants().length);
+    console.log(this.model.groupSettings.clientsInGroup());
+
     //call the createGroups function
     this.hostService.createGroups();
   }

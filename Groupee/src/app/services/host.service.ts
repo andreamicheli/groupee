@@ -184,6 +184,8 @@ export class HostService {
           interface ParticipantData {
             participantId: string;
             name: string;
+            email: string;
+            phone: string;
             variables: number[]; // Array of 5 numbers between 1 and 10
           }
 
@@ -230,6 +232,8 @@ export class HostService {
             (p: Participant) => ({
               participantId: p.participantId,
               name: p.name,
+              email: p.email,
+              phone: p.phone,
               variables: [
                 p.cumulativeResult.element1,
                 p.cumulativeResult.element2,
@@ -244,8 +248,9 @@ export class HostService {
           const groupSize: number =
             this.model.groupSettings.clientsInGroup() > 0
               ? this.model.groupSettings.clientsInGroup()
-              : Math.ceil(Math.sqrt(this.model.session.participants.length)); // Set your desired group size: ;
-          const numberOfGroups = Math.ceil(
+              : Math.ceil(Math.sqrt(this.model.session.participants().length)); // Set your desired group size: ;
+          
+              const numberOfGroups = Math.ceil(
             formattedParticipants.length / groupSize
           );
 
@@ -340,6 +345,8 @@ export class HostService {
               participants: group.participants.map((p) => ({
                 participantId: p.participantId,
                 name: p.name,
+                email: p.email,
+                phone: p.phone,
               })),
               participantIds: group.participants.map((p) => p.participantId), // Add this line
               totalVariables: group.totalVariables,

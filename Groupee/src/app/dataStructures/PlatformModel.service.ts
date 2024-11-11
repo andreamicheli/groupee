@@ -29,9 +29,12 @@ export class PlatformModelService {
       };
     }>({}), // Relevant for host, can be ignored by client
     participants: signal<Array<Participant>>([]),
+    
     client: {
       participantName: signal<string>(''), // Relevant for client, can be ignored by host
       participantId: signal<string>(''),
+      participantEmail: signal<string>(''),
+      participantPhone: signal<string>(''),
       cumulativeResult: signal<CumulativeResult>({
         element1: 0,
         element2: 0,
