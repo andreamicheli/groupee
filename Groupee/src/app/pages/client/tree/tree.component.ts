@@ -5,11 +5,13 @@ import { Participant } from '../../../models/room.model';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../../components/button/button.component';
+import { NgChartsModule } from 'ng2-charts';
+import { ChartConfiguration, Ticks } from 'chart.js';
 
 @Component({
   selector: 'app-client-tree',
   standalone: true,
-  imports: [CommonModule, ButtonComponent],
+  imports: [CommonModule, ButtonComponent, NgChartsModule],
   templateUrl: './tree.component.html',
   styleUrl: './tree.component.css',
 })
@@ -18,6 +20,7 @@ export class ClientTreeComponent implements OnInit {
 
   roomId: string = '';
   participant: Participant | undefined;
+  radarChartData: any;
 
   constructor(
     public model: PlatformModelService,
@@ -34,6 +37,8 @@ export class ClientTreeComponent implements OnInit {
     // this.participant = {
     //   participantId: '0',
     //   name: 'jhon',
+    //   email: 'andrea@live.com',
+    //   phone: '123456789',
     //   cumulativeResult: {
     //     element1: 30,
     //     element2: 38,
@@ -47,6 +52,21 @@ export class ClientTreeComponent implements OnInit {
   ngOnInit(): void {
     const roomId = this.route.snapshot.paramMap.get('roomId');
 
+    if (this.participant) {
+      this.radarChartDatasets = [
+        {
+          data: [
+            this.participant.cumulativeResult.element1,
+            this.participant.cumulativeResult.element2,
+            this.participant.cumulativeResult.element3,
+            0,
+            this.participant.cumulativeResult.element4,
+            this.participant.cumulativeResult.element5,
+          ],
+        },
+      ];
+    }
+
     if (
       this.model.session.currentPhase() !== 'tree' ||
       !this.model.session.online()
@@ -58,4 +78,38 @@ export class ClientTreeComponent implements OnInit {
   buttonClick() {
     this.router.navigate([`client/${this.model.session.roomId()}/groups`]);
   }
+
+  getOpacity(element: number, rank: number) {
+    if (rank == 0)
+      if (element > 28) return 1;
+      else return 0.3;
+    if (rank == 1)
+      if (element > 31) return 1;
+      else return 0.3;
+    if (rank == 2)
+      if (element >= 34) return 1;
+      else return 0.3;
+    if (rank == 3)
+      if (element > 34) return 1;
+      else return 0.3;
+    else return 0.3;
+  }
+
+  public lineChartLegend: boolean = false;
+
+  public radarChartOptions: ChartConfiguration<'radar'>['options'] = {
+    responsive: false,
+    borderColor: '#FF6333FF',
+    backgroundColor: '#FF633331',
+    scales: {
+      r: {
+        ticks: { display: false },
+      },
+    },
+  };
+  public radarChartLabels: string[] = ['', '', '', '', '', ''];
+
+  public radarChartDatasets: ChartConfiguration<'radar'>['data']['datasets'] = [
+    { data: [] },
+  ];
 }
