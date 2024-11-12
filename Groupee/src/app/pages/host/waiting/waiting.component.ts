@@ -5,11 +5,12 @@ import { HostService } from '../../../services/host.service';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ButtonComponent } from '../../../components/button/button.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-host-waiting',
   standalone: true,
-  imports: [QRCodeModule, CommonModule, ButtonComponent],
+  imports: [QRCodeModule, CommonModule, ButtonComponent, MatIconModule],
   templateUrl: './waiting.component.html',
   styleUrl: './waiting.component.css',
 })
@@ -17,6 +18,7 @@ export class HostWaitingComponent implements OnInit, OnDestroy {
   @HostBinding('class') className = 'w-full';
 
   private URL: string = 'https://groupee-fi.web.app';
+  showCopiedMessage = false;
 
   constructor(
     public model: PlatformModelService,
@@ -84,5 +86,9 @@ export class HostWaitingComponent implements OnInit, OnDestroy {
 
   copyRoomIdToClipboard(): void {
     navigator.clipboard.writeText(this.model.session.roomId());
+    this.showCopiedMessage = true;
+    setTimeout(() => {
+      this.showCopiedMessage = false;
+    }, 1000);
   }
 }

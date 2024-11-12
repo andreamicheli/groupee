@@ -61,4 +61,17 @@
       Start
     </button> -->
   </div>
+
+  <div
+    *ngIf="showCopiedMessage"
+    class="fixed z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 translate-y-60 bg-t-dark text-white rounded-2xl p-4 transition-opacity opacity-50 flex items-center gap-2"
+  >
+    <mat-icon
+      style="overflow: visible !important"
+      aria-hidden="false"
+      fontIcon="content_copy"
+      class="mat-icon-outlined transition overflow-visible fill-white"
+    ></mat-icon>
+    Copied!
+  </div>
 </div>
