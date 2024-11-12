@@ -201,4 +201,8 @@ export class ClientGroupingComponent implements OnInit {
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
   }
+
+  toTree() {
+    this.router.navigate([`client/${this.model.session.roomId()}/tree`]);
+  }
 }

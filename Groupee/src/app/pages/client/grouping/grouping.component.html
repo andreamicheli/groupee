@@ -1,6 +1,6 @@
 <div
   *ngIf="group; else noGroup"
-  class="flex flex-col items-center gap-10 h-full py-8"
+  class="flex flex-col items-center gap-10 h-full py-8 justify-between"
 >
   <div class="text-center text-4xl">
     <h2 class="font-bold">Your Group!</h2>
@@ -69,13 +69,13 @@
     </swiper-slide>
   </swiper-container>
 
-  <!-- <groupee-button
-    [disabled]="true"
+  <groupee-button
     [color]="'green'"
     [type]="'wide'"
-    [icon]="'forum'"
-    [text]="'Contact Group'"
-  /> -->
+    [icon]="'arrow_back'"
+    [text]="'back to skillTree'"
+    [action]="toTree.bind(this)"
+  ></groupee-button>
 </div>
 
 <div
