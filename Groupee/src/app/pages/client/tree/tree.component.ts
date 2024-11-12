@@ -8,7 +8,6 @@ import { ButtonComponent } from '../../../components/button/button.component';
 import { NgChartsModule } from 'ng2-charts';
 import { ChartConfiguration, Ticks } from 'chart.js';
 import comments from '../../../../assets/static_data/traitsComments.json';
-import { log } from 'console';
 
 interface Comments {
   [key: number]: {
