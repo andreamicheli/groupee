@@ -1,16 +1,11 @@
 <div
   *ngIf="group; else noGroup"
-  class="flex flex-col items-center justify-between h-full py-8"
+  class="flex flex-col items-center gap-10 h-full py-8"
 >
   <div class="text-center text-4xl">
     <h2 class="font-bold">Your Group!</h2>
-    <p>{{ group.name }}</p>
   </div>
-  <swiper-container
-    class="mySwiper w-70 h-100"
-    effect="cards"
-    grab-cursor="true"
-  >
+  <swiper-container class="w-64 h-96" effect="cards" grab-cursor="true">
     <swiper-slide
       *ngFor="let participant of group.participants"
       class="flex items-center justify-center rounded-2xl font-bold bg-white border-4"
@@ -25,37 +20,37 @@
         <img
           src="https://cliply.co/wp-content/uploads/2020/08/432008121_THUMBS_UP_3D_LIGHT_SKIN_TONE_400.png"
           alt="icon"
-          class="w-52 h-52"
+          class="w-40 h-40"
         />
         <div class="flex flex-col gap-1 items-center">
-          <div class="text-3xl text-center break-words mb-2">
+          <div class="text-2xl text-center break-words mb-2">
             {{ participant.name }}
             <span *ngIf="participant.participantId === participantId"
               >(You)</span
             >
           </div>
           <div
-            class="w-fit text-sm cursor-pointer px-2 shadow-sm flex justify-center items-center gap-2 py-2 text-black rounded-2xl transform hover:scale-105 active:scale-95 transition duration-300 ease-in-out brightness-100 border-t-orange border-2"
+            class="w-fit font-normal text-xs cursor-pointer px-2 shadow-xl flex justify-center items-center py-2 text-black rounded-2xl transform hover:scale-105 active:scale-95 transition duration-300 ease-in-out brightness-100 border-t-orange border-2"
             (click)="copyToClipboard(participant.email)"
           >
             <mat-icon
               style="overflow: visible !important"
               aria-hidden="false"
               fontIcon="{{ 'mail' }}"
-              class="mat-icon-borderd transition overflow-visible fill-t-orange text-t-orange"
+              class="mat-icon-borderd transition overflow-visible fill-t-orange text-t-orange scale-75"
             ></mat-icon>
 
             {{ participant.email }}
           </div>
           <div
-            class="w-fit text-sm cursor-pointer px-2 shadow-sm flex justify-center items-center gap-2 py-2 text-black rounded-2xl transform hover:scale-105 active:scale-95 transition duration-300 ease-in-out brightness-100 border-t-green border-2"
+            class="w-fit font-normal text-xs cursor-pointer px-2 shadow-xl flex justify-center items-center py-2 text-black rounded-2xl transform hover:scale-105 active:scale-95 transition duration-300 ease-in-out brightness-100 border-t-green border-2"
             (click)="copyToClipboard(participant.phone)"
           >
             <mat-icon
               style="overflow: visible !important"
               aria-hidden="false"
-              fontIcon="{{ 'call' }}"
-              class="mat-icon-outlined transition overflow-visible fill-t-green text-t-green"
+              fontIcon="call"
+              class="mat-icon-outlined transition overflow-visible fill-t-green text-t-green scale-75"
             ></mat-icon>
 
             {{ participant.phone }}
@@ -74,20 +69,25 @@
     </swiper-slide>
   </swiper-container>
 
-  <groupee-button
+  <!-- <groupee-button
     [disabled]="true"
     [color]="'green'"
     [type]="'wide'"
     [icon]="'forum'"
     [text]="'Contact Group'"
-  />
+  /> -->
 </div>
 
 <div
   *ngIf="showCopiedMessage"
-  class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-t-dark text-white rounded-2xl p-4 transition-opacity"
-  [ngClass]="{ 'opacity-0': !showCopiedMessage }"
+  class="fixed z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-t-dark text-white rounded-2xl p-4 transition-opacity opacity-50 flex items-center gap-2"
 >
+  <mat-icon
+    style="overflow: visible !important"
+    aria-hidden="false"
+    fontIcon="content_copy"
+    class="mat-icon-outlined transition overflow-visible fill-white"
+  ></mat-icon>
   Copied!
 </div>
 <ng-template #noGroup>

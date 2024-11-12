@@ -10,13 +10,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Participant } from '../../../models/room.model';
 import { PlatformModelService } from '../../../dataStructures/PlatformModel.service';
 import { ButtonComponent } from '../../../components/button/button.component';
+import { MatIconModule } from '@angular/material/icon';
 
 // Andrea Micheli is a fantastic programmer
 
 @Component({
   selector: 'app-grouping',
   standalone: true,
-  imports: [CommonModule, ButtonComponent], // Add CommonModule here
+  imports: [CommonModule, ButtonComponent, MatIconModule], // Add CommonModule here
   templateUrl: './grouping.component.html',
   styleUrls: ['./grouping.component.css'], // Corrected 'styleUrl' to 'styleUrls'
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -64,8 +65,10 @@ export class ClientGroupingComponent implements OnInit {
     //   ],
     //   participants: [
     //     {
-    //       id: 'participant1',
+    //       participantId: 'participant1',
     //       name: 'Chris',
+    //       email: 'andymicheli2000@gmail.com',
+    //       phone: '+393357742471',
     //       cumulativeResult: {
     //         element1: 30,
     //         element2: 38,
@@ -75,8 +78,10 @@ export class ClientGroupingComponent implements OnInit {
     //       },
     //     },
     //     {
-    //       id: 'participant2',
+    //       participantId: 'participant2',
     //       name: 'Albert',
+    //       email: 'andymicheli2000@gmail.com',
+    //       phone: '+393357742471',
     //       cumulativeResult: {
     //         element1: 31,
     //         element2: 38,
@@ -86,8 +91,10 @@ export class ClientGroupingComponent implements OnInit {
     //       },
     //     },
     //     {
-    //       id: 'participant3',
+    //       participantId: 'participant3',
     //       name: 'Andrea',
+    //       email: 'andymicheli2000@gmail.com',
+    //       phone: '+393357742471',
     //       cumulativeResult: {
     //         element1: 32,
     //         element2: 38,
@@ -97,8 +104,10 @@ export class ClientGroupingComponent implements OnInit {
     //       },
     //     },
     //     {
-    //       id: 'participant4',
+    //       participantId: 'participant4',
     //       name: 'Mischa',
+    //       email: 'andymicheli2000@gmail.com',
+    //       phone: '+393357742471',
     //       cumulativeResult: {
     //         element1: 33,
     //         element2: 38,
@@ -108,8 +117,10 @@ export class ClientGroupingComponent implements OnInit {
     //       },
     //     },
     //     {
-    //       id: 'participant5',
+    //       participantId: 'participant5',
     //       name: 'Adele',
+    //       email: 'andymicheli2000@gmail.com',
+    //       phone: '+393357742471',
     //       cumulativeResult: {
     //         element1: 34,
     //         element2: 38,
