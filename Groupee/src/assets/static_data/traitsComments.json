@@ -1,0 +1,32 @@
+{
+  "1": {
+    "0": "Prefers the peace and quiet—happy to let others take the spotlight. 🧘‍♀️ Not the loudest in the room, but the calmest head when things get chaotic.",
+    "1": "Keeps conversations balanced, adds just enough to keep things moving. Smooth operator, but always keeps a cool vibe. 😌",
+    "2": "Keeps the energy high and the ideas flowing! Can't resist pulling others in for group activities—everyone's got to join the fun! 🎉",
+    "3": "Life of the party! 💃 Brings so much energy that quiet moments become rare. If they're here, you *know* it!"
+  },
+  "2": {
+    "0": "Not here to sugarcoat. They’ll say what others won't, and sometimes that’s exactly what's needed! 😏",
+    "1": "Keeps it real—won't shy away from tough truths but stays respectful. Balances honesty with a dash of diplomacy. 🤝",
+    "2": "Team harmony champion! 🌈 They'll go out of their way to keep things smooth and positive, like a human band-aid for conflicts.",
+    "3": "Always aiming for peace, sometimes to a fault! So agreeable that they might just agree to anything to avoid a conflict. ☮️"
+  },
+  "3": {
+    "0": "Prefers to 'go with the flow'—rules are optional and schedules are flexible! Spontaneous solutions are the best solutions. 🌀",
+    "1": "Flexible but knows when structure’s needed. Efficient, not excessive—gets things done with minimal fuss. 👍",
+    "2": "Reliability incarnate! Plans, lists, and precision are second nature. They’re the one who brings the checklist. 📋",
+    "3": "Strictly by the book! 📖 Every detail accounted for, every task double-checked. Ideal for big projects—just don't ask them to relax!"
+  },
+  "4": {
+    "0": "Easygoing and unbothered by small stuff. Stress? Never heard of it! The group's emotional anchor. 🌊",
+    "1": "Stays calm and cool but keeps an eye out for issues. A realist who won't overreact, but still keeps the team on track. 😌",
+    "2": "A bit of a worrier—ensures nothing slips through the cracks. They catch problems before they become issues! 🔍",
+    "3": "Hyper-alert! Always looking for risks, they’ll double-check *everything.* High-strung but valuable in high-stakes settings. 🚨"
+  },
+  "5": {
+    "0": "Grounded and practical—'if it isn’t broken, don’t fix it.' Not here for crazy ideas, thank you very much. 🛠️",
+    "1": "Willing to try new things, but cautious. Balances innovation with a sense of tradition—keeps things steady. 🌱",
+    "2": "Brings fresh ideas to the table and loves a brainstorm! Curious and ready to mix things up for a better solution. 🌟",
+    "3": "Creative genius! 🎨 Forever exploring new paths and pushing boundaries. Sometimes so open, they leave others playing catch-up!"
+  }
+}

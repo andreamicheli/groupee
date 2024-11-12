@@ -7,6 +7,14 @@ import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../../components/button/button.component';
 import { NgChartsModule } from 'ng2-charts';
 import { ChartConfiguration, Ticks } from 'chart.js';
+import comments from '../../../../assets/static_data/traitsComments.json';
+import { log } from 'console';
+
+interface Comments {
+  [key: number]: {
+    [key: number]: string;
+  };
+}
 
 @Component({
   selector: 'app-client-tree',
@@ -22,31 +30,35 @@ export class ClientTreeComponent implements OnInit {
   participant: Participant | undefined;
   radarChartData: any;
 
+  selectedOption: { element: number; rank: number } | null = null;
+
+  public comments: Comments = comments;
+
   constructor(
     public model: PlatformModelService,
     private router: Router,
     private route: ActivatedRoute
   ) {
-    this.participant = this.model.session
-      .participants()
-      .find(
-        (p) => p.participantId === this.model.session.client.participantId()
-      );
+    // this.participant = this.model.session
+    //   .participants()
+    //   .find(
+    //     (p) => p.participantId === this.model.session.client.participantId()
+    //   );
 
     // FOR DEBUGGING
-    // this.participant = {
-    //   participantId: '0',
-    //   name: 'jhon',
-    //   email: 'andrea@live.com',
-    //   phone: '123456789',
-    //   cumulativeResult: {
-    //     element1: 30,
-    //     element2: 38,
-    //     element3: 33,
-    //     element4: 32,
-    //     element5: 25,
-    //   },
-    // };
+    this.participant = {
+      participantId: '0',
+      name: 'jhon',
+      email: 'andrea@live.com',
+      phone: '123456789',
+      cumulativeResult: {
+        element1: 30,
+        element2: 38,
+        element3: 33,
+        element4: 32,
+        element5: 25,
+      },
+    };
   }
 
   ngOnInit(): void {
@@ -67,12 +79,12 @@ export class ClientTreeComponent implements OnInit {
       ];
     }
 
-    if (
-      this.model.session.currentPhase() !== 'tree' ||
-      !this.model.session.online()
-    ) {
-      this.router.navigate(['/']);
-    }
+    // if (
+    //   this.model.session.currentPhase() !== 'tree' ||
+    //   !this.model.session.online()
+    // ) {
+    //   this.router.navigate(['/']);
+    // }
   }
 
   buttonClick() {
@@ -112,4 +124,21 @@ export class ClientTreeComponent implements OnInit {
   public radarChartDatasets: ChartConfiguration<'radar'>['data']['datasets'] = [
     { data: [] },
   ];
+
+  getComment(element: number, rank: number) {
+    return this.comments[element as keyof Comments][
+      rank as keyof Comments[number]
+    ];
+  }
+
+  onElementClick(element: number, rank: number) {
+    console.log('element clicked');
+    this.selectedOption = { element, rank };
+  }
+
+  unselect() {
+    console.log('unselect');
+
+    this.selectedOption = null;
+  }
 }

@@ -1,4 +1,6 @@
-<div class="w-full h-full flex items-center flex-col justify-around">
+<div
+  class="w-full h-full flex items-center flex-col justify-around transition-all"
+>
   <div class="text-center flex flex-col items-center">
     <div class="text-4xl font-bold">Finished!</div>
     <div class="mt-4">
@@ -139,6 +141,11 @@
         stroke-dasharray="2 2"
       />
       <path
+        class="cursor-pointer transition-all"
+        [ngClass]="{
+          'shadow-xl fill-t-green-transparent relative z-10':
+            selectedOption?.element === 1 && selectedOption?.rank === 2
+        }"
         [attr.stroke-opacity]="
           getOpacity(participant!.cumulativeResult.element1, 2)
         "
@@ -146,8 +153,14 @@
         fill="#FAF0E8"
         stroke="#28DDB1"
         stroke-width="3"
+        (click)="onElementClick(1, 2)"
       />
       <path
+        class="cursor-pointer transition-all"
+        [ngClass]="{
+          'shadow-xl fill-t-green-transparent relative z-10':
+            selectedOption?.element === 1 && selectedOption?.rank === 1
+        }"
         [attr.stroke-opacity]="
           getOpacity(participant!.cumulativeResult.element1, 1)
         "
@@ -155,8 +168,14 @@
         fill="#FAF0E8"
         stroke="#28DDB1"
         stroke-width="3"
+        (click)="onElementClick(1, 1)"
       />
       <path
+        class="cursor-pointer transition-all"
+        [ngClass]="{
+          'shadow-xl fill-t-green-transparent relative z-10':
+            selectedOption?.element === 1 && selectedOption?.rank === 3
+        }"
         [attr.stroke-opacity]="
           getOpacity(participant!.cumulativeResult.element1, 3)
         "
@@ -164,8 +183,14 @@
         fill="#FAF0E8"
         stroke="#28DDB1"
         stroke-width="3"
+        (click)="onElementClick(1, 3)"
       />
       <path
+        class="cursor-pointer transition-all"
+        [ngClass]="{
+          'shadow-xl fill-t-green-transparent relative z-10':
+            selectedOption?.element === 1 && selectedOption?.rank === 0
+        }"
         [attr.stroke-opacity]="
           getOpacity(participant!.cumulativeResult.element1, 0)
         "
@@ -173,6 +198,7 @@
         fill="#FAF0E8"
         stroke="#28DDB1"
         stroke-width="3"
+        (click)="onElementClick(1, 0)"
       />
       <path
         d="M102.275 120.192L107.243 111.589L97.1092 101.043L78.2528 101.703L61.0925 111.425L49.5917 131.343L49.251 151.931L55.6066 172.922"
@@ -180,6 +206,11 @@
         stroke-dasharray="2 2"
       />
       <path
+        class="cursor-pointer transition-all"
+        [ngClass]="{
+          'shadow-xl fill-t-green-transparent relative z-10':
+            selectedOption?.element === 5 && selectedOption?.rank === 2
+        }"
         [attr.stroke-opacity]="
           getOpacity(participant!.cumulativeResult.element5, 2)
         "
@@ -187,8 +218,14 @@
         fill="#FAF0E8"
         stroke="#28DDB1"
         stroke-width="3"
+        (click)="onElementClick(5, 2)"
       />
       <path
+        class="cursor-pointer transition-all"
+        [ngClass]="{
+          'shadow-xl fill-t-green-transparent relative z-10':
+            selectedOption?.element === 5 && selectedOption?.rank === 1
+        }"
         [attr.stroke-opacity]="
           getOpacity(participant!.cumulativeResult.element5, 1)
         "
@@ -196,8 +233,14 @@
         fill="#FAF0E8"
         stroke="#28DDB1"
         stroke-width="3"
+        (click)="onElementClick(5, 1)"
       />
       <path
+        class="cursor-pointer transition-all"
+        [ngClass]="{
+          'shadow-xl fill-t-green-transparent relative z-10':
+            selectedOption?.element === 5 && selectedOption?.rank === 3
+        }"
         [attr.stroke-opacity]="
           getOpacity(participant!.cumulativeResult.element5, 3)
         "
@@ -205,8 +248,14 @@
         fill="#FAF0E8"
         stroke="#28DDB1"
         stroke-width="3"
+        (click)="onElementClick(5, 3)"
       />
       <path
+        class="cursor-pointer transition-all"
+        [ngClass]="{
+          'shadow-xl fill-t-green-transparent relative z-10':
+            selectedOption?.element === 5 && selectedOption?.rank === 0
+        }"
         [attr.stroke-opacity]="
           getOpacity(participant!.cumulativeResult.element5, 0)
         "
@@ -214,6 +263,7 @@
         fill="#FAF0E8"
         stroke="#28DDB1"
         stroke-width="3"
+        (click)="onElementClick(5, 0)"
       />
       <path
         d="M74.2249 244.369L69.2582 235.766L55.0587 239.269L46.2017 255.929L46.041 275.651L57.5403 295.57L75.1997 306.159L96.5559 311.15"
@@ -221,6 +271,11 @@
         stroke-dasharray="2 2"
       />
       <path
+        class="cursor-pointer transition-all"
+        [ngClass]="{
+          'shadow-xl fill-t-green-transparent relative z-10':
+            selectedOption?.element === 4 && selectedOption?.rank === 2
+        }"
         [attr.stroke-opacity]="
           getOpacity(participant!.cumulativeResult.element4, 2)
         "
@@ -228,8 +283,14 @@
         fill="#FAF0E8"
         stroke="#28DDB1"
         stroke-width="3"
+        (click)="onElementClick(4, 2)"
       />
       <path
+        class="cursor-pointer transition-all"
+        [ngClass]="{
+          'shadow-xl fill-t-green-transparent relative z-10':
+            selectedOption?.element === 4 && selectedOption?.rank === 1
+        }"
         [attr.stroke-opacity]="
           getOpacity(participant!.cumulativeResult.element4, 1)
         "
@@ -237,8 +298,14 @@
         fill="#FAF0E8"
         stroke="#28DDB1"
         stroke-width="3"
+        (click)="onElementClick(4, 1)"
       />
       <path
+        class="cursor-pointer transition-all"
+        [ngClass]="{
+          'shadow-xl fill-t-green-transparent relative z-10':
+            selectedOption?.element === 4 && selectedOption?.rank === 3
+        }"
         [attr.stroke-opacity]="
           getOpacity(participant!.cumulativeResult.element4, 3)
         "
@@ -246,8 +313,14 @@
         fill="#FAF0E8"
         stroke="#28DDB1"
         stroke-width="3"
+        (click)="onElementClick(4, 3)"
       />
       <path
+        class="cursor-pointer transition-all"
+        [ngClass]="{
+          'shadow-xl fill-t-green-transparent relative z-10':
+            selectedOption?.element === 4 && selectedOption?.rank === 0
+        }"
         [attr.stroke-opacity]="
           getOpacity(participant!.cumulativeResult.element4, 0)
         "
@@ -255,6 +328,7 @@
         fill="#FAF0E8"
         stroke="#28DDB1"
         stroke-width="3"
+        (click)="onElementClick(4, 0)"
       />
       <path
         d="M169.779 324.719L159.845 324.719L155.779 338.767L165.778 354.768L182.778 364.768L205.778 364.769L223.778 354.77L238.779 338.77"
@@ -295,6 +369,11 @@
         stroke-dasharray="2 2"
       />
       <path
+        class="cursor-pointer transition-all"
+        [ngClass]="{
+          'shadow-xl fill-t-green-transparent relative z-10':
+            selectedOption?.element === 3 && selectedOption?.rank === 2
+        }"
         [attr.stroke-opacity]="
           getOpacity(participant!.cumulativeResult.element3, 2)
         "
@@ -302,8 +381,14 @@
         fill="#FAF0E8"
         stroke="#28DDB1"
         stroke-width="3"
+        (click)="onElementClick(3, 2)"
       />
       <path
+        class="cursor-pointer transition-all"
+        [ngClass]="{
+          'shadow-xl fill-t-green-transparent relative z-10':
+            selectedOption?.element === 3 && selectedOption?.rank === 1
+        }"
         [attr.stroke-opacity]="
           getOpacity(participant!.cumulativeResult.element3, 1)
         "
@@ -311,8 +396,14 @@
         fill="#FAF0E8"
         stroke="#28DDB1"
         stroke-width="3"
+        (click)="onElementClick(3, 1)"
       />
       <path
+        class="cursor-pointer transition-all"
+        [ngClass]="{
+          'shadow-xl fill-t-green-transparent relative z-10':
+            selectedOption?.element === 3 && selectedOption?.rank === 3
+        }"
         [attr.stroke-opacity]="
           getOpacity(participant!.cumulativeResult.element3, 3)
         "
@@ -320,8 +411,14 @@
         fill="#FAF0E8"
         stroke="#28DDB1"
         stroke-width="3"
+        (click)="onElementClick(3, 3)"
       />
       <path
+        class="cursor-pointer transition-all"
+        [ngClass]="{
+          'shadow-xl fill-t-green-transparent relative z-10':
+            selectedOption?.element === 3 && selectedOption?.rank === 0
+        }"
         [attr.stroke-opacity]="
           getOpacity(participant!.cumulativeResult.element3, 0)
         "
@@ -329,6 +426,7 @@
         fill="#FAF0E8"
         stroke="#28DDB1"
         stroke-width="3"
+        (click)="onElementClick(3, 0)"
       />
       <path
         d="M315.151 163.186L320.187 171.749L334.358 168.132L343.081 151.402L343.083 131.679L331.424 111.853L313.68 101.406L292.285 96.586"
@@ -336,6 +434,11 @@
         stroke-dasharray="2 2"
       />
       <path
+        class="cursor-pointer transition-all"
+        [ngClass]="{
+          'shadow-xl fill-t-green-transparent relative z-10':
+            selectedOption?.element === 2 && selectedOption?.rank === 2
+        }"
         [attr.stroke-opacity]="
           getOpacity(participant!.cumulativeResult.element2, 2)
         "
@@ -343,8 +446,14 @@
         fill="#FAF0E8"
         stroke="#28DDB1"
         stroke-width="3"
+        (click)="onElementClick(2, 2)"
       />
       <path
+        class="cursor-pointer transition-all"
+        [ngClass]="{
+          'shadow-xl fill-t-green-transparent relative z-10':
+            selectedOption?.element === 2 && selectedOption?.rank === 1
+        }"
         [attr.stroke-opacity]="
           getOpacity(participant!.cumulativeResult.element2, 1)
         "
@@ -352,8 +461,14 @@
         fill="#FAF0E8"
         stroke="#28DDB1"
         stroke-width="3"
+        (click)="onElementClick(2, 1)"
       />
       <path
+        class="cursor-pointer transition-all"
+        [ngClass]="{
+          'shadow-xl fill-t-green-transparent relative z-10':
+            selectedOption?.element === 2 && selectedOption?.rank === 3
+        }"
         [attr.stroke-opacity]="
           getOpacity(participant!.cumulativeResult.element2, 3)
         "
@@ -361,8 +476,14 @@
         fill="#FAF0E8"
         stroke="#28DDB1"
         stroke-width="3"
+        (click)="onElementClick(2, 3)"
       />
       <path
+        class="cursor-pointer transition-all"
+        [ngClass]="{
+          'shadow-xl fill-t-green-transparent relative z-10':
+            selectedOption?.element === 2 && selectedOption?.rank === 0
+        }"
         [attr.stroke-opacity]="
           getOpacity(participant!.cumulativeResult.element2, 0)
         "
@@ -370,6 +491,7 @@
         fill="#FAF0E8"
         stroke="#28DDB1"
         stroke-width="3"
+        (click)="onElementClick(2, 0)"
       />
       <defs>
         <clipPath id="clip0_346_371">
@@ -422,17 +544,23 @@
         </clipPath>
       </defs>
     </svg>
+    <canvas
+      class="absolute top-12 translate-y-2 translate-x-11 scale-75"
+      baseChart
+      [datasets]="radarChartDatasets"
+      [options]="radarChartOptions"
+      [labels]="radarChartLabels"
+      [type]="'radar'"
+      [legend]="lineChartLegend"
+    ></canvas>
   </div>
 
-  <canvas
-    class="absolute translate-y-11 scale-75"
-    baseChart
-    [datasets]="radarChartDatasets"
-    [options]="radarChartOptions"
-    [labels]="radarChartLabels"
-    [type]="'radar'"
-    [legend]="lineChartLegend"
-  ></canvas>
+  <div
+    class="p-4 rounded-xl bg-t-dark text-white text-wrap w-[400px] text-center"
+    *ngIf="!!selectedOption"
+  >
+    {{ getComment(selectedOption!.element, selectedOption!.rank) }}
+  </div>
 
   <groupee-button
     class="justify-self-end"

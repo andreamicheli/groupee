@@ -11,6 +11,7 @@ module.exports = {
       "t-orange": "#FF6433",
       "t-orange-hover": "#FF4D00",
       "t-orange-active": "#992400", // 50% brightness of #FF6433
+      "t-green-transparent": "#DAFEF4FF",
       "t-green": "#28DDB1",
       "t-green-hover": "#00deb2",
       "t-green-active": "#008062",
