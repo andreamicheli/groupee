@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostBinding, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common'; // Necessario per le direttive *ngFor e *ngIf
 import { AngularFirestore } from '@angular/fire/compat/firestore'; // Importa AngularFirestore (assicurati che la versione corrisponda alla tua configurazione)
 import { ActivatedRoute } from '@angular/router';
@@ -20,6 +20,8 @@ import { firstValueFrom } from 'rxjs/internal/firstValueFrom';
   styleUrls: ['./grouping.component.css'],
 })
 export class HostGroupingComponent implements OnInit {
+  @HostBinding('class') className = 'w-full flex justify-center';
+
   roomId: string = "";
   groups: Group[] = [];
   isLoading = true;
