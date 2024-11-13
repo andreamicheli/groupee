@@ -16,32 +16,24 @@
       model.standardQuestions()[model.session.currentQuestionIndex()]!.options
     "
   ></app-host-radio>
-  <div style="position: absolute; bottom: 20px; right: 20px">
-    <p
-      class="text-t-dark md:text-6xl text-3xl font-extrabold"
-      [ngClass]="{
-        'text-t-green':
-          countTotalAnswers(
-            model.session.currentQuestionIndex(),
-            model.session.currentAnswers()
-          ) === model.session.participants().length
-      }"
-    >
-      <span
-        class="text-unactive"
-        [ngClass]="{
-          'text-t-green':
-            countTotalAnswers(
-              model.session.currentQuestionIndex(),
-              model.session.currentAnswers()
-            ) === model.session.participants().length
-        }"
-        >{{
-          countTotalAnswers(
-            model.session.currentQuestionIndex(),
-            model.session.currentAnswers()
-          )
-        }}</span
+  <div
+    style="position: absolute; bottom: 20px; right: 20px"
+    class="text-t-dark md:text-6xl text-3xl font-extrabold"
+    [ngClass]="{
+      'text-t-green motion-preset-confetti transition-colors':
+        countTotalAnswers(
+          model.session.currentQuestionIndex(),
+          model.session.currentAnswers()
+        ) === model.session.participants().length
+    }"
+  >
+    <p>
+      <span>{{
+        countTotalAnswers(
+          model.session.currentQuestionIndex(),
+          model.session.currentAnswers()
+        )
+      }}</span
       >/{{ model.session.participants().length }}
     </p>
   </div>
