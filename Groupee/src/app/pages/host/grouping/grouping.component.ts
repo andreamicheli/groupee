@@ -1,7 +1,7 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common'; // Necessario per le direttive *ngFor e *ngIf
 import { AngularFirestore } from '@angular/fire/compat/firestore'; // Importa AngularFirestore (assicurati che la versione corrisponda alla tua configurazione)
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Participant, Group } from '../../../models/room.model';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
@@ -10,12 +10,14 @@ import * as logoFile from 'src/assets/images/bozzalogo_ver2.png';
 import * as ExcelJS from 'exceljs';
 import { HttpClient, HttpClientModule} from '@angular/common/http';
 import { firstValueFrom } from 'rxjs/internal/firstValueFrom';
+import { ButtonComponent } from '../../../components/button/button.component';
+import { PlatformModelService } from '../../../dataStructures/PlatformModel.service';
 
 
 @Component({
   selector: 'app-grouping',
   standalone: true,
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule, HttpClientModule, ButtonComponent],
   templateUrl: './grouping.component.html',
   styleUrls: ['./grouping.component.css'],
 })
@@ -30,7 +32,9 @@ export class HostGroupingComponent implements OnInit {
   constructor(
     private firestore: AngularFirestore,
     private route: ActivatedRoute,
-    private http: HttpClient
+    private http: HttpClient,
+    public model: PlatformModelService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -221,9 +225,10 @@ private convertBlobToBase64(blob: Blob): Promise<string> {
     reader.readAsDataURL(blob);
   });
 }
-  
-  
-  
 
+toTree() {
+  this.router.navigate([`host/${this.model.session.roomId()}/tree`]);
+}
+  
 
 }

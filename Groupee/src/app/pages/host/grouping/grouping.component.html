@@ -30,12 +30,22 @@
   </div>
 
   <!-- Button to download groups as an Excel file -->
-  <button
-    (click)="generateReport()"
-    class="bg-t-dark hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4"
-  >
-    Download Groups Excel
-  </button>
+
+  <groupee-button
+    [color]="'green'"
+    [type]="'wide'"
+    [icon]="'download'"
+    [text]="'Generate Excel Report'"
+    [action]="generateReport.bind(this)"
+  ></groupee-button>
+
+  <groupee-button
+    [color]="'red'"
+    [type]="'wide'"
+    [icon]="'arrow_back'"
+    [text]="'Back to skillTree'"
+    [action]="toTree.bind(this)"
+  ></groupee-button>
 
   <!-- Message if no groups are found -->
   <ng-template #noGroups>
