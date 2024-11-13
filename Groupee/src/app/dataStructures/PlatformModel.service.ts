@@ -78,6 +78,9 @@ export class PlatformModelService {
 
   // Questions only relevant to the client
   standardQuestions = signal<Array<Question>>([]);
+  //videoQuestions = signal<Array<Question>>([]);
+  
+  
   // standardQuestions = signal<Array<{
   //   title: string;
   //   type: 'radio' | 'checkbox' | 'likert';

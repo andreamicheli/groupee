@@ -10,8 +10,7 @@ export interface Question {
   questionId: number;
   title: string;
   options: Option[];
-  type: 'radio' | 'checkbox' | 'likert';
+  type: string;
   url?: string;
-  //correctAnswer?: string;
   order: number;
 }
