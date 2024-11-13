@@ -10,6 +10,9 @@ import { ChartConfiguration, Ticks } from 'chart.js';
 import comments from '../../../../assets/static_data/traitsComments.json';
 
 interface Comments {
+  traits: {
+    [key: number]: { title: string; body: string; emoji: string };
+  };
   [key: number]: {
     [key: number]: string;
   };
@@ -45,19 +48,19 @@ export class ClientTreeComponent implements OnInit {
       );
 
     // FOR DEBUGGING
-    // this.participant = {
-    //   participantId: '0',
-    //   name: 'jhon',
-    //   email: 'andrea@live.com',
-    //   phone: '123456789',
-    //   cumulativeResult: {
-    //     element1: 30,
-    //     element2: 38,
-    //     element3: 33,
-    //     element4: 32,
-    //     element5: 25,
-    //   },
-    // };
+    this.participant = {
+      participantId: '0',
+      name: 'jhon',
+      email: 'andrea@live.com',
+      phone: '123456789',
+      cumulativeResult: {
+        element1: 30,
+        element2: 38,
+        element3: 33,
+        element4: 32,
+        element5: 25,
+      },
+    };
   }
 
   ngOnInit(): void {
@@ -78,13 +81,13 @@ export class ClientTreeComponent implements OnInit {
       ];
     }
 
-    if (
-      (this.model.session.currentPhase() !== 'tree' &&
-        this.model.session.currentPhase() !== 'groups') ||
-      !this.model.session.online()
-    ) {
-      this.router.navigate(['/']);
-    }
+    // if (
+    //   (this.model.session.currentPhase() !== 'tree' &&
+    //     this.model.session.currentPhase() !== 'groups') ||
+    //   !this.model.session.online()
+    // ) {
+    //   this.router.navigate(['/']);
+    // }
   }
 
   buttonClick() {
@@ -131,14 +134,21 @@ export class ClientTreeComponent implements OnInit {
     ];
   }
 
+  getTrait(element: number): { title: string; body: string; emoji: string } {
+    return this.comments.traits[element];
+  }
+
+  getDynamicClass(selectedOption: any): string {
+    return selectedOption.element === 0
+      ? `motion-preset-flomoji-${this.getTrait(selectedOption.rank).emoji}`
+      : '';
+  }
+
   onElementClick(element: number, rank: number) {
-    console.log('element clicked');
     this.selectedOption = { element, rank };
   }
 
   unselect() {
-    console.log('unselect');
-
     this.selectedOption = null;
   }
 }

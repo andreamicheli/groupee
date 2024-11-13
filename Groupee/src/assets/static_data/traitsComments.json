@@ -1,4 +1,36 @@
 {
+  "traits": {
+    "0": {
+      "title": "Technical Skill",
+      "body": "not yet implemented :( but coming soon!",
+      "emoji": "🛠️"
+    },
+    "1": {
+      "title": "Curiosity and Adaptability",
+      "body": "Reflects imagination and interest in novelty. High openness means creativity, while lower levels favor practical thinking and familiarity.",
+      "emoji": "🌱"
+    },
+    "2": {
+      "title": "Responsibility and Dependability",
+      "body": "Indicates organization and discipline. High levels suggest careful planning, while lower levels bring flexibility and spontaneity.",
+      "emoji": "🤝"
+    },
+    "3": {
+      "title": "Sociability and Assertiveness",
+      "body": "Relates to energy in social settings. High extraversion implies enthusiasm for group activities, while lower levels favor independence and reflection.",
+      "emoji": "🏔️"
+    },
+    "4": {
+      "title": "Cooperativeness and Compassion",
+      "body": "Shows warmth and kindness. High agreeableness supports harmony, while lower levels enable self-reliance and assertiveness.",
+      "emoji": "☮️"
+    },
+    "5": {
+      "title": "Emotional Resilience",
+      "body": "Measures emotional sensitivity. Higher levels can enhance self-awareness, while lower levels reflect calmness and stability.",
+      "emoji": "🌊"
+    }
+  },
   "1": {
     "0": "Prefers the peace and quiet—happy to let others take the spotlight. 🧘‍♀️ Not the loudest in the room, but the calmest head when things get chaotic.",
     "1": "Keeps conversations balanced, adds just enough to keep things moving. Smooth operator, but always keeps a cool vibe. 😌",
