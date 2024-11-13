@@ -32,6 +32,7 @@
     "rxjs": "~7.8.0",
     "stream": "^0.0.3",
     "swiper": "^11.1.14",
+    "tailwindcss-motion": "^0.4.1-beta",
     "tslib": "^2.3.0",
     "web-animations-js": "^2.3.1",
     "xlsx": "^0.18.5",

@@ -3,7 +3,8 @@
 >
   <div
     *ngFor="let option of options; let i = index"
-    [ngClass]="getOptionClass(i)"
+    [ngClass]="[getOptionClass(i)]"
+    [class.motion-preset-confetti]="indexPressedEnd === i"
     class="min-h-20 text-center text-balance p-4 rounded-2xl lg:aspect-square flex items-center justify-center cursor-pointer select-none relative overflow-hidden"
     (mouseup)="cancelHold(i)"
     (mouseleave)="cancelHold(i)"

@@ -26,6 +26,7 @@ export class RadioComponent {
   private holdTime = 700; // .7 seconds
   public holdProgress: number[] = []; // Track each option's progress independently
   private animationFrameId: number | null = null;
+  public indexPressedEnd: number | null = null;
 
   constructor() {
     // Initialize holdProgress for each option
@@ -57,6 +58,7 @@ export class RadioComponent {
       if (this.holdProgress[index] < 100) {
         this.animationFrameId = requestAnimationFrame(updateProgress);
       } else {
+        this.indexPressedEnd = index;
         this.optionSelected.emit(option);
         this.cancelHold(index);
       }
@@ -84,6 +86,7 @@ export class RadioComponent {
       'bg-t-burgundy hover:bg-t-burgundy-hover active:bg-t-burgundy-active',
       'bg-t-purple hover:bg-t-purple-hover active:bg-t-purple-active',
     ];
+
     return colorClasses[index] || '';
   }
 
