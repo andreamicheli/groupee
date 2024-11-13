@@ -7,9 +7,14 @@
       'bg-t-orange': i === 0,
       'bg-t-green': i === 1,
       'bg-t-burgundy': i === 2,
-      'bg-t-purple': i === 3
+      'bg-t-purple': i === 3,
+      'motion-delay-0': i==0,
+      'motion-delay-100': i==1,
+      'motion-delay-200': i==2,
+      'motion-delay-300': i==3,
+      'motion-delay-500': i>3,
     }"
-    class="min-h-20 text-center text-balance p-4 rounded-2xl lg:aspect-square flex items-center justify-center"
+    class="min-h-20 text-center text-balance p-4 rounded-2xl lg:aspect-square flex items-center justify-center motion-preset-pop"
   >
     <span class="text-t-light font-bold lg:text-2xl">
       {{ option?.text ? option?.text : option }}

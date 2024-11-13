@@ -3,9 +3,9 @@
 >
   <div
     *ngFor="let option of options; let i = index"
-    [ngClass]="[getOptionClass(i)]"
+    [ngClass]="[getOptionClass(i), 'motion-delay-' + i * 100]"
     [class.motion-preset-confetti]="indexPressedEnd === i"
-    class="min-h-20 text-center text-balance p-4 rounded-2xl lg:aspect-square flex items-center justify-center cursor-pointer select-none relative overflow-hidden"
+    class="min-h-20 text-center text-balance p-4 rounded-2xl lg:aspect-square flex items-center justify-center cursor-pointer select-none relative overflow-hidden motion-preset-pop"
     (mouseup)="cancelHold(i)"
     (mouseleave)="cancelHold(i)"
     (mousedown)="startHold(option, i)"

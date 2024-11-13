@@ -1,17 +1,27 @@
 <!-- src/app/pages/host/login/login.component.html -->
-<div class="min-h-screen flex items-center justify-center">
-    <div class="login-container bg-white text-gray-800 p-8 rounded-2xl shadow-lg max-w-md flex items-center flex-col w-full">
-      <h2 class="text-3xl font-bold mb-6 text-center">Host Login</h2>
+<div
+  class="min-h-screen flex items-center justify-center motion-preset-fade motion-duration-1000"
+>
+  <div
+    class="login-container bg-white text-gray-800 p-8 rounded-2xl shadow-lg max-w-md flex items-center flex-col w-full"
+  >
+    <h2 class="text-3xl font-bold mb-6 text-center">Host Login</h2>
 
-      <button
+    <button
       aria-label="Sign in with Google"
       class="flex items-center bg-white border border-button-border-light rounded-full p-0.5 pr-4 hover:scale-105 transition-transform duration-200"
-      (click)="loginWithGoogle()" 
+      (click)="loginWithGoogle()"
       [disabled]="isLoading"
       aria-label="Sign in with Google"
     >
-      <div class="flex items-center justify-center bg-white w-9 h-9 rounded-full">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6">
+      <div
+        class="flex items-center justify-center bg-white w-9 h-9 rounded-full"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          class="w-6 h-6"
+        >
           <title>Sign in with Google</title>
           <desc>Google G Logo</desc>
           <path
@@ -32,14 +42,18 @@
           ></path>
         </svg>
       </div>
-      <span *ngIf="!isLoading" class="text-sm text-google-text-gray tracking-wider">Sign in with Google</span>
+      <span
+        *ngIf="!isLoading"
+        class="text-sm text-google-text-gray tracking-wider"
+        >Sign in with Google</span
+      >
       <span *ngIf="isLoading">
         <i class="fas fa-spinner fa-spin mr-2"></i>
         Signing in...
       </span>
     </button>
 
-      <!-- <button 
+    <!-- <button 
         class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded w-full flex items-center justify-center transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400" 
         (click)="loginWithGoogle()" 
         [disabled]="isLoading"
@@ -51,10 +65,12 @@
           Signing in...
         </span>
       </button> -->
-      
-      <div *ngIf="errorMessage" class="error-message text-red-500 mt-4 text-center">
-        {{ errorMessage }}
-      </div>
+
+    <div
+      *ngIf="errorMessage"
+      class="error-message text-red-500 mt-4 text-center"
+    >
+      {{ errorMessage }}
     </div>
   </div>
-  
+</div>
