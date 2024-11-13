@@ -39,7 +39,11 @@
       </div>
     </div>
   </div>
-  <div class="relative">
+  <div
+    class="relative transition-transform duration-300 ease-in-out"
+    [class.translate-y-0]="selectedOption == null"
+    [class.-translate-y-4]="!!selectedOption"
+  >
     <svg
       width="393"
       height="409"
@@ -557,8 +561,10 @@
   </div>
 
   <div
-    class="p-4 rounded-xl bg-t-dark text-white text-wrap w-[400px] text-center"
+    class="p-4 rounded-xl bg-t-dark text-white text-wrap w-[400px] text-center transition-all duration-300 ease-in-out opacity-0 translate-y-4"
     *ngIf="!!selectedOption"
+    [class.opacity-100]="!!selectedOption"
+    [class.translate-y-0]="!!selectedOption"
   >
     {{ getComment(selectedOption!.element, selectedOption!.rank) }}
   </div>
