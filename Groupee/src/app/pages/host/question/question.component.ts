@@ -18,6 +18,7 @@ export class HostQuestionComponent implements OnInit {
   @HostBinding('class') className = 'w-full';
   
   showVideo = true;
+  selectedValue: number = 3;
 
   constructor(
     public model: PlatformModelService,

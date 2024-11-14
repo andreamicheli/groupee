@@ -6,14 +6,16 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ButtonComponent } from '../../../components/button/button.component';
 import { MatIconModule } from '@angular/material/icon';
+import { NavbarComponent } from '../../../components/navbar/navbar.component';
 
 @Component({
   selector: 'app-host-waiting',
   standalone: true,
-  imports: [QRCodeModule, CommonModule, ButtonComponent, MatIconModule],
+  imports: [QRCodeModule, CommonModule, ButtonComponent, MatIconModule, NavbarComponent],
   templateUrl: './waiting.component.html',
   styleUrl: './waiting.component.css',
 })
+
 export class HostWaitingComponent implements OnInit, OnDestroy {
   @HostBinding('class') className = 'w-full';
 
