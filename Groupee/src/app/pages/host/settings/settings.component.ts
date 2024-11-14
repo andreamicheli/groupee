@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { PlatformModelService } from '../../../dataStructures/PlatformModel.service';
 import { ButtonComponent } from '../../../components/button/button.component';
 import { AuthService } from '../../../services/auth.service';
+import { NavbarComponent } from '../../../components/navbar/navbar.component';
 
 @Component({
   selector: 'app-host-settings',
   standalone: true,
-  imports: [FormsModule, ButtonComponent],
+  imports: [FormsModule, ButtonComponent, NavbarComponent],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.css',
 })

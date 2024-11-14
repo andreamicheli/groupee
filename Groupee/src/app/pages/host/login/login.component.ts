@@ -2,13 +2,14 @@
 import { Component, HostBinding } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import { CommonModule } from '@angular/common';
+import { NavbarComponent } from '../../../components/navbar/navbar.component';
 
 @Component({
   selector: 'app-host-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
   standalone: true,
-  imports: [CommonModule]
+  imports: [CommonModule, NavbarComponent]
 })
 export class HostLoginComponent {
   isLoading: boolean = false;

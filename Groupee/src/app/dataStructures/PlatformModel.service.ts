@@ -12,7 +12,7 @@ import {
 export class PlatformModelService {
   // Mode to switch between host and client views
   mode = signal<'host' | 'client'>('client'); // Default to 'client'; update as needed
-
+  isGrouped = signal<boolean>(false); // Default to false; update as needed
   // General information of the session
   session = {
     online: signal<boolean>(false),
@@ -78,6 +78,9 @@ export class PlatformModelService {
 
   // Questions only relevant to the client
   standardQuestions = signal<Array<Question>>([]);
+  //videoQuestions = signal<Array<Question>>([]);
+  
+  
   // standardQuestions = signal<Array<{
   //   title: string;
   //   type: 'radio' | 'checkbox' | 'likert';

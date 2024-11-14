@@ -1,9 +1,9 @@
+<!-- SINGLE CHOICE QUESTION TYPE -->
+
 <div
-  *ngIf="
-    !!model.session.online() && model.session.currentPhase() === 'questions'
-  "
+  *ngIf="!!model.session.online() && model.session.currentPhase() === 'questions' && model.standardQuestions()[model.session.currentQuestionIndex()].type === 'single-choice'" 
   class="p-8 flex justify-center flex-col items-center"
->
+  >
   <h3 class="text-t-dark font-normal text-xl text-center">
     Question
     {{ model.session.currentQuestionIndex() + 1 }}:
@@ -57,4 +57,136 @@
   >
     Next Question
   </button> -->
+</div>
+
+<!-- VIDEO QUESTION TYPE -->
+
+<div
+  *ngIf="!!model.session.online() && model.session.currentPhase() === 'questions' && model.standardQuestions()[model.session.currentQuestionIndex()].type === 'video'" 
+  class="p-8 flex justify-center flex-col items-center"
+>
+  <!-- Video Section -->
+  <div *ngIf="showVideo" class="flex justify-center items-center p-4 mb-8">
+    <video
+      #videoPlayer
+      width="1000"
+      autoplay
+      muted
+      (ended)="onVideoEnded(videoPlayer)"
+      [src]="model.standardQuestions()[model.session.currentQuestionIndex()].url"
+      style="border-radius: 15px;"
+    >
+      Il tuo browser non supporta il video.
+    </video>
+  </div>
+
+  <!-- Question Section -->
+  <div *ngIf="!showVideo" class="w-full flex flex-col items-center">
+    <h3 class="text-t-dark font-normal text-xl text-center">
+      Question {{ model.session.currentQuestionIndex() + 1 }}:
+    </h3>
+    <p class="text-t-dark font-bold text-2xl text-center">
+      {{ model.standardQuestions()[model.session.currentQuestionIndex()].title }}
+    </p>
+    <app-host-radio
+      [options]="
+        model.standardQuestions()[model.session.currentQuestionIndex()]!.options
+      "
+      class="w-full mt-4"
+    ></app-host-radio>
+
+    <div style="position: absolute; bottom: 20px; right: 20px">
+      <p
+        class="text-t-dark md:text-6xl text-3xl font-extrabold"
+        [ngClass]="{
+          'text-t-green':
+            countTotalAnswers(
+              model.session.currentQuestionIndex(),
+              model.session.currentAnswers()
+            ) === model.session.participants().length
+        }"
+      >
+        <span
+          class="text-unactive"
+          [ngClass]="{
+            'text-t-green':
+              countTotalAnswers(
+                model.session.currentQuestionIndex(),
+                model.session.currentAnswers()
+              ) === model.session.participants().length
+          }"
+          >{{
+            countTotalAnswers(
+              model.session.currentQuestionIndex(),
+              model.session.currentAnswers()
+            )
+          }}</span
+        >/{{ model.session.participants().length }}
+      </p>
+    </div>
+
+    <div
+      class="md:right-auto md:left-auto left-[20px]"
+      style="position: absolute; bottom: 20px"
+    >
+      <groupee-button
+        *ngIf="model.session.currentPhase() == 'questions'"
+        [action]="nextQuestion.bind(this)"
+        [text]="'Next'"
+        icon="arrow_forward"
+        [type]="'normal'"
+        color="green"
+      ></groupee-button>
+    </div>
+  </div>
+</div>
+
+
+<!-- SLIDER QUESTION TYPE -->
+
+<div
+  *ngIf="!!model.session.online() && model.session.currentPhase() === 'questions' && model.standardQuestions()[model.session.currentQuestionIndex()].type === 'agree'"
+  class="p-8 flex justify-center flex-col items-center"
+>
+  <h3 class="text-t-dark font-normal text-xl text-center">
+    Question {{ model.session.currentQuestionIndex() + 1 }}:
+  </h3>
+  <p class="text-t-dark font-bold text-2xl text-center">
+    {{ model.standardQuestions()[model.session.currentQuestionIndex()].title }}
+  </p>
+
+
+  <div
+    class="text-t-dark md:text-6xl text-3xl font-extrabold absolute bottom-5 right-5"
+    [ngClass]="{
+      'text-t-green motion-preset-confetti transition-colors':
+        countTotalAnswers(
+          model.session.currentQuestionIndex(),
+          model.session.currentAnswers()
+        ) === model.session.participants().length
+    }"
+  >
+    <p>
+      <span>
+        {{
+          countTotalAnswers(
+            model.session.currentQuestionIndex(),
+            model.session.currentAnswers()
+          )
+        }}
+      </span
+      >/{{ model.session.participants().length }}
+    </p>
+  </div>
+
+  <div class="absolute bottom-5 left-5">
+    <groupee-button
+      *ngIf="model.session.currentPhase() == 'questions'"
+      [action]="nextQuestion.bind(this)"
+      [text]="'Next'"
+      icon="arrow_forward"
+      [type]="'normal'"
+      color="green"
+    ></groupee-button>
+  </div>
 </div>

@@ -16,6 +16,9 @@ import { RadioComponent } from '../../../components/quiz/host/radio/radio.compon
 })
 export class HostQuestionComponent implements OnInit {
   @HostBinding('class') className = 'w-full';
+  
+  showVideo = true;
+  selectedValue: number = 3;
 
   constructor(
     public model: PlatformModelService,
@@ -64,6 +67,10 @@ export class HostQuestionComponent implements OnInit {
     }
 
     return count; // Return the total count of answers for the question
+  }
+
+  onVideoEnded(videoPlayer: HTMLVideoElement) {
+    this.showVideo = false;  // Nascondiamo il video quando è finito
   }
 
   ngOnDestroy() {

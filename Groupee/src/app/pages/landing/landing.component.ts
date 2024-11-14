@@ -6,11 +6,12 @@ import { Observable } from 'rxjs';
 import { PlatformModelService } from '../../dataStructures/PlatformModel.service';
 import { ButtonComponent } from '../../components/button/button.component';
 import { Router } from '@angular/router';
+import { NavbarComponent } from '../../components/navbar/navbar.component';
 
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [MatIconModule, ButtonComponent],
+  imports: [MatIconModule, ButtonComponent, NavbarComponent],
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.css'],
 })

@@ -180,7 +180,6 @@ export class HostService {
       .pipe(take(1))
       .subscribe((participants: Participant[]) => {
         if (participants.length > 0) {
-          // Define ParticipantData and Group interfaces
           interface ParticipantData {
             participantId: string;
             name: string;
@@ -188,46 +187,21 @@ export class HostService {
             phone: string;
             variables: number[]; // Array of 5 numbers between 1 and 10
           }
-
+  
           interface Group {
-            id: string; // Use string IDs for Firestore document IDs
-            name: string; // Random group name
+            id: string;
+            name: string;
             participants: ParticipantData[];
-            totalVariables: number[]; // Sum of variables in the group
           }
-
-          // Array of possible group names
+  
           const groupNames = [
-            'Alpha',
-            'Beta',
-            'Gamma',
-            'Delta',
-            'Epsilon',
-            'Zeta',
-            'Eta',
-            'Theta',
-            'Iota',
-            'Kappa',
-            'Lambda',
-            'Mu',
-            'Nu',
-            'Xi',
-            'Omicron',
-            'Pi',
-            'Rho',
-            'Sigma',
-            'Tau',
-            'Upsilon',
-            'Phi',
-            'Chi',
-            'Psi',
-            'Omega',
+            'Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon',
+            'Zeta', 'Eta', 'Theta', 'Iota', 'Kappa',
+            'Lambda', 'Mu', 'Nu', 'Xi', 'Omicron',
+            'Pi', 'Rho', 'Sigma', 'Tau', 'Upsilon',
+            'Phi', 'Chi', 'Psi', 'Omega',
           ];
-
-          // Shuffle the group names array to ensure randomness
-          const shuffledGroupNames = groupNames.sort(() => 0.5 - Math.random());
-
-          // Map participants to the required format
+  
           const formattedParticipants: ParticipantData[] = participants.map(
             (p: Participant) => ({
               participantId: p.participantId,
@@ -243,18 +217,18 @@ export class HostService {
               ],
             })
           );
-
-          // Determine group size or number of groups
+  
           const groupSize: number =
             this.model.groupSettings.clientsInGroup() > 0
               ? this.model.groupSettings.clientsInGroup()
-              : Math.ceil(Math.sqrt(this.model.session.participants().length)); // Set your desired group size: ;
-          
-              const numberOfGroups = Math.ceil(
+              : Math.ceil(Math.sqrt(this.model.session.participants().length));
+  
+          const numberOfGroups = Math.ceil(
             formattedParticipants.length / groupSize
           );
-
+  
           // Initialize groups with random names
+          const shuffledGroupNames = groupNames.sort(() => 0.5 - Math.random());
           const groups: Group[] = [];
           for (let i = 0; i < numberOfGroups; i++) {
             const groupName =
@@ -264,97 +238,70 @@ export class HostService {
               id: `group_${i + 1}`,
               name: groupName,
               participants: [],
-              totalVariables: [0, 0, 0, 0, 0],
             });
           }
-
-          // Calculate total variables
-          const totalVariables = [0, 0, 0, 0, 0];
-          formattedParticipants.forEach((participant) => {
-            participant.variables.forEach((value, index) => {
-              totalVariables[index] += value;
-            });
-          });
-
-          // Calculate target variables per group
-          const targetVariablesPerGroup = totalVariables.map(
-            (total) => total / numberOfGroups
+  
+          // Assign participants to groups to maximize trait diversity
+          // For each trait, assign participants in a round-robin fashion
+          const numTraits = 5;
+          for (let traitIndex = 0; traitIndex < numTraits; traitIndex++) {
+            // Sort participants based on the current trait
+            const sortedParticipants = [...formattedParticipants].sort(
+              (a, b) => b.variables[traitIndex] - a.variables[traitIndex]
+            );
+  
+            // Assign participants to groups in round-robin
+            for (let i = 0; i < sortedParticipants.length; i++) {
+              const participant = sortedParticipants[i];
+              // Check if participant is already assigned
+              const isAssigned = groups.some(group =>
+                group.participants.find(p => p.participantId === participant.participantId)
+              );
+              if (isAssigned) continue;
+  
+              const groupIndex = i % numberOfGroups;
+              groups[groupIndex].participants.push(participant);
+            }
+          }
+  
+          // Ensure all participants are assigned
+          // Assign any unassigned participants randomly
+          const assignedParticipantIds = new Set(
+            groups.flatMap(group => group.participants.map(p => p.participantId))
           );
-
-          // Sort participants based on sum of variables (descending)
-          formattedParticipants.sort((a, b) => {
-            const sumA = a.variables.reduce((acc, val) => acc + val, 0);
-            const sumB = b.variables.reduce((acc, val) => acc + val, 0);
-            return sumB - sumA;
+          const unassignedParticipants = formattedParticipants.filter(
+            p => !assignedParticipantIds.has(p.participantId)
+          );
+          unassignedParticipants.forEach((participant, index) => {
+            const groupIndex = index % numberOfGroups;
+            groups[groupIndex].participants.push(participant);
           });
-
-          // Assign participants to groups
-          formattedParticipants.forEach((participant) => {
-            let bestGroup: Group | null = null;
-            let minimalError = Infinity;
-
-            for (const group of groups) {
-              if (group.participants.length >= groupSize) {
-                continue; // Skip if group is already full
-              }
-
-              // Calculate new total variables if participant is added
-              const newTotalVariables = group.totalVariables.map(
-                (value, index) => value + participant.variables[index]
-              );
-
-              // Calculate error (deviation from target variables)
-              const error = newTotalVariables.reduce((acc, value, index) => {
-                const deviation = Math.abs(
-                  value - targetVariablesPerGroup[index]
-                );
-                return acc + deviation;
-              }, 0);
-
-              if (error < minimalError) {
-                minimalError = error;
-                bestGroup = group;
-              }
-            }
-
-            if (bestGroup) {
-              bestGroup.participants.push(participant);
-              bestGroup.totalVariables = bestGroup.totalVariables.map(
-                (value, index) => value + participant.variables[index]
-              );
-            } else {
-              console.error(
-                'Unable to assign participant:',
-                participant.participantId
-              );
-            }
-          });
-
+  
           // Store each group as a document in the 'groups' subcollection inside the room document
           const roomDocRef = this.firestore
             .collection('rooms')
             .doc(this.model.session.roomId());
-
-          const batch = this.firestore.firestore.batch(); // Use Firestore batch for atomic writes
-
-          groups.forEach((group) => {
+  
+          const batch = this.firestore.firestore.batch();
+  
+          groups.forEach(group => {
             const groupDocRef = roomDocRef.collection('groups').doc(group.id);
-
+  
             const groupData = {
               name: group.name,
-              participants: group.participants.map((p) => ({
+              participants: group.participants.map(p => ({
                 participantId: p.participantId,
                 name: p.name,
                 email: p.email,
                 phone: p.phone,
               })),
-              participantIds: group.participants.map((p) => p.participantId), // Add this line
-              totalVariables: group.totalVariables,
-            };
+              participantIds: group.participants.map(p => p.participantId),
 
+            };
+  
             batch.set(groupDocRef.ref, groupData);
           });
-
+  
           // Commit the batch write
           batch
             .commit()
@@ -366,7 +313,7 @@ export class HostService {
                 `host/${this.model.session.roomId()}/groups`,
               ]);
             })
-            .catch((error) => {
+            .catch(error => {
               console.error('Error storing groups in Firebase:', error);
             });
         } else {
@@ -374,6 +321,7 @@ export class HostService {
         }
       });
   }
+  
 
   endQuestionnaire(): void {
     this.roomService.endQuestionnaire(this.model.session.roomId()).then(() => {

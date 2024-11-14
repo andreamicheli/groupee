@@ -1,63 +1,54 @@
-<p>Gruppi Creati con Successo!</p>
-<div *ngIf="groups && groups.length > 0; else noGroups">
-  <h2>Elenco dei Gruppi</h2>
-  <div *ngFor="let group of groups" class="group-container">
-    <h3> <strong> Group {{ group.name }}</strong></h3>
-    <p><strong>Variabili Totali:</strong> {{ group.totalVariables.join(', ') }}</p>
-    <ul>
-      <li *ngFor="let participant of group.participants">
-        {{ participant.name }} (ID: {{ participant.participantId }})
-      </li>
-    </ul>
+<div>
+  <!-- Message indicating groups have been created successfully -->
+  <p class="text-lg font-semibold mb-4">Groups Created Successfully!</p>
 
-    
+  
+  <!-- Check if groups exist -->
+  <div *ngIf="groups && groups.length > 0; else noGroups">
+    <!-- Container to arrange groups in rows, wrapping when necessary -->
+    <div class="flex flex-wrap justify-center">
+      <!-- Loop through each group -->
+      <div
+        *ngFor="let group of groups"
+        class="bg-t-orange rounded-lg p-4 m-4 w-64 flex-shrink-0"
+      >
+        <!-- Group name -->
+        <h3 class="text-xl font-bold mb-4 text-white text-center">
+          Group {{ group.name }}
+        </h3>
+        <!-- List of participants -->
+        <ul class="list-none">
+          <li
+            *ngFor="let participant of group.participants"
+            class="py-1 text-white text-center"
+          >
+            {{ participant.name }}
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
+
+  <!-- Button to download groups as an Excel file -->
+
+  <groupee-button
+    [color]="'green'"
+    [type]="'wide'"
+    [icon]="'download'"
+    [text]="'Generate Excel Report'"
+    [action]="generateReport.bind(this)"
+  ></groupee-button>
+
+  <groupee-button
+    [color]="'red'"
+    [type]="'wide'"
+    [icon]="'arrow_back'"
+    [text]="'Back to skillTree'"
+    [action]="toTree.bind(this)"
+  ></groupee-button>
+
+  <!-- Message if no groups are found -->
+  <ng-template #noGroups>
+    <p>No groups found.</p>
+  </ng-template>
 </div>
-<button
-    (click)="generateReport()"
-    class="bg-blue-500 hover:bg-blue-700 text-t-error font-bold py-2 px-4 rounded"
-    >
-    Download Groups Excel
-  </button>
-<ng-template #noGroups>
-  <p>Nessun gruppo trovato.</p>
-</ng-template>
-
-<!-- Stili CSS direttamente nell'HTML -->
-<style>
-  /* Contenitore del gruppo */
-  .group-container {
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    padding: 16px;
-    margin-bottom: 20px;
-    background-color: #f9f9f9;
-  }
-
-  /* Titolo del gruppo */
-  .group-container h3 {
-    margin-top: 0;
-    color: #333;
-  }
-
-  /* Testo delle variabili totali */
-  .group-container p {
-    font-size: 14px;
-    color: #555;
-  }
-
-  /* Lista dei partecipanti */
-  .group-container ul {
-    list-style-type: none;
-    padding: 0;
-  }
-
-  .group-container ul li {
-    padding: 4px 0;
-    border-bottom: 1px solid #e0e0e0;
-  }
-
-  .group-container ul li:last-child {
-    border-bottom: none;
-  }
-</style>
