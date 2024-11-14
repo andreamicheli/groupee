@@ -37,6 +37,7 @@ export class ClientCredentialsComponent implements OnInit {
   selectedPrefix = this.prefixes[0].code;
   phoneNumber: string = '';
   phone: string = '';
+  termsAccepted = false;
 
   constructor(
     public model: PlatformModelService,
