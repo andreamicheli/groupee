@@ -2,7 +2,7 @@
   class="w-full h-full flex items-center flex-col justify-around transition-all"
 >
   <div (click)="selectedOption = null" class="absolute inset-0 z-0"></div>
-  <div class="text-center flex flex-col items-center">
+  <div class="text-center flex flex-col items-center" *ngIf="!!selectedOption">
     <div class="text-4xl font-bold">Finished!</div>
     <div class="mt-4">
       <div class="flex items-center justify-center gap-4">
