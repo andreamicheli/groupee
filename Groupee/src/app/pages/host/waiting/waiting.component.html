@@ -28,14 +28,10 @@
   <div class="absolute inset-0 pointer-events-none animate-light-bounce p-20">
     <ng-container *ngFor="let participant of model.session.participants()">
       <div
-        class="absolute flex items-center justify-center flex-col"
+        class="absolute flex items-center justify-center flex-col motion-preset-pop"
         [ngStyle]="getRandomPosition()"
       >
-        <img
-          src="https://cliply.co/wp-content/uploads/2020/08/432008121_THUMBS_UP_3D_LIGHT_SKIN_TONE_400.png"
-          alt="icon"
-          class="w-20 h-20 mr-2"
-        />
+        <img [src]="getRandomImage()" alt="icon" class="h-20 mr-2" />
         <span class="text-xl text-black font-medium">{{
           participant.name
         }}</span>

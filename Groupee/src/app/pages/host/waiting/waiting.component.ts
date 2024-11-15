@@ -1,4 +1,5 @@
 import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { QRCodeComponent, QRCodeModule } from 'angularx-qrcode';
 import { PlatformModelService } from '../../../dataStructures/PlatformModel.service';
 import { HostService } from '../../../services/host.service';
@@ -7,20 +8,27 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ButtonComponent } from '../../../components/button/button.component';
 import { MatIconModule } from '@angular/material/icon';
 import { NavbarComponent } from '../../../components/navbar/navbar.component';
+import images from '../../../../assets/static_data/image-list.json';
 
 @Component({
   selector: 'app-host-waiting',
   standalone: true,
-  imports: [QRCodeModule, CommonModule, ButtonComponent, MatIconModule, NavbarComponent],
+  imports: [
+    QRCodeModule,
+    CommonModule,
+    ButtonComponent,
+    MatIconModule,
+    NavbarComponent,
+  ],
   templateUrl: './waiting.component.html',
   styleUrl: './waiting.component.css',
 })
-
 export class HostWaitingComponent implements OnInit, OnDestroy {
   @HostBinding('class') className = 'w-full';
 
   private URL: string = 'https://groupee-fi.web.app';
   showCopiedMessage = false;
+  randomImage: string = '';
 
   constructor(
     public model: PlatformModelService,
@@ -92,5 +100,11 @@ export class HostWaitingComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.showCopiedMessage = false;
     }, 1000);
+  }
+
+  getRandomImage(): string {
+    return (
+      'assets/images/hands/' + images[Math.floor(Math.random() * images.length)]
+    );
   }
 }
