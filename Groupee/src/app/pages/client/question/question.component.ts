@@ -9,6 +9,7 @@ import questions from '../../../../../questions.json';
 import { RadioComponent } from '../../../components/quiz/client/radio/radio.component';
 import feedbackList from '../../../../assets/static_data/feedbacks.json';
 import { ButtonComponent } from '../../../components/button/button.component';
+import { SliderComponent } from '../../../components/quiz/slider/slider.component';
 
 export enum ParticipantState {
   WaitingForQuestion,
@@ -20,7 +21,13 @@ export enum ParticipantState {
 @Component({
   selector: 'app-client-question',
   standalone: true,
-  imports: [CommonModule, FormsModule, RadioComponent, ButtonComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    RadioComponent,
+    ButtonComponent,
+    SliderComponent,
+  ],
   templateUrl: './question.component.html',
   styleUrls: ['./question.component.css'],
 })
@@ -28,9 +35,6 @@ export class ClientQuestionComponent implements DoCheck, OnInit {
   @HostBinding('class') className = 'w-full';
 
   public feedback: string[] = [];
-
-  // Updated selectedValue to be a number
-  selectedValue: number = 3; // Default to neutral
 
   selectedOption: number | null = null;
 
@@ -128,36 +132,18 @@ export class ClientQuestionComponent implements DoCheck, OnInit {
   }
 
   // Updated clickedAnswer method
-  clickedAnswer(option: Option) {
+  clickedAnswer(option: Option | number) {
     // For single-choice and video questions
-    this.selectedOption = option.id;
+    this.selectedOption = typeof option === 'number' ? option : option.id;
     this.submitAnswer();
   }
 
   submitAnswer() {
-    const currentQuestion =
-      this.model.standardQuestions()[this.model.session.currentQuestionIndex()];
-    if (currentQuestion.type === 'agree') {
-      if (this.selectedValue == null) {
-        return;
-      }
-      // Submit the selectedValue as the answer
-      this.participantService.submitAnswer(this.selectedValue);
-      this.model.session.client.participantState.set(
-        ParticipantState.WaitingForNextQuestion
-      );
-      // Reset selectedValue if needed
-      this.selectedValue = 3; // Reset to default if desired
-    } else {
-      if (this.selectedOption === null) {
-        return;
-      }
-      // Submit the selectedOption as the answer
-      this.participantService.submitAnswer(this.selectedOption);
-      this.model.session.client.participantState.set(
-        ParticipantState.WaitingForNextQuestion
-      );
-      this.selectedOption = null;
+    if (this.selectedOption === null) {
+      return;
     }
+    // Submit the selectedOption as the answer
+    this.participantService.submitAnswer(this.selectedOption);
+    this.selectedOption = null;
   }
 }
