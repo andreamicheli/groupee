@@ -1,4 +1,4 @@
-import { Component, DoCheck, HostBinding } from '@angular/core';
+import { Component, DoCheck, HostBinding, OnInit } from '@angular/core';
 import { PlatformModelService } from '../../../dataStructures/PlatformModel.service';
 import { Option, Question } from '../../../models/question.model';
 import { CommonModule } from '@angular/common';
@@ -24,7 +24,7 @@ export enum ParticipantState {
   templateUrl: './question.component.html',
   styleUrls: ['./question.component.css'],
 })
-export class ClientQuestionComponent implements DoCheck {
+export class ClientQuestionComponent implements DoCheck, OnInit {
   @HostBinding('class') className = 'w-full';
 
   public feedback: string[] = [];
@@ -48,6 +48,77 @@ export class ClientQuestionComponent implements DoCheck {
           Math.floor(Math.random() * feedbackList.feedback.length)
         ]
     );
+  }
+
+  ngOnInit(): void {
+    // if (
+    //   this.model.session.currentPhase() !== 'tree' &&
+    //   this.model.session.currentPhase() !== 'questions'
+    // ) {
+    //   this.router.navigate([`/`]);
+    // }
+    //DEBUG
+    // this.model.standardQuestions.set([
+    //   {
+    //     questionId: 1,
+    //     title:
+    //       'When you’re in a group setting, how do you feel about starting conversations?',
+    //     options: [
+    //       {
+    //         id: 1,
+    //         text: 'a',
+    //         values: {
+    //           element1: 8,
+    //           element2: 6,
+    //           element3: 7,
+    //           element4: 9,
+    //           element5: 5,
+    //         },
+    //       },
+    //       {
+    //         id: 2,
+    //         text: 'a',
+    //         values: {
+    //           element1: 5,
+    //           element2: 8,
+    //           element3: 6,
+    //           element4: 4,
+    //           element5: 7,
+    //         },
+    //       },
+    //       {
+    //         id: 3,
+    //         text: 'a',
+    //         values: {
+    //           element1: 4,
+    //           element2: 5,
+    //           element3: 3,
+    //           element4: 6,
+    //           element5: 8,
+    //         },
+    //       },
+    //       {
+    //         id: 4,
+    //         text: 'a',
+    //         values: {
+    //           element1: 3,
+    //           element2: 4,
+    //           element3: 2,
+    //           element4: 7,
+    //           element5: 6,
+    //         },
+    //       },
+    //     ],
+    //     type: 'single-choice',
+    //     url: '',
+    //     order: 1,
+    //   },
+    // ]);
+    // this.model.session.currentQuestionIndex.set(0);
+    // this.model.session.client.participantState.set(
+    //   this.ParticipantStateTypes.ViewingQuestion
+    // );
+    //END DEBUG
   }
 
   ngDoCheck(): void {
