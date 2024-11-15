@@ -17,7 +17,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './slider.component.css',
 })
 export class SliderComponent {
-  @HostBinding('class') className = 'w-full flex justify-center';
+  @HostBinding('class') className = 'w-full flex justify-center h-full';
 
   @Input() options: Array<{ text: string; id: any }> = [];
   @Output() optionSelected = new EventEmitter<any>();

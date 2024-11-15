@@ -55,13 +55,13 @@ export class ClientQuestionComponent implements DoCheck, OnInit {
   }
 
   ngOnInit(): void {
-    // if (
-    //   this.model.session.currentPhase() !== 'tree' &&
-    //   this.model.session.currentPhase() !== 'questions'
-    // ) {
-    //   this.router.navigate([`/`]);
-    // }
-    //DEBUG
+    if (
+      this.model.session.currentPhase() !== 'tree' &&
+      this.model.session.currentPhase() !== 'questions'
+    ) {
+      this.router.navigate([`/`]);
+    }
+    // DEBUG
     // this.model.standardQuestions.set([
     //   {
     //     questionId: 1,
@@ -112,8 +112,19 @@ export class ClientQuestionComponent implements DoCheck, OnInit {
     //           element5: 6,
     //         },
     //       },
+    //       {
+    //         id: 5,
+    //         text: 'a',
+    //         values: {
+    //           element1: 3,
+    //           element2: 4,
+    //           element3: 2,
+    //           element4: 7,
+    //           element5: 6,
+    //         },
+    //       },
     //     ],
-    //     type: 'single-choice',
+    //     type: 'agree',
     //     url: '',
     //     order: 1,
     //   },
@@ -122,7 +133,7 @@ export class ClientQuestionComponent implements DoCheck, OnInit {
     // this.model.session.client.participantState.set(
     //   this.ParticipantStateTypes.ViewingQuestion
     // );
-    //END DEBUG
+    // END DEBUG
   }
 
   ngDoCheck(): void {

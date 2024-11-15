@@ -1,21 +1,29 @@
 <!-- Viewing Question State -->
-<div class="p-8 flex justify-center flex-col items-center">
+<div class="p-8 flex justify-center flex-col items-center w-full h-full gap-8">
   <!-- Slider Input -->
-  <div class="w-full max-w-md mt-6">
+  <div class="w-full max-w-md mt-6 h-full flex justify-end gap-12">
+    <!-- Labels below the slider -->
+    <div class="flex flex-col justify-between text-sm text-end">
+      <span
+        *ngFor="let option of options; let i = index"
+        class="text-xl"
+        [ngClass]="{
+          'font-bold motion-preset-pulse motion-loop-once':
+            option.id === selectedOptionIndex
+        }"
+        >{{ option.text }}</span
+      >
+    </div>
     <input
       type="range"
+      orient="vertical"
       min="1"
       max="5"
       step="1"
       [(ngModel)]="selectedOptionIndex"
-      class="w-full accent-blue-500"
+      class="bg-gradient-to-t from-t-orange to-t-green rounded-lg appearance-none cursor-pointer active:motion-preset-stretch-sm motion-duration-2000"
+      style="--thumb-color: #6c5ce7; --thumb-active-color: #2b1f7d"
     />
-    <!-- Labels below the slider -->
-    <div class="flex justify-between text-sm mt-2">
-      <span *ngFor="let option of options; let i = index">{{
-        option.text
-      }}</span>
-    </div>
   </div>
 
   <!-- Submit Button -->
