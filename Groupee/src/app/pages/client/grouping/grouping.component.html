@@ -30,7 +30,7 @@
             >
           </div>
           <div
-            class="w-fit font-normal text-xs cursor-copy px-2 shadow-xl flex justify-center items-center py-2 text-black rounded-2xl transform hover:underline active:scale-95 transition duration-300 ease-in-out brightness-100 border-t-orange border-2"
+            class="w-fit font-normal text-xs cursor-copy px-2 shadow-xl flex justify-center items-center py-2 text-black rounded-2xl transform group active:scale-95 transition duration-300 ease-in-out brightness-100 border-t-orange border-2"
             (click)="copyToClipboard(participant.email)"
           >
             <mat-icon
@@ -39,11 +39,12 @@
               fontIcon="{{ 'mail' }}"
               class="mat-icon-borderd transition overflow-visible fill-t-orange text-t-orange scale-75"
             ></mat-icon>
-
-            {{ participant.email }}
+            <span class="group-hover:underline">
+              {{ participant.email }}
+            </span>
           </div>
           <div
-            class="w-fit font-normal text-xs cursor-copy px-2 shadow-xl flex justify-center items-center py-2 text-black rounded-2xl transform hover:underline active:scale-95 transition duration-300 ease-in-out brightness-100 border-t-green border-2"
+            class="w-fit font-normal text-xs cursor-copy px-2 shadow-xl flex justify-center items-center py-2 text-black rounded-2xl transform group active:scale-95 transition duration-300 ease-in-out brightness-100 border-t-green border-2"
             (click)="copyToClipboard(participant.phone)"
           >
             <mat-icon
@@ -52,8 +53,9 @@
               fontIcon="call"
               class="mat-icon-outlined transition overflow-visible fill-t-green text-t-green scale-75"
             ></mat-icon>
-
-            {{ participant.phone }}
+            <span class="group-hover:underline">
+              {{ participant.phone }}
+            </span>
           </div>
           <div class="p-2">
             <groupee-button

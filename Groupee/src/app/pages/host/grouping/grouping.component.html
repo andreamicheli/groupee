@@ -1,21 +1,35 @@
-<div>
+<div class="w-2/3 flex flex-col relative">
   <!-- Message indicating groups have been created successfully -->
-  <p class="text-lg font-semibold mb-4">Groups Created Successfully!</p>
+  <p class="text-lg font-semibold mb-4 text-center mt-10">
+    Groups Created Successfully!
+  </p>
 
-  
   <!-- Check if groups exist -->
   <div *ngIf="groups && groups.length > 0; else noGroups">
     <!-- Container to arrange groups in rows, wrapping when necessary -->
     <div class="flex flex-wrap justify-center">
       <!-- Loop through each group -->
       <div
-        *ngFor="let group of groups"
-        class="bg-t-orange rounded-lg p-4 m-4 w-64 flex-shrink-0"
+        *ngFor="let group of groups; let i = index"
+        class="rounded-lg p-4 m-4 w-64 flex-shrink-0 motion-preset-pop"
+        [ngClass]="{
+          'bg-t-orange': i%4 == 0,
+          'bg-t-green': i%4 == 1,
+          'bg-t-burgundy': i%4 == 2,
+          'bg-t-purple': i%4 == 3,
+          'motion-delay-100': i==1,
+          'motion-delay-200': i==2,
+          'motion-delay-300': i==3,
+          'motion-delay-500': i>3,
+        }"
       >
         <!-- Group name -->
-        <h3 class="text-xl font-bold mb-4 text-white text-center">
-          Group {{ group.name }}
+        <h3 class="text-3xl text-center">
+          {{ groupEmojis[i % 8] }}
         </h3>
+        <!-- <h3 class="text-xl font-bold mb-4 text-white text-center">
+          Group {{ group.name }}
+        </h3> -->
         <!-- List of participants -->
         <ul class="list-none">
           <li
@@ -30,25 +44,30 @@
   </div>
 
   <!-- Button to download groups as an Excel file -->
-
-  <groupee-button
-    [color]="'green'"
-    [type]="'wide'"
-    [icon]="'download'"
-    [text]="'Generate Excel Report'"
-    [action]="generateReport.bind(this)"
-  ></groupee-button>
-
-  <groupee-button
-    [color]="'red'"
-    [type]="'wide'"
-    [icon]="'arrow_back'"
-    [text]="'Back to skillTree'"
-    [action]="toTree.bind(this)"
-  ></groupee-button>
+  <div class="w-2/3 flex justify-between fixed bottom-10">
+    <groupee-button
+      [color]="'green'"
+      [type]="'wide'"
+      [icon]="'arrow_back'"
+      [text]="'Back to skillTree'"
+      [action]="toTree.bind(this)"
+    ></groupee-button>
+    <div
+      class="group w-fit gap-2 font-normal text-base cursor-pointer px-2 shadow-xl flex justify-center items-center py-2 text-black rounded-2xl transform active:scale-95 transition duration-300 ease-in-out brightness-100 border-t-green border-2"
+      (click)="generateReport()"
+    >
+      <mat-icon
+        style="overflow: visible !important"
+        aria-hidden="false"
+        fontIcon="{{ 'download' }}"
+        class="mat-icon-borderd transition overflow-visible fill-t-green text-t-green"
+      ></mat-icon>
+      <span class="group-hover:underline"> Generate Excel Report </span>
+    </div>
+  </div>
 
   <!-- Message if no groups are found -->
   <ng-template #noGroups>
-    <p>No groups found.</p>
+    <p class="text-center">No groups found.</p>
   </ng-template>
 </div>
