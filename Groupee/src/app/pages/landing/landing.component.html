@@ -1,12 +1,13 @@
-<div class="w-full h-full flex flex-col justify-around">
-  <div class="flex flex-col justify-center items-center w-full gap-10">
+<app-navbar class="w-full sticky z-[9999] flex justify-center top-0"></app-navbar>
+
+<div id="section1" class="h-screen flex items-center justify-center">
+  <!-- Groupee Description -->
+  <div class="flex flex-col justify-center items-center w-full gap-10 mb-40">
     <div class="flex flex-col gap-4 items-center">
       <div class="font-extrabold lg:text-8xl text-6xl motion-preset-shake">
         Groupee
       </div>
-      <div
-        class="font-light lg:text-4xl text-2xl motion-preset-typewriter-[17] motion-duration-[5000ms]"
-      >
+      <div class="font-light lg:text-4xl text-2xl motion-preset-typewriter-[17] motion-duration-[5000ms]">
         <span class="text-t-orange">Unite</span> Your
         <span class="text-t-green">Skills</span>
       </div>
@@ -20,27 +21,131 @@
       team formation and boost student success with Groupee.
     </p>
   </div>
+  <!-- Scroll -->
+
+  <button (click)="scrollToSection('section2')" class="absolute bottom-6 left-1/2 transform -translate-x-1/2 px-4 py-2">
+    <div class="flex flex-col items-center mt-6">
+      <span class="text-md font-medium animate-bounce">Scroll</span>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6 animate-bounce">
+        <path d="M12 16l-4-4h8z"></path>
+      </svg>
+    </div>
+  </button>
+</div>
+
+<div id="section2" class="h-screen bg-t-dark flex items-center justify-center">
   <div class="flex flex-col gap-8 items-center">
     <div class="w-2/3 flex flex-col items-center gap-2">
-      <span class="font-bold text-4xl text-center">Who are you?</span>
-      <div class="text-center md:text-base text-sm">
-        Choose your role: Hosts can create the Groups and Participants will be
+      <span class="font-bold text-t-light text-4xl text-center">Who are you?</span>
+      <div class="text-center text-t-light md:text-base text-sm">
+        Choose your role - Hosts can create the Groups and Participants will be
         part of a Group.
       </div>
     </div>
-    <div class="w-full flex gap-8 justify-center">
-      <groupee-button
-        [text]="'Host'"
-        [icon]="'computer'"
-        [color]="'orange'"
-        [action]="navigateToHostSettings.bind(this)"
-      />
-      <groupee-button
-        [text]="'Participant'"
-        [icon]="'group'"
-        [color]="'green'"
-        [action]="navigateToClientCode.bind(this)"
-      />
+
+    <div class="flex space-x-28 mt-12">
+      <!-- Professor Button -->
+      <button (click)="navigateToHostSettings()">
+        <div class="relative w-[360px] h-[360px] cursor-pointer hover:scale-110 transition-all group">
+          <img
+            src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExa2J0c3MxeHdkeDFvNzZtamo0OTY3aGJlYjg5Z25scGlkZjdtcnN5NCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/RSnbPf5osSUKMdzwog/giphy.webp"
+            class="w-full h-full object-cover rounded-2xl">
+          <div class="absolute inset-0 bg-black bg-opacity-20 flex flex-col items-center justify-center rounded-2xl">
+            <span
+              class="text-white text-2xl font-semibold transition-colors duration-300 group-hover:text-t-orange">Professor</span>
+            <div class="text-white text-center text-md mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              Create Session
+            </div>
+          </div>
+        </div>
+      </button>
+
+      <!-- Student Button -->
+      <button (click)="navigateToClientCode()">
+        <div class="relative w-[360px] h-[360px] cursor-pointer hover:scale-110 transition-all group">
+          <img
+            src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExMW9kdW9pdzJqOGtoMTJ0bWpnMTkyOWNzNGtsOXF2Z2tuaG1qaTM5YyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/JU6TzB6O9QCju/giphy.webp"
+            class="w-full h-full object-cover rounded-2xl">
+          <div class="absolute inset-0 bg-black bg-opacity-30 flex flex-col items-center justify-center rounded-2xl">
+            <span
+              class="text-white text-2xl font-semibold transition-colors duration-300 group-hover:text-t-green">Student</span>
+            <div class="text-white text-center text-md mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              Join Session
+            </div>
+          </div>
+        </div>
+      </button>
     </div>
+
+
+  </div>
+  <!--button
+    (click)="scrollToSection('section1')"
+    class="px-4 py-2 text-white bg-green-500 rounded-lg hover:bg-green-600"
+  >
+    Back to Section 1
+  </button-->
+</div>
+
+<div class="bg-t-dark text-white mx-12 my-20 px-6 pt-10 pb-4 rounded-3xl">
+  <!--img src="../../../assets/images/Groupee_Logo.svg" width="52" alt="Groupee Logo"-->
+
+  <div class="flex justify-evenly mb-28">
+
+    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-96 text-sm">
+
+      <!-- Get Started Section -->
+      <div>
+        <h3 class="text-t-orange font-semibold mb-4">Get Started</h3>
+        <ul>
+          <li class="hover:underline mb-2"><a href="#">Host a Session</a></li>
+          <li class="hover:underline"><a href="#">Join a Session</a></li>
+        </ul>
+      </div>
+
+      <!-- Groupee Section -->
+      <div>
+        <h3 class="text-t-orange font-semibold mb-4">Groupee</h3>
+        <ul>
+          <li class="hover:underline mb-2"><a href="#">Contact</a></li>
+          <li class="hover:underline"><a href="#">About us</a></li>
+        </ul>
+      </div>
+
+      <!-- Social Section -->
+      <div>
+        <h3 class="text-t-orange font-semibold mb-4">Social</h3>
+        <div class="flex items-center space-x-1">
+          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="32" height="32" viewBox="0,0,256,256">
+            <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+              stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
+              font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+              <g transform="scale(5.12,5.12)">
+                <path
+                  d="M41,4h-32c-2.76,0 -5,2.24 -5,5v32c0,2.76 2.24,5 5,5h32c2.76,0 5,-2.24 5,-5v-32c0,-2.76 -2.24,-5 -5,-5zM17,20v19h-6v-19zM11,14.47c0,-1.4 1.2,-2.47 3,-2.47c1.8,0 2.93,1.07 3,2.47c0,1.4 -1.12,2.53 -3,2.53c-1.8,0 -3,-1.13 -3,-2.53zM39,39h-6c0,0 0,-9.26 0,-10c0,-2 -1,-4 -3.5,-4.04h-0.08c-2.42,0 -3.42,2.06 -3.42,4.04c0,0.91 0,10 0,10h-6v-19h6v2.56c0,0 1.93,-2.56 5.81,-2.56c3.97,0 7.19,2.73 7.19,8.26z">
+                </path>
+              </g>
+            </g>
+          </svg>
+          <a href="#" class="hover:underline">LinkedIn</a>
+        </div>
+      </div>
+
+      <!-- Legal Section -->
+      <div>
+        <h3 class="text-t-orange font-semibold mb-4">Legal</h3>
+        <ul>
+          <li class="hover:underline mb-2"><a href="#">Terms & Conditions</a></li>
+          <li class="hover:underline"><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer Bottom -->
+  <div class="flex justify-between items-center mt-10 text-xs">
+    <div class="font-bold text-lg text-t-light">GROUPEE</div>
+    <div class="text-t-light">© 2023 Groupee FI</div>
   </div>
 </div>

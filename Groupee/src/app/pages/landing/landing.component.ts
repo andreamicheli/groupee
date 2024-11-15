@@ -28,4 +28,11 @@ export class LandingComponent implements OnInit {
   navigateToClientCode() {
     this.router.navigate(['/client/code']);
   }
+
+  scrollToSection(sectionId: string): void {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
 }
