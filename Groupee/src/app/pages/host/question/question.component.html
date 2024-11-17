@@ -3,13 +3,26 @@
   <div
     *ngIf="!!model.session.online() && model.session.currentPhase() === 'questions' && model.standardQuestions()[model.session.currentQuestionIndex()].type === 'single-choice'"
     class="p-8 flex justify-center flex-col items-center">
-    <h3 class="text-t-dark font-normal text-xl text-center my-10">
+    <h3 class="text-t-dark font-normal text-xl text-center mt-4 mb-10">
       Question
       {{ model.session.currentQuestionIndex() + 1 }}:
     </h3>
+
+    
     <p class="text-t-dark font-bold text-2xl text-center">
       {{ model.standardQuestions()[model.session.currentQuestionIndex()].title }}
     </p>
+
+    <div class="w-96 bg-white rounded-full h-4 mt-6">
+      <div 
+        class="bg-t-green text-xs font-medium text-t-light text-center p-0.5 leading-none rounded-full h-full" 
+        [ngStyle]="{ width: ((model.session.currentQuestionIndex() + 1) / 7 * 100) + '%' }">
+        {{ (model.session.currentQuestionIndex() + 1) + ' / 7' }}
+      </div>
+    </div>
+
+    
+
     <app-host-radio [options]="
       model.standardQuestions()[model.session.currentQuestionIndex()]!.options
     "></app-host-radio>
@@ -49,9 +62,11 @@
     *ngIf="!!model.session.online() && model.session.currentPhase() === 'questions' && model.standardQuestions()[model.session.currentQuestionIndex()].type === 'video'"
     class="p-8 flex justify-center flex-col items-center">
     <!-- Video Section -->
-    <h3 class="text-t-dark font-normal text-xl text-center my-10">
+    <h3 class="text-t-dark font-normal text-xl text-center mt-4 mb-10">
       Question {{ model.session.currentQuestionIndex() + 1 }}:
     </h3>
+
+
     <div *ngIf="showVideo" class="flex justify-center items-center p-4 mb-8">
       <video #videoPlayer width="1080" autoplay muted (ended)="onVideoEnded(videoPlayer)"
         [src]="model.standardQuestions()[model.session.currentQuestionIndex()].url" style="border-radius: 15px;">
@@ -67,6 +82,15 @@
       <p class="text-t-dark font-bold text-2xl text-center">
         {{ model.standardQuestions()[model.session.currentQuestionIndex()].title }}
       </p>
+
+      <div class="w-96 bg-white rounded-full h-4 mt-6">
+        <div 
+          class="bg-t-green text-xs font-medium text-t-light text-center p-0.5 leading-none rounded-full h-full" 
+          [ngStyle]="{ width: ((model.session.currentQuestionIndex() + 1) / 7 * 100) + '%' }">
+          {{ (model.session.currentQuestionIndex() + 1) + ' / 7' }}
+        </div>
+      </div>
+
       <app-host-radio [options]="
         model.standardQuestions()[model.session.currentQuestionIndex()]!.options
       " class="w-full mt-4"></app-host-radio>
@@ -107,13 +131,21 @@
   <div
     *ngIf="!!model.session.online() && model.session.currentPhase() === 'questions' && model.standardQuestions()[model.session.currentQuestionIndex()].type === 'agree'"
     class="p-8 flex justify-center flex-col items-center">
-    <h3 class="text-t-dark font-normal text-xl text-center my-10">
+    <h3 class="text-t-dark font-normal text-xl text-center  mt-4 mb-10">
       Question {{ model.session.currentQuestionIndex() + 1 }}:
     </h3>
+
     <p class="text-t-dark font-bold text-2xl text-center">
       {{ model.standardQuestions()[model.session.currentQuestionIndex()].title }}
     </p>
 
+    <div class="w-96 bg-white rounded-full h-4 mt-6">
+      <div 
+        class="bg-t-green text-xs font-medium text-t-light text-center p-0.5 leading-none rounded-full h-full" 
+        [ngStyle]="{ width: ((model.session.currentQuestionIndex() + 1) / 7 * 100) + '%' }">
+        {{ (model.session.currentQuestionIndex() + 1) + ' / 7' }}
+      </div>
+    </div>
 
     <div class="text-t-dark md:text-6xl text-3xl font-extrabold absolute bottom-5 right-5" [ngClass]="{
       'text-t-green motion-preset-confetti transition-colors':
