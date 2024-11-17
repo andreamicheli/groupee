@@ -1,90 +1,63 @@
 <div class="overflow-y-hidden h-screen">
-<div class="font-extrabold text-6xl lg:text-4xl md:text-2xl sm:text-xl text-center pt-24 -mb-36">
-  Waiting Room
-</div>
+  <div class="font-extrabold text-6xl lg:text-4xl md:text-2xl sm:text-xl text-center pt-24 -mb-36">
+    Waiting Room
+  </div>
 
 
-<div class="flex flex-col items-center justify-center h-full relative">
-  <div class="flex flex-col gap-5 justify-center items-center">
-    <h1 class="text-xl font-bold text-center">Join at groupee.web.app</h1>
-    <qrcode
-      [qrdata]="getLink()"
-      class="border-spinner"
-      style="
+  <div class="flex flex-col items-center justify-center h-full relative">
+    <div class="flex flex-col gap-5 justify-center items-center">
+      <h1 class="text-xl font-bold text-center">Join at groupee-fi.web.app/</h1>
+      <qrcode [qrdata]="getLink()" class="border-spinner" style="
         width: fit-content;
         display: flex;
         justify-content: center;
         border-radius: 25px;
         overflow: hidden;
-      "
-    ></qrcode>
-    <span
-      class="group active:text-t-orange-active cursor-copy text-t-orange font-bold p-2 px-4 rounded-2xl bg-white gap-2 flex items-center"
-      (click)="copyRoomIdToClipboard()"
-      ><mat-icon
-        style="overflow: visible !important"
-        aria-hidden="false"
-        fontIcon="content_copy"
-        class="mat-icon-outlined transition overflow-visible fill-t-orange"
-      ></mat-icon
-      ><span class="group-hover:underline">{{ model.session.roomId() }}</span></span
-    >
-  </div>
-  <!-- Participants Floating Names -->
-  <div class="absolute inset-0 pointer-events-none animate-light-bounce p-20">
-    <ng-container *ngFor="let participant of model.session.participants()">
-      <div
-        class="absolute flex items-center justify-center flex-col"
-        [ngStyle]="getRandomPosition()"
-      >
-        <img
-          src="https://cliply.co/wp-content/uploads/2020/08/432008121_THUMBS_UP_3D_LIGHT_SKIN_TONE_400.png"
-          alt="icon"
-          class="w-20 h-20 mr-2"
-        />
-        <span class="text-xl text-black font-medium">{{
-          participant.name
-        }}</span>
-      </div>
-    </ng-container>
-  </div>
-
-  <div class="fixed bottom-20 w-2/3 flex justify-between items-baseline">
-    <div class="flex flex-col items-center self-baseline">
-      <span class="font-bold text-6xl text-t-dark">{{
-        model.session.participants().length
-      }}</span>
-
-      <span class="text-2xl md:block hidden">Groupees</span>
+      "></qrcode>
+      <span
+        class="group active:text-t-orange-active cursor-copy text-t-orange font-bold p-2 px-4 rounded-2xl bg-white gap-2 flex items-center"
+        (click)="copyRoomIdToClipboard()"><mat-icon style="overflow: visible !important" aria-hidden="false"
+          fontIcon="content_copy" class="mat-icon-outlined transition overflow-visible fill-t-orange"></mat-icon><span
+          class="group-hover:underline">{{ model.session.roomId() }}</span></span>
+    </div>
+    <!-- Participants Floating Names -->
+    <div class="absolute inset-0 pointer-events-none animate-light-bounce p-20">
+      <ng-container *ngFor="let participant of model.session.participants()">
+        <div class="absolute flex items-center justify-center flex-col" [ngStyle]="getRandomPosition()">
+          <img src="https://cliply.co/wp-content/uploads/2020/08/432008121_THUMBS_UP_3D_LIGHT_SKIN_TONE_400.png"
+            alt="icon" class="w-20 h-20 mr-2" />
+          <span class="text-xl text-black font-medium">{{
+            participant.name
+            }}</span>
+        </div>
+      </ng-container>
     </div>
 
-    <groupee-button
-      [text]="'Start'"
-      [color]="'green'"
-      [type]="'normal'"
-      [icon]="'play_arrow'"
-      [action]="startQuestionnaire.bind(this)"
-    />
-    <!-- <button
+    <div class="fixed bottom-20 w-2/3 flex justify-between items-baseline">
+      <div class="flex flex-col items-center self-baseline">
+        <span class="font-bold text-6xl text-t-dark">{{
+          model.session.participants().length
+          }}</span>
+
+        <span class="text-2xl md:block hidden">Groupees</span>
+      </div>
+
+      <groupee-button [text]="'Start'" [color]="'green'" [type]="'normal'" [icon]="'play_arrow'"
+        [action]="startQuestionnaire.bind(this)" />
+      <!-- <button
       (click)="startQuestionnaire()"
       href="/host/waiting"
       class="bg-t-green text-white px-4 py-2 rounded-full"
     >
       Start
     </button> -->
-  </div>
+    </div>
 
-  <div
-    *ngIf="showCopiedMessage"
-    class="fixed z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 translate-y-60 bg-t-dark text-white rounded-2xl p-4 transition-opacity opacity-50 flex items-center gap-2"
-  >
-    <mat-icon
-      style="overflow: visible !important"
-      aria-hidden="false"
-      fontIcon="content_copy"
-      class="mat-icon-outlined transition overflow-visible fill-white"
-    ></mat-icon>
-    Copied!
+    <div *ngIf="showCopiedMessage"
+      class="fixed z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 translate-y-60 bg-t-dark text-white rounded-2xl p-4 transition-opacity opacity-50 flex items-center gap-2">
+      <mat-icon style="overflow: visible !important" aria-hidden="false" fontIcon="content_copy"
+        class="mat-icon-outlined transition overflow-visible fill-white"></mat-icon>
+      Copied!
+    </div>
   </div>
-</div>
 </div>
