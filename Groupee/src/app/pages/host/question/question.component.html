@@ -16,8 +16,8 @@
     <div class="w-96 bg-white rounded-full h-4 mt-6">
       <div 
         class="bg-t-green text-xs font-medium text-t-light text-center p-0.5 leading-none rounded-full h-full" 
-        [ngStyle]="{ width: ((model.session.currentQuestionIndex() + 1) / 7 * 100) + '%' }">
-        {{ (model.session.currentQuestionIndex() + 1) + ' / 7' }}
+        [ngStyle]="{ width: ((model.session.currentQuestionIndex() + 1) / model.standardQuestions().length * 100) + '%' }">
+        {{ (model.session.currentQuestionIndex() + 1) + '/' + model.standardQuestions().length  }}
       </div>
     </div>
 
@@ -86,8 +86,8 @@
       <div class="w-96 bg-white rounded-full h-4 mt-6">
         <div 
           class="bg-t-green text-xs font-medium text-t-light text-center p-0.5 leading-none rounded-full h-full" 
-          [ngStyle]="{ width: ((model.session.currentQuestionIndex() + 1) / 7 * 100) + '%' }">
-          {{ (model.session.currentQuestionIndex() + 1) + ' / 7' }}
+          [ngStyle]="{ width: ((model.session.currentQuestionIndex() + 1) / model.standardQuestions().length * 100) + '%' }">
+          {{ (model.session.currentQuestionIndex() + 1) + '/' + model.standardQuestions().length  }}
         </div>
       </div>
 
@@ -142,8 +142,8 @@
     <div class="w-96 bg-white rounded-full h-4 mt-6">
       <div 
         class="bg-t-green text-xs font-medium text-t-light text-center p-0.5 leading-none rounded-full h-full" 
-        [ngStyle]="{ width: ((model.session.currentQuestionIndex() + 1) / 7 * 100) + '%' }">
-        {{ (model.session.currentQuestionIndex() + 1) + ' / 7' }}
+        [ngStyle]="{ width: ((model.session.currentQuestionIndex() + 1) / model.standardQuestions().length * 100) + '%' }">
+        {{ (model.session.currentQuestionIndex() + 1) + '/' + model.standardQuestions().length  }}
       </div>
     </div>
 
