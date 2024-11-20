@@ -222,7 +222,9 @@ export class HostService {
             this.model.groupSettings.clientsInGroup() > 0
               ? this.model.groupSettings.clientsInGroup()
               : Math.ceil(Math.sqrt(this.model.session.participants().length));
-  
+          
+          console.log('groupSize', groupSize);
+          
           const numberOfGroups = Math.ceil(
             formattedParticipants.length / groupSize
           );
@@ -241,41 +243,83 @@ export class HostService {
             });
           }
   
-          // Assign participants to groups to maximize trait diversity
-          // For each trait, assign participants in a round-robin fashion
-          const numTraits = 5;
-          for (let traitIndex = 0; traitIndex < numTraits; traitIndex++) {
-            // Sort participants based on the current trait
-            const sortedParticipants = [...formattedParticipants].sort(
-              (a, b) => b.variables[traitIndex] - a.variables[traitIndex]
-            );
+          // Calculate the dissimilarity matrix
+          const participantCount = formattedParticipants.length;
+          const dissimilarityMatrix: number[][] = Array.from(
+            { length: participantCount },
+            () => Array(participantCount).fill(0)
+          );
   
-            // Assign participants to groups in round-robin
-            for (let i = 0; i < sortedParticipants.length; i++) {
-              const participant = sortedParticipants[i];
-              // Check if participant is already assigned
-              const isAssigned = groups.some(group =>
-                group.participants.find(p => p.participantId === participant.participantId)
+          for (let i = 0; i < participantCount; i++) {
+            for (let j = i + 1; j < participantCount; j++) {
+              const dissimilarity = formattedParticipants[i].variables.reduce(
+                (sum, traitValue, index) =>
+                  sum +
+                  Math.abs(traitValue - formattedParticipants[j].variables[index]),
+                0
               );
-              if (isAssigned) continue;
-  
-              const groupIndex = i % numberOfGroups;
-              groups[groupIndex].participants.push(participant);
+              dissimilarityMatrix[i][j] = dissimilarity;
+              dissimilarityMatrix[j][i] = dissimilarity;
             }
           }
   
-          // Ensure all participants are assigned
-          // Assign any unassigned participants randomly
-          const assignedParticipantIds = new Set(
-            groups.flatMap(group => group.participants.map(p => p.participantId))
-          );
-          const unassignedParticipants = formattedParticipants.filter(
-            p => !assignedParticipantIds.has(p.participantId)
-          );
-          unassignedParticipants.forEach((participant, index) => {
-            const groupIndex = index % numberOfGroups;
-            groups[groupIndex].participants.push(participant);
+          // Use the dissimilarity matrix to order participants
+          // Start with the participant with the highest average dissimilarity
+          const averageDissimilarities = formattedParticipants.map((p, index) => {
+            const totalDissimilarity = dissimilarityMatrix[index].reduce(
+              (sum, val) => sum + val,
+              0
+            );
+            return { index, averageDissimilarity: totalDissimilarity / (participantCount - 1) };
           });
+  
+          // Sort participants by average dissimilarity in descending order
+          averageDissimilarities.sort((a, b) => b.averageDissimilarity - a.averageDissimilarity);
+          const startingParticipantIndex = averageDissimilarities[0].index;
+  
+          const orderedParticipantIndices: number[] = [];
+          const assignedIndices = new Set<number>();
+          assignedIndices.add(startingParticipantIndex);
+          orderedParticipantIndices.push(startingParticipantIndex);
+  
+          // Build the ordered list to maximize dissimilarity between consecutive participants
+          while (assignedIndices.size < participantCount) {
+            const lastIndex = orderedParticipantIndices[orderedParticipantIndices.length - 1];
+            let maxDissimilarity = -1;
+            let nextIndex = -1;
+  
+            for (let i = 0; i < participantCount; i++) {
+              if (assignedIndices.has(i)) continue;
+              const dissimilarity = dissimilarityMatrix[lastIndex][i];
+              if (dissimilarity > maxDissimilarity) {
+                maxDissimilarity = dissimilarity;
+                nextIndex = i;
+              }
+            }
+  
+            if (nextIndex !== -1) {
+              assignedIndices.add(nextIndex);
+              orderedParticipantIndices.push(nextIndex);
+            } else {
+              // If no unassigned participant is found, break the loop
+              break;
+            }
+          }
+  
+          // Create the ordered list of participants
+          const orderedParticipants = orderedParticipantIndices.map(index => formattedParticipants[index]);
+  
+          // Assign participants to groups based on the ordered list
+          let currentGroupIndex = 0;
+          for (let i = 0; i < orderedParticipants.length; i++) {
+            groups[currentGroupIndex].participants.push(orderedParticipants[i]);
+            if (groups[currentGroupIndex].participants.length >= groupSize) {
+              currentGroupIndex++;
+              if (currentGroupIndex >= groups.length) {
+                currentGroupIndex = groups.length - 1; // Assign remaining participants to the last group
+              }
+            }
+          }
   
           // Store each group as a document in the 'groups' subcollection inside the room document
           const roomDocRef = this.firestore
@@ -296,7 +340,6 @@ export class HostService {
                 phone: p.phone,
               })),
               participantIds: group.participants.map(p => p.participantId),
-
             };
   
             batch.set(groupDocRef.ref, groupData);
@@ -321,6 +364,8 @@ export class HostService {
         }
       });
   }
+  
+  
   
 
   endQuestionnaire(): void {
