@@ -1,11 +1,15 @@
 <!-- Navbar -->
-<app-navbar class="w-full sticky z-[9999] flex justify-center top-0"></app-navbar>
+<app-navbar
+  class="w-full sticky z-[9999] flex justify-center top-0 motion-preset-bounce motion-delay-500"
+></app-navbar>
 <!-- Section 1 -->
 <div id="section1" class="h-screen flex items-center justify-center px-4">
   <!-- Groupee Description -->
   <div class="flex flex-col justify-center items-center w-full gap-10 mb-40">
     <div class="flex flex-col gap-4 items-center">
-      <div class="font-extrabold text-center text-6xl md:text-7xl lg:text-8xl motion-preset-shake">
+      <div
+        class="font-extrabold text-center text-6xl md:text-7xl lg:text-8xl motion-preset-shake"
+      >
         Groupee
       </div>
       <div
@@ -15,7 +19,9 @@
         <span class="text-t-green">Skills</span>
       </div>
     </div>
-    <p class="text-center text-sm md:text-base lg:text-lg px-4 lg:px-8 md:w-2/3 lg:w-1/3">
+    <p
+      class="text-center text-sm md:text-base lg:text-lg px-4 lg:px-8 md:w-2/3 lg:w-1/3"
+    >
       Groupee is a smart application that groups students in classrooms based on
       their personalities and skills. By creating balanced teams, it helps
       students complement each other’s strengths and work more effectively
@@ -25,10 +31,19 @@
     </p>
   </div>
   <!-- Scroll Button -->
-  <button (click)="scrollToSection('section2')" class="absolute bottom-6 left-1/2 transform -translate-x-1/2 px-4 py-2">
-    <div class="flex flex-col items-center mt-6">
+  <button
+    (click)="scrollToSection('section2')"
+    class="absolute bottom-6 left-1/2 transform -translate-x-1/2 px-4 py-2"
+  >
+    <div
+      class="flex flex-col items-center mt-6 motion-preset-fade-lg motion-delay-1000"
+    >
       <span class="text-md font-medium animate-bounce">Scroll</span>
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6 animate-bounce">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        class="w-6 h-6 animate-bounce"
+      >
         <path d="M12 16l-4-4h8z"></path>
       </svg>
     </div>
@@ -36,10 +51,17 @@
 </div>
 
 <!-- Section 2 -->
-<div id="section2" class="h-screen bg-t-dark flex items-center justify-center px-4">
+<div
+  id="section2"
+  class="h-screen bg-t-dark flex items-center justify-center px-4"
+>
   <div class="flex flex-col gap-8 items-center">
-    <div class="w-full md:w-2/3 lg:w-1/2 flex flex-col items-center gap-2 text-center">
-      <span class="font-bold text-t-light text-2xl md:text-3xl lg:text-4xl">Who are you?</span>
+    <div
+      class="w-full md:w-2/3 lg:w-1/2 flex flex-col items-center gap-2 text-center"
+    >
+      <span class="font-bold text-t-light text-2xl md:text-3xl lg:text-4xl"
+        >Who are you?</span
+      >
       <div class="text-t-light text-sm md:text-base">
         Choose your role - Hosts can create the Groups and Participants will be
         part of a Group.
@@ -49,14 +71,23 @@
     <div class="flex flex-col md:flex-row gap-12 md:gap-16 mt-8">
       <!-- Professor Button -->
       <button (click)="navigateToHostSettings()">
-        <div class="relative w-72 h-72 sm:w-80 sm:h-80 md:w-[360px] md:h-[360px] cursor-pointer hover:scale-110 transition-all group">
+        <div
+          class="relative w-72 h-72 sm:w-80 sm:h-80 md:w-[360px] md:h-[360px] cursor-pointer hover:scale-110 transition-all group"
+        >
           <img
             src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExa2J0c3MxeHdkeDFvNzZtamo0OTY3aGJlYjg5Z25scGlkZjdtcnN5NCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/RSnbPf5osSUKMdzwog/giphy.webp"
-            class="w-full h-full object-cover rounded-2xl">
-          <div class="absolute inset-0 bg-black bg-opacity-20 flex flex-col items-center justify-center rounded-2xl">
+            class="w-full h-full object-cover rounded-2xl"
+          />
+          <div
+            class="absolute inset-0 bg-black bg-opacity-20 flex flex-col items-center justify-center rounded-2xl"
+          >
             <span
-              class="text-white text-xl md:text-2xl font-semibold transition-colors duration-300 group-hover:text-t-orange">Host</span>
-            <div class="text-white text-center text-sm md:text-md mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              class="text-white text-xl md:text-2xl font-semibold transition-colors duration-300 group-hover:text-t-orange"
+              >Host</span
+            >
+            <div
+              class="text-white text-center text-sm md:text-md mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            >
               Create Session
             </div>
           </div>
@@ -65,14 +96,23 @@
 
       <!-- Student Button -->
       <button (click)="navigateToClientCode()">
-        <div class="relative w-72 h-72 sm:w-80 sm:h-80 md:w-[360px] md:h-[360px] cursor-pointer hover:scale-110 transition-all group">
+        <div
+          class="relative w-72 h-72 sm:w-80 sm:h-80 md:w-[360px] md:h-[360px] cursor-pointer hover:scale-110 transition-all group"
+        >
           <img
             src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExMW9kdW9pdzJqOGtoMTJ0bWpnMTkyOWNzNGtsOXF2Z2tuaG1qaTM5YyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/JU6TzB6O9QCju/giphy.webp"
-            class="w-full h-full object-cover rounded-2xl">
-          <div class="absolute inset-0 bg-black bg-opacity-30 flex flex-col items-center justify-center rounded-2xl">
+            class="w-full h-full object-cover rounded-2xl"
+          />
+          <div
+            class="absolute inset-0 bg-black bg-opacity-30 flex flex-col items-center justify-center rounded-2xl"
+          >
             <span
-              class="text-white text-xl md:text-2xl font-semibold transition-colors duration-300 group-hover:text-t-green">Participant </span>
-            <div class="text-white text-center text-sm md:text-md mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              class="text-white text-xl md:text-2xl font-semibold transition-colors duration-300 group-hover:text-t-green"
+              >Participant
+            </span>
+            <div
+              class="text-white text-center text-sm md:text-md mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            >
               Join Session
             </div>
           </div>
@@ -83,7 +123,9 @@
 </div>
 
 <!-- Footer -->
-<div class="bg-t-dark text-white mx-4 lg:mx-12 my-20 px-6 pt-10 pb-4 rounded-3xl">
+<div
+  class="bg-t-dark text-white mx-4 lg:mx-12 my-20 px-6 pt-10 pb-4 rounded-3xl"
+>
   <div class="flex flex-col md:flex-row justify-evenly gap-10 md:gap-28 mb-28">
     <!-- Get Started Section -->
     <div>
@@ -107,7 +149,12 @@
     <div>
       <h3 class="text-t-orange font-semibold mb-4">Social</h3>
       <div class="flex items-center space-x-1">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="#ffffff">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-6 h-6"
+          viewBox="0 0 24 24"
+          fill="#ffffff"
+        >
           <path d="M12 16l-4-4h8z"></path>
         </svg>
         <a href="#" class="hover:underline">LinkedIn</a>
@@ -125,7 +172,9 @@
   </div>
 
   <!-- Footer Bottom -->
-  <div class="flex flex-col md:flex-row justify-between items-center mt-10 text-xs">
+  <div
+    class="flex flex-col md:flex-row justify-between items-center mt-10 text-xs"
+  >
     <div class="font-bold text-lg text-t-light">GROUPEE</div>
     <div class="text-t-light">© 2023 Groupee FI</div>
   </div>

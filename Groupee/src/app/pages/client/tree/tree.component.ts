@@ -46,21 +46,6 @@ export class ClientTreeComponent implements OnInit {
       .find(
         (p) => p.participantId === this.model.session.client.participantId()
       );
-
-    // FOR DEBUGGING
-    this.participant = {
-      participantId: '0',
-      name: 'jhon',
-      email: 'andrea@live.com',
-      phone: '123456789',
-      cumulativeResult: {
-        element1: 30,
-        element2: 38,
-        element3: 33,
-        element4: 32,
-        element5: 25,
-      },
-    };
   }
 
   ngOnInit(): void {
@@ -81,13 +66,13 @@ export class ClientTreeComponent implements OnInit {
       ];
     }
 
-    // if (
-    //   (this.model.session.currentPhase() !== 'tree' &&
-    //     this.model.session.currentPhase() !== 'groups') ||
-    //   !this.model.session.online()
-    // ) {
-    //   this.router.navigate(['/']);
-    // }
+    if (
+      (this.model.session.currentPhase() !== 'tree' &&
+        this.model.session.currentPhase() !== 'groups') ||
+      !this.model.session.online()
+    ) {
+      this.router.navigate(['/']);
+    }
   }
 
   buttonClick() {
