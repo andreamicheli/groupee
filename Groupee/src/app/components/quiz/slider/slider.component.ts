@@ -21,7 +21,7 @@ export class SliderComponent {
 
   @Input() options: Array<{ text: string; id: any }> = [];
   @Output() optionSelected = new EventEmitter<any>();
-  public selectedOptionIndex: number | null = null;
+  public selectedOptionIndex: number | null = 3;
 
   submitAnswer() {
     this.optionSelected.emit(this.selectedOptionIndex);

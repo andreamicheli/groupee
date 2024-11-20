@@ -23,7 +23,7 @@
       max="5"
       step="1"
       [(ngModel)]="selectedOptionIndex"
-      class="bg-gradient-to-t from-t-orange to-t-green rounded-lg appearance-none cursor-pointer active:motion-preset-stretch-sm motion-duration-2000"
+      class="bg-gradient-to-t from-t-green to-t-orange rounded-lg appearance-none cursor-pointer active:motion-preset-stretch-sm motion-duration-2000"
       style="--thumb-color: #6c5ce7; --thumb-active-color: #2b1f7d"
     />
   </div>
@@ -31,7 +31,6 @@
   <!-- Submit Button -->
   <groupee-button
     [action]="submitAnswer.bind(this)"
-    [disabled]="!selectedOptionIndex"
     [text]="'Submit'"
     icon="send"
     [type]="'normal'"
