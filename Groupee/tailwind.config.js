@@ -8,6 +8,7 @@ module.exports = {
       white: "#fff",
       "t-light": "#FAF0E8",
       "t-dark": "#1F4545",
+      "t-dark-popup": "#99A3A3FF",
       "t-orange": "#FF6433",
       "t-orange-hover": "#FF4D00",
       "t-orange-active": "#992400", // 50% brightness of #FF6433
