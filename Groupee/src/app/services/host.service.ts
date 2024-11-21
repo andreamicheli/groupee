@@ -367,6 +367,7 @@ export class HostService {
   
   
   
+  
 
   endQuestionnaire(): void {
     this.roomService.endQuestionnaire(this.model.session.roomId()).then(() => {

@@ -7,11 +7,12 @@ import { PlatformModelService } from '../../dataStructures/PlatformModel.service
 import { ButtonComponent } from '../../components/button/button.component';
 import { Router } from '@angular/router';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
+import { JsonUploaderComponent } from '../../json-uploader/json-uploader.component';
 
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [MatIconModule, ButtonComponent, NavbarComponent],
+  imports: [MatIconModule, ButtonComponent, NavbarComponent, JsonUploaderComponent],
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.css'],
 })

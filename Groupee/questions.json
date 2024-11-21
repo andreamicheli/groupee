@@ -1,446 +1,548 @@
 [
   {
-    "questionId": 1,
-    "title": "When you’re in a group setting, how do you feel about starting conversations?",
-    "options": [
-      {
-        "id": 1,
-        "text": "I love to jump right in and start talking!",
-        "values": {
-          "element1": 8,
-          "element2": 6,
-          "element3": 7,
-          "element4": 9,
-          "element5": 5
-        }
-      },
-      {
-        "id": 2,
-        "text": "I feel comfortable starting conversations but prefer when someone else initiates.",
-        "values": {
-          "element1": 5,
-          "element2": 8,
-          "element3": 6,
-          "element4": 4,
-          "element5": 7
-        }
-      },
-      {
-        "id": 3,
-        "text": "I usually wait until someone talks to me first.",
-        "values": {
-          "element1": 4,
-          "element2": 5,
-          "element3": 3,
-          "element4": 6,
-          "element5": 8
-        }
-      },
-      {
-        "id": 4,
-        "text": "I prefer to listen quietly and avoid starting conversations.",
-        "values": {
-          "element1": 3,
-          "element2": 4,
-          "element3": 2,
-          "element4": 7,
-          "element5": 6
-        }
-      }
-    ],
-    "type": "radio",
-    "url": "",
-    "order": 1
+      "questionId": 1,
+      "title": "When you\u2019re at a party, how do you typically behave?",
+      "url": "",
+      "options": [
+          {
+              "id": 1,
+              "text": "I love being the center of attention and socializing with everyone.",
+              "values": {
+                  "element1": 10,
+                  "element2": 0,
+                  "element3": 0,
+                  "element4": 0,
+                  "element5": 0
+              }
+          },
+          {
+              "id": 2,
+              "text": "I enjoy talking to people, but I don't seek the spotlight.",
+              "values": {
+                  "element1": 7,
+                  "element2": 0,
+                  "element3": 0,
+                  "element4": 0,
+                  "element5": 0
+              }
+          },
+          {
+              "id": 3,
+              "text": "I prefer to talk only with people I know well.",
+              "values": {
+                  "element1": 3,
+                  "element2": 0,
+                  "element3": 0,
+                  "element4": 0,
+                  "element5": 0
+              }
+          },
+          {
+              "id": 4,
+              "text": "I tend to stay in the background and observe.",
+              "values": {
+                  "element1": 1,
+                  "element2": 0,
+                  "element3": 0,
+                  "element4": 0,
+                  "element5": 0
+              }
+          }
+      ],
+      "type": "single-choice",
+      "order": 1
   },
   {
-    "questionId": 2,
-    "title": "During social events, how do you typically spend your time?",
-    "options": [
-      {
-        "id": 1,
-        "text": "I’m always in the center, chatting with everyone!",
-        "values": {
-          "element1": 7,
-          "element2": 9,
-          "element3": 8,
-          "element4": 6,
-          "element5": 5
-        }
-      },
-      {
-        "id": 2,
-        "text": "I mingle with a few people but take breaks to recharge.",
-        "values": {
-          "element1": 6,
-          "element2": 7,
-          "element3": 5,
-          "element4": 4,
-          "element5": 9
-        }
-      },
-      {
-        "id": 3,
-        "text": "I talk to one or two people, but mostly observe.",
-        "values": {
-          "element1": 4,
-          "element2": 5,
-          "element3": 3,
-          "element4": 6,
-          "element5": 8
-        }
-      },
-      {
-        "id": 4,
-        "text": "I try to stay in the background and avoid socializing.",
-        "values": {
-          "element1": 3,
-          "element2": 4,
-          "element3": 2,
-          "element4": 7,
-          "element5": 6
-        }
-      }
-    ],
-    "type": "radio",
-    "url": "",
-    "order": 2
+      "questionId": 2,
+      "title": "Do you feel energized after spending time with a group of friends?",
+      "url": "",
+      "options": [
+          {
+              "id": 1,
+              "text": "Absolutely, I feel recharged.",
+              "values": {
+                  "element1": 10,
+                  "element2": 0,
+                  "element3": 0,
+                  "element4": 0,
+                  "element5": 0
+              }
+          },
+          {
+              "id": 2,
+              "text": "Yes, but I also need some alone time.",
+              "values": {
+                  "element1": 6,
+                  "element2": 0,
+                  "element3": 0,
+                  "element4": 0,
+                  "element5": 0
+              }
+          },
+          {
+              "id": 3,
+              "text": "Not much, I prefer quieter activities.",
+              "values": {
+                  "element1": 3,
+                  "element2": 0,
+                  "element3": 0,
+                  "element4": 0,
+                  "element5": 0
+              }
+          },
+          {
+              "id": 4,
+              "text": "No, I feel drained and need to be alone.",
+              "values": {
+                  "element1": 1,
+                  "element2": 0,
+                  "element3": 0,
+                  "element4": 0,
+                  "element5": 0
+              }
+          }
+      ],
+      "type": "video",
+      "order": 2
   },
   {
-    "questionId": 3,
-    "title": "How do you handle disagreements in a group?",
-    "options": [
-      {
-        "id": 1,
-        "text": "I try to avoid conflict and keep everyone happy.",
-        "values": {
-          "element1": 9,
-          "element2": 7,
-          "element3": 8,
-          "element4": 5,
-          "element5": 6
-        }
-      },
-      {
-        "id": 2,
-        "text": "I prefer to smooth things over, but I will share my opinion.",
-        "values": {
-          "element1": 7,
-          "element2": 6,
-          "element3": 5,
-          "element4": 8,
-          "element5": 9
-        }
-      },
-      {
-        "id": 3,
-        "text": "I’m not afraid to challenge others if I think something’s wrong.",
-        "values": {
-          "element1": 6,
-          "element2": 5,
-          "element3": 7,
-          "element4": 9,
-          "element5": 8
-        }
-      },
-      {
-        "id": 4,
-        "text": "I often disagree and enjoy debating my point of view.",
-        "values": {
-          "element1": 5,
-          "element2": 3,
-          "element3": 6,
-          "element4": 7,
-          "element5": 4
-        }
-      }
-    ],
-    "type": "radio",
-    "url": "",
-    "order": 3
+      "questionId": 3,
+      "title": "When a friend asks for help, how do you respond?",
+      "options": [
+          {
+              "id": 1,
+              "text": "I'm always available to help, no matter the situation.",
+              "values": {
+                  "element1": 0,
+                  "element2": 10,
+                  "element3": 0,
+                  "element4": 0,
+                  "element5": 0
+              }
+          },
+          {
+              "id": 2,
+              "text": "I help when I can, but I have limits.",
+              "values": {
+                  "element1": 0,
+                  "element2": 7,
+                  "element3": 0,
+                  "element4": 0,
+                  "element5": 0
+              }
+          },
+          {
+              "id": 3,
+              "text": "It depends on the request and my availability.",
+              "values": {
+                  "element1": 0,
+                  "element2": 4,
+                  "element3": 0,
+                  "element4": 0,
+                  "element5": 0
+              }
+          },
+          {
+              "id": 4,
+              "text": "I prefer not to get too involved in others' problems.",
+              "values": {
+                  "element1": 0,
+                  "element2": 1,
+                  "element3": 0,
+                  "element4": 0,
+                  "element5": 0
+              }
+          }
+      ],
+      "type": "single-choice",
+      "order": 3
   },
   {
-    "questionId": 4,
-    "title": "If a friend shares a bad idea, how do you respond?",
-    "options": [
-      {
-        "id": 1,
-        "text": "I encourage them and try to find the good in it.",
-        "values": {
-          "element1": 8,
-          "element2": 9,
-          "element3": 6,
-          "element4": 7,
-          "element5": 5
-        }
-      },
-      {
-        "id": 2,
-        "text": "I give gentle feedback while supporting them.",
-        "values": {
-          "element1": 6,
-          "element2": 5,
-          "element3": 8,
-          "element4": 7,
-          "element5": 9
-        }
-      },
-      {
-        "id": 3,
-        "text": "I honestly tell them what I think, even if it’s not great.",
-        "values": {
-          "element1": 5,
-          "element2": 4,
-          "element3": 7,
-          "element4": 6,
-          "element5": 8
-        }
-      },
-      {
-        "id": 4,
-        "text": "I bluntly say it’s a bad idea and suggest something else.",
-        "values": {
-          "element1": 4,
-          "element2": 3,
-          "element3": 5,
-          "element4": 6,
-          "element5": 7
-        }
-      }
-    ],
-    "type": "radio",
-    "url": "",
-    "order": 4
+      "questionId": 4,
+      "title": "How do you feel about compromising during a discussion?",
+      "options": [
+          {
+              "id": 1,
+              "text": "I'm always willing to find common ground.",
+              "values": {
+                  "element1": 0,
+                  "element2": 10,
+                  "element3": 0,
+                  "element4": 0,
+                  "element5": 0
+              }
+          },
+          {
+              "id": 2,
+              "text": "I aim for compromise but stand firm on my opinions.",
+              "values": {
+                  "element1": 0,
+                  "element2": 6,
+                  "element3": 0,
+                  "element4": 0,
+                  "element5": 0
+              }
+          },
+          {
+              "id": 3,
+              "text": "I accept compromise only when necessary.",
+              "values": {
+                  "element1": 0,
+                  "element2": 3,
+                  "element3": 0,
+                  "element4": 0,
+                  "element5": 0
+              }
+          },
+          {
+              "id": 4,
+              "text": "I avoid compromising as much as possible.",
+              "values": {
+                  "element1": 0,
+                  "element2": 1,
+                  "element3": 0,
+                  "element4": 0,
+                  "element5": 0
+              }
+          }
+      ],
+      "type": "single-choice",
+      "order": 4
   },
   {
     "questionId": 5,
-    "title": "How do you approach tasks in a group project?",
+    "title": "Rate how much you agree with the statement: 'I enjoy leading group activities.'",
+    "type": "agree",
     "options": [
-      {
-        "id": 1,
-        "text": "I love making plans and following them step by step.",
-        "values": {
-          "element1": 9,
-          "element2": 8,
-          "element3": 7,
-          "element4": 6,
-          "element5": 5
-        }
-      },
-      {
-        "id": 2,
-        "text": "I usually follow the plan but adapt if needed.",
-        "values": {
-          "element1": 7,
-          "element2": 6,
-          "element3": 5,
-          "element4": 8,
-          "element5": 9
-        }
-      },
-      {
-        "id": 3,
-        "text": "I prefer to go with the flow and adjust as we go.",
-        "values": {
-          "element1": 5,
-          "element2": 4,
-          "element3": 7,
-          "element4": 6,
-          "element5": 8
-        }
-      },
-      {
-        "id": 4,
-        "text": "I don’t worry too much about planning, as long as it gets done.",
-        "values": {
-          "element1": 4,
-          "element2": 3,
-          "element3": 6,
-          "element4": 7,
-          "element5": 5
-        }
+        {
+            "id": 1,
+            "text": "Strongly Agree",
+            "values": {
+                "element1": 10,
+                "element2": 0,
+                "element3": 0,
+                "element4": 0,
+                "element5": 0
+            }
+        },
+        {
+            "id": 2,
+            "text": "Agree",
+            "values": {
+                "element1": 7,
+                "element2": 0,
+                "element3": 0,
+                "element4": 0,
+                "element5": 0
+            }
+        },
+        {
+            "id": 3,
+            "text": "Neutral",
+            "values": {
+                "element1": 5,
+                "element2": 0,
+                "element3": 0,
+                "element4": 0,
+                "element5": 0
+            }
+        },
+        {
+            "id": 4,
+            "text": "Disagree",
+            "values": {
+                "element1": 3,
+                "element2": 0,
+                "element3": 0,
+                "element4": 0,
+                "element5": 0
+            }
+        },
+        {
+          "id": 5,
+          "text": "Strongly Disagree",
+          "values": {
+              "element1": 1,
+              "element2": 0,
+              "element3": 0,
+              "element4": 0,
+              "element5": 0
+          }
       }
     ],
-    "type": "radio",
-    "url": "",
     "order": 5
   },
   {
-    "questionId": 6,
-    "title": "How would you describe your work style when it comes to deadlines?",
-    "options": [
-      {
-        "id": 1,
-        "text": "I’m always ahead of schedule and make sure everything is perfect.",
-        "values": {
-          "element1": 9,
-          "element2": 8,
-          "element3": 7,
-          "element4": 5,
-          "element5": 6
-        }
-      },
-      {
-        "id": 2,
-        "text": "I meet deadlines, but I don’t stress too much about it.",
-        "values": {
-          "element1": 7,
-          "element2": 5,
-          "element3": 6,
-          "element4": 8,
-          "element5": 4
-        }
-      },
-      {
-        "id": 3,
-        "text": "I tend to work best at the last minute but get things done.",
-        "values": {
-          "element1": 5,
-          "element2": 6,
-          "element3": 8,
-          "element4": 4,
-          "element5": 7
-        }
-      },
-      {
-        "id": 4,
-        "text": "I often push deadlines and prefer to be flexible.",
-        "values": {
-          "element1": 4,
-          "element2": 3,
-          "element3": 5,
-          "element4": 6,
-          "element5": 7
-        }
-      }
-    ],
-    "type": "radio",
-    "url": "",
-    "order": 6
+      "questionId": 6,
+      "title": "Do you stay calm when facing unexpected challenges?",
+      "options": [
+          {
+              "id": 1,
+              "text": "Yes, I stay composed and focus on solutions.",
+              "values": {
+                  "element1": 0,
+                  "element2": 0,
+                  "element3": 0,
+                  "element4": 10,
+                  "element5": 0
+              }
+          },
+          {
+              "id": 2,
+              "text": "I try to stay calm, but it depends on the situation.",
+              "values": {
+                  "element1": 0,
+                  "element2": 0,
+                  "element3": 0,
+                  "element4": 7,
+                  "element5": 0
+              }
+          },
+          {
+              "id": 3,
+              "text": "I get slightly anxious but manage to handle it.",
+              "values": {
+                  "element1": 0,
+                  "element2": 0,
+                  "element3": 0,
+                  "element4": 4,
+                  "element5": 0
+              }
+          },
+          {
+              "id": 4,
+              "text": "I feel very stressed and struggle to stay calm.",
+              "values": {
+                  "element1": 0,
+                  "element2": 0,
+                  "element3": 0,
+                  "element4": 1,
+                  "element5": 0
+              }
+          }
+      ],
+      "type": "single-choice",
+      "order": 6
   },
   {
-    "questionId": 7,
-    "title": "How do you feel when faced with a big group decision?",
-    "options": [
-      {
-        "id": 1,
-        "text": "I worry about the risks and think through every possible outcome.",
-        "values": {
-          "element1": 8,
-          "element2": 7,
-          "element3": 9,
-          "element4": 5,
-          "element5": 6
-        }
-      },
-      {
-        "id": 2,
-        "text": "I’m cautious but open to taking a well-thought-out risk.",
-        "values": {
-          "element1": 7,
-          "element2": 6,
-          "element3": 5,
-          "element4": 8,
-          "element5": 4
-        }
-      },
-      {
-        "id": 3,
-        "text": "I usually stay calm and trust things will work out.",
-        "values": {
-          "element1": 5,
-          "element2": 6,
-          "element3": 7,
-          "element4": 4,
-          "element5": 8
-        }
-      },
-      {
-        "id": 4,
-        "text": "I don’t worry much about risks; I’m confident we’ll figure it out.",
-        "values": {
-          "element1": 4,
-          "element2": 3,
-          "element3": 5,
-          "element4": 7,
-          "element5": 6
-        }
-      }
-    ],
-    "type": "radio",
-    "url": "",
-    "order": 7
+      "questionId": 7,
+      "title": "Do you enjoy trying out new and unconventional ideas?",
+      "url": "",
+      "options": [
+          {
+              "id": 1,
+              "text": "Absolutely, I thrive on exploring new ideas.",
+              "values": {
+                  "element1": 0,
+                  "element2": 0,
+                  "element3": 0,
+                  "element4": 0,
+                  "element5": 10
+              }
+          },
+          {
+              "id": 2,
+              "text": "I like experimenting, but I need time to adapt.",
+              "values": {
+                  "element1": 0,
+                  "element2": 0,
+                  "element3": 0,
+                  "element4": 0,
+                  "element5": 7
+              }
+          },
+          {
+              "id": 3,
+              "text": "I prefer a mix of conventional and unconventional approaches.",
+              "values": {
+                  "element1": 0,
+                  "element2": 0,
+                  "element3": 0,
+                  "element4": 0,
+                  "element5": 4
+              }
+          },
+          {
+              "id": 4,
+              "text": "I\u2019m more comfortable sticking to traditional ideas.",
+              "values": {
+                  "element1": 0,
+                  "element2": 0,
+                  "element3": 0,
+                  "element4": 0,
+                  "element5": 1
+              }
+          }
+      ],
+      "type": "video",
+      "order": 7
   },
   {
-    "questionId": 8,
-    "title": "How do you handle stress when things don’t go as planned?",
-    "options": [
-      {
-        "id": 1,
-        "text": "I tend to get anxious and overthink everything.",
-        "values": {
-          "element1": 9,
-          "element2": 8,
-          "element3": 7,
-          "element4": 6,
-          "element5": 5
-        }
-      },
-      {
-        "id": 2,
-        "text": "I feel stressed but manage to stay composed.",
-        "values": {
-          "element1": 7,
-          "element2": 6,
-          "element3": 8,
-          "element4": 5,
-          "element5": 9
-        }
-      },
-      {
-        "id": 3,
-        "text": "I stay pretty calm and adapt to the situation.",
-        "values": {
-          "element1": 6,
-          "element2": 7,
-          "element3": 4,
-          "element4": 8,
-          "element5": 5
-        }
-      },
-      {
-        "id": 4,
-        "text": "I don’t let stress bother me much and keep moving forward.",
-        "values": {
-          "element1": 4,
-          "element2": 3,
-          "element3": 6,
-          "element4": 5,
-          "element5": 7
-        }
-      }
-    ],
-    "type": "radio",
-    "url": "",
-    "order": 8
+      "questionId": 8,
+      "title": "How do you handle conflicts with others?",
+      "options": [
+          {
+              "id": 1,
+              "text": "I try to understand their perspective and resolve the issue.",
+              "values": {
+                  "element1": 0,
+                  "element2": 10,
+                  "element3": 0,
+                  "element4": 0,
+                  "element5": 0
+              }
+          },
+          {
+              "id": 2,
+              "text": "I stay calm but stand firm on my opinions.",
+              "values": {
+                  "element1": 0,
+                  "element2": 7,
+                  "element3": 0,
+                  "element4": 0,
+                  "element5": 0
+              }
+          },
+          {
+              "id": 3,
+              "text": "I try to avoid conflicts as much as possible.",
+              "values": {
+                  "element1": 0,
+                  "element2": 4,
+                  "element3": 0,
+                  "element4": 0,
+                  "element5": 0
+              }
+          },
+          {
+              "id": 4,
+              "text": "I find conflicts stressful and hard to deal with.",
+              "values": {
+                  "element1": 0,
+                  "element2": 1,
+                  "element3": 0,
+                  "element4": 0,
+                  "element5": 0
+              }
+          }
+      ],
+      "type": "single-choice",
+      "order": 8
   },
   {
-    "questionId": 9,
-    "title": "How do you approach new, unfamiliar ideas?",
-    "options": [
-      {
-        "id": 1,
-        "text": "I’m always excited to explore new ideas and dive into the unknown!",
-        "values": {
-          "element1": 9,
-          "element2": 8,
-          "element3": 7,
-          "element4": 6,
-          "element5": 5
+      "questionId": 9,
+      "title": "Rate how much you agree with the statement: 'I prefer routines over new challenges.'",
+      "type": "agree",
+      "options": [
+          {
+              "id": 1,
+              "text": "Strongly Agree",
+              "values": {
+                  "element1": 0,
+                  "element2": 0,
+                  "element3": 0,
+                  "element4": 0,
+                  "element5": 10
+              }
+          },
+          {
+              "id": 2,
+              "text": "Agree",
+              "values": {
+                  "element1": 0,
+                  "element2": 0,
+                  "element3": 0,
+                  "element4": 0,
+                  "element5": 7
+              }
+          },
+          {
+              "id": 3,
+              "text": "Neutral",
+              "values": {
+                  "element1": 0,
+                  "element2": 0,
+                  "element3": 0,
+                  "element4": 0,
+                  "element5": 5
+              }
+          },
+          {
+              "id": 4,
+              "text": "Disagree",
+              "values": {
+                  "element1": 0,
+                  "element2": 0,
+                  "element3": 0,
+                  "element4": 0,
+                  "element5": 3
+              }
+          },
+          {
+            "id": 5,
+            "text": "Strongly Disagree",
+            "values": {
+                "element1": 0,
+                "element2": 0,
+                "element3": 0,
+                "element4": 0,
+                "element5": 1
+            }
         }
-      }
-    ],
-    "type": "radio",
+      ],
+      "order": 9
+  },
+  {
+    "questionId": 10,
+    "title": "How do you organize your daily tasks?",
     "url": "",
-    "order": 9
+    "options": [
+        {
+            "id": 1,
+            "text": "I create detailed plans and stick to them.",
+            "values": {
+                "element1": 0,
+                "element2": 0,
+                "element3": 10,
+                "element4": 0,
+                "element5": 0
+            }
+        },
+        {
+            "id": 2,
+            "text": "I plan ahead but allow some flexibility.",
+            "values": {
+                "element1": 0,
+                "element2": 0,
+                "element3": 7,
+                "element4": 0,
+                "element5": 0
+            }
+        },
+        {
+            "id": 3,
+            "text": "I organize only what is absolutely necessary.",
+            "values": {
+                "element1": 0,
+                "element2": 0,
+                "element3": 4,
+                "element4": 0,
+                "element5": 0
+            }
+        },
+        {
+            "id": 4,
+            "text": "I don\u2019t organize; I prefer to go with the flow.",
+            "values": {
+                "element1": 0,
+                "element2": 0,
+                "element3": 1,
+                "element4": 0,
+                "element5": 0
+            }
+        }
+    ],
+    "type": "single-choice",
+    "order": 10
   }
 ]
