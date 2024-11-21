@@ -205,4 +205,11 @@ export class ClientGroupingComponent implements OnInit {
   toTree() {
     this.router.navigate([`client/${this.model.session.roomId()}/tree`]);
   }
+
+  getRandomImage(id: string): string {
+    const numericString = id.replace(/\D/g, '');
+    const numericValue = parseInt(numericString, 10);
+    const imageIndex = (numericValue % 24) + 1;
+    return 'assets/images/hands/' + imageIndex.toString() + '.png';
+  }
 }

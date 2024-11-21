@@ -9,6 +9,7 @@ import { ButtonComponent } from '../../../components/button/button.component';
 import { MatIconModule } from '@angular/material/icon';
 import { NavbarComponent } from '../../../components/navbar/navbar.component';
 import images from '../../../../assets/static_data/image-list.json';
+import { Participant } from '../../../models/room.model';
 
 @Component({
   selector: 'app-host-waiting',
@@ -102,9 +103,14 @@ export class HostWaitingComponent implements OnInit, OnDestroy {
     }, 1000);
   }
 
-  getRandomImage(): string {
-    return (
-      'assets/images/hands/' + images[Math.floor(Math.random() * images.length)]
-    );
+  getRandomImage(id: string): string {
+    const numericString = id.replace(/\D/g, '');
+    const numericValue = parseInt(numericString, 10);
+    const imageIndex = (numericValue % 24) + 1;
+    return 'assets/images/hands/' + imageIndex.toString() + '.png';
+  }
+
+  trackByParticipant(index: number, participant: Participant) {
+    return participant.participantId; // Replace with a unique ID property
   }
 }

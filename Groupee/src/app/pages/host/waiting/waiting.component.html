@@ -1,5 +1,7 @@
 <div class="flex flex-col items-center justify-center h-full relative">
-  <div class="flex flex-col gap-5 justify-center items-center">
+  <div
+    class="flex flex-col gap-5 justify-center items-center z-10 scale-150 p-6 bg-t-white-transparent backdrop-blur-md rounded-2xl"
+  >
     <h1 class="text-xl font-bold text-center">Join at groupee.web.app</h1>
     <qrcode
       [qrdata]="getLink()"
@@ -26,12 +28,21 @@
   </div>
   <!-- Participants Floating Names -->
   <div class="absolute inset-0 pointer-events-none animate-light-bounce p-20">
-    <ng-container *ngFor="let participant of model.session.participants()">
+    <ng-container
+      *ngFor="
+        let participant of model.session.participants();
+        trackBy: trackByParticipant
+      "
+    >
       <div
         class="absolute flex items-center justify-center flex-col motion-preset-pop"
         [ngStyle]="getRandomPosition()"
       >
-        <img [src]="getRandomImage()" alt="icon" class="h-20 mr-2" />
+        <img
+          [src]="getRandomImage(participant.participantId)"
+          alt="icon"
+          class="h-20 mr-2"
+        />
         <span class="text-xl text-black font-medium">{{
           participant.name
         }}</span>

@@ -22,6 +22,7 @@ module.exports = {
       "t-purple-hover": "#4A3EBE",
       "t-purple-active": "#2B1F7D",
       "t-error": "#c75f61",
+      "t-white-transparent": "#FFFFFF8A",
       unactive: "#3B8383",
       google: {
         "text-gray": "#3c4043",
