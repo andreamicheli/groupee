@@ -48,7 +48,7 @@ export class HostWaitingComponent implements OnInit, OnDestroy {
       this.router.navigate(['/'], { replaceUrl: true });
     }
 
-    //FOR STYILING OFFLINE
+    // FOR STYILING OFFLINE
     // this.model.session.roomId.set(roomId!);
     // this.model.session.participantLink.set(
     //   this.URL + roomId + 'client/waiting'
@@ -66,9 +66,10 @@ export class HostWaitingComponent implements OnInit, OnDestroy {
   getRandomPosition(): { [key: string]: string } {
     const screenWidth = window.innerWidth;
     const screenHeight = window.innerHeight;
-    const centralWidth = 250;
-    const centralHeight = 250;
-    const topOffset = 120;
+    const centralWidth = 700;
+    const centralHeight = 700;
+    const topOffset = 300;
+    const horizontalPadding = 80;
 
     let x, y;
 
@@ -76,11 +77,16 @@ export class HostWaitingComponent implements OnInit, OnDestroy {
       x = Math.random() * 80; // Random X position (in %)
       y = Math.random() * 80; // Random Y position (in %)
     } while (
-      (x * screenWidth) / 100 > (screenWidth - centralWidth) / 2 &&
-      (x * screenWidth) / 100 < (screenWidth + centralWidth) / 2 &&
-      (y * screenHeight) / 100 >
-        (screenHeight - centralHeight) / 2 + topOffset &&
-      (y * screenHeight) / 100 < (screenHeight + centralHeight) / 2 + topOffset
+      // Exclude the central area
+      ((x * screenWidth) / 100 > (screenWidth - centralWidth) / 2 &&
+        (x * screenWidth) / 100 < (screenWidth + centralWidth) / 2 &&
+        (y * screenHeight) / 100 >
+          (screenHeight - centralHeight) / 2 + topOffset &&
+        (y * screenHeight) / 100 <
+          (screenHeight + centralHeight) / 2 + topOffset) ||
+      // Add horizontal padding of 80px
+      (x * screenWidth) / 100 < horizontalPadding ||
+      (x * screenWidth) / 100 > screenWidth - horizontalPadding
     );
 
     return {
