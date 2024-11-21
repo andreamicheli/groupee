@@ -1,99 +1,99 @@
 <div class="overflow-y-hidden h-screen">
-<div
-  *ngIf="group; else noGroup"
-  class="flex flex-col items-center gap-10 h-full py-8 justify-between"
->
-  <div class="text-center text-4xl">
-    <h2 class="font-bold">Your Group!</h2>
-  </div>
-  <swiper-container class="w-64 h-96" effect="cards" grab-cursor="true">
-    <swiper-slide
-      *ngFor="let participant of group.participants"
-      class="flex items-center justify-center rounded-2xl font-bold bg-white border-4"
-      [ngClass]="{
-        'border-t-green': cleanId(participant.participantId) % 4 === 0,
-        'border-t-orange': cleanId(participant.participantId) % 4 === 2,
-        'border-t-purple': cleanId(participant.participantId) % 4 === 1,
-        'border-t-burgundy': cleanId(participant.participantId) % 4 === 3
-      }"
-    >
-      <div class="flex flex-col items-center">
-        <img
-          [src]="getRandomImage(participant.participantId)"
-          alt="icon"
-          class="w-40 h-40"
-        />
-        <div class="flex flex-col gap-1 items-center">
-          <div class="text-2xl text-center break-words mb-2">
-            {{ participant.name }}
-            <span *ngIf="participant.participantId === participantId"
-              >(You)</span
+  <div
+    *ngIf="group; else noGroup"
+    class="flex flex-col items-center gap-10 h-full py-8 justify-between"
+  >
+    <div class="text-center text-4xl">
+      <h2 class="font-bold">Your Group!</h2>
+    </div>
+    <swiper-container class="w-64 h-96" effect="cards" grab-cursor="true">
+      <swiper-slide
+        *ngFor="let participant of group.participants"
+        class="flex items-center justify-center rounded-2xl font-bold bg-white border-4"
+        [ngClass]="{
+          'border-t-green': cleanId(participant.participantId) % 4 === 0,
+          'border-t-orange': cleanId(participant.participantId) % 4 === 2,
+          'border-t-purple': cleanId(participant.participantId) % 4 === 1,
+          'border-t-burgundy': cleanId(participant.participantId) % 4 === 3
+        }"
+      >
+        <div class="flex flex-col items-center">
+          <img
+            [src]="getRandomImage(participant.participantId)"
+            alt="icon"
+            class="h-40"
+          />
+          <div class="flex flex-col gap-1 items-center">
+            <div class="text-2xl text-center break-words mb-2">
+              {{ participant.name }}
+              <span *ngIf="participant.participantId === participantId"
+                >(You)</span
+              >
+            </div>
+            <div
+              class="w-fit font-normal text-xs cursor-copy px-2 shadow-xl flex justify-center items-center py-2 text-black rounded-2xl transform group active:scale-95 transition duration-300 ease-in-out brightness-100 border-t-orange border-2"
+              (click)="copyToClipboard(participant.email)"
             >
-          </div>
-          <div
-            class="w-fit font-normal text-xs cursor-copy px-2 shadow-xl flex justify-center items-center py-2 text-black rounded-2xl transform group active:scale-95 transition duration-300 ease-in-out brightness-100 border-t-orange border-2"
-            (click)="copyToClipboard(participant.email)"
-          >
-            <mat-icon
-              style="overflow: visible !important"
-              aria-hidden="false"
-              fontIcon="{{ 'mail' }}"
-              class="mat-icon-borderd transition overflow-visible fill-t-orange text-t-orange scale-75"
-            ></mat-icon>
-            <span class="group-hover:underline">
-              {{ participant.email }}
-            </span>
-          </div>
-          <div
-            class="w-fit font-normal text-xs cursor-copy px-2 shadow-xl flex justify-center items-center py-2 text-black rounded-2xl transform group active:scale-95 transition duration-300 ease-in-out brightness-100 border-t-green border-2"
-            (click)="copyToClipboard(participant.phone)"
-          >
-            <mat-icon
-              style="overflow: visible !important"
-              aria-hidden="false"
-              fontIcon="call"
-              class="mat-icon-outlined transition overflow-visible fill-t-green text-t-green scale-75"
-            ></mat-icon>
-            <span class="group-hover:underline">
-              {{ participant.phone }}
-            </span>
-          </div>
-          <div class="p-2">
-            <groupee-button
-              [text]="'Export'"
-              [color]="'green'"
-              [type]="'normal'"
-              [icon]="'download'"
-              [action]="exportContact.bind(this, participant)"
-            ></groupee-button>
+              <mat-icon
+                style="overflow: visible !important"
+                aria-hidden="false"
+                fontIcon="{{ 'mail' }}"
+                class="mat-icon-borderd transition overflow-visible fill-t-orange text-t-orange scale-75"
+              ></mat-icon>
+              <span class="group-hover:underline">
+                {{ participant.email }}
+              </span>
+            </div>
+            <div
+              class="w-fit font-normal text-xs cursor-copy px-2 shadow-xl flex justify-center items-center py-2 text-black rounded-2xl transform group active:scale-95 transition duration-300 ease-in-out brightness-100 border-t-green border-2"
+              (click)="copyToClipboard(participant.phone)"
+            >
+              <mat-icon
+                style="overflow: visible !important"
+                aria-hidden="false"
+                fontIcon="call"
+                class="mat-icon-outlined transition overflow-visible fill-t-green text-t-green scale-75"
+              ></mat-icon>
+              <span class="group-hover:underline">
+                {{ participant.phone }}
+              </span>
+            </div>
+            <div class="p-2">
+              <groupee-button
+                [text]="'Export'"
+                [color]="'green'"
+                [type]="'normal'"
+                [icon]="'download'"
+                [action]="exportContact.bind(this, participant)"
+              ></groupee-button>
+            </div>
           </div>
         </div>
-      </div>
-    </swiper-slide>
-  </swiper-container>
+      </swiper-slide>
+    </swiper-container>
 
-  <groupee-button
-    [color]="'green'"
-    [type]="'wide'"
-    [icon]="'arrow_back'"
-    [text]="'back to skillTree'"
-    [action]="toTree.bind(this)"
-  ></groupee-button>
-</div>
+    <groupee-button
+      [color]="'green'"
+      [type]="'wide'"
+      [icon]="'arrow_back'"
+      [text]="'back to skillTree'"
+      [action]="toTree.bind(this)"
+    ></groupee-button>
+  </div>
 
-<div
-  *ngIf="showCopiedMessage"
-  class="fixed z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-t-dark-popup text-white rounded-2xl p-4 transition-opacity opacity-100 flex items-center gap-2"
->
-  <mat-icon
-    style="overflow: visible !important"
-    aria-hidden="false"
-    fontIcon="content_copy"
-    class="mat-icon-outlined transition overflow-visible fill-white"
-  ></mat-icon>
-  Copied!
-</div>
-<ng-template #noGroup>
-  <p>You are not assigned to any group.</p>
-</ng-template>
+  <div
+    *ngIf="showCopiedMessage"
+    class="fixed z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-t-dark-popup text-white rounded-2xl p-4 transition-opacity opacity-100 flex items-center gap-2"
+  >
+    <mat-icon
+      style="overflow: visible !important"
+      aria-hidden="false"
+      fontIcon="content_copy"
+      class="mat-icon-outlined transition overflow-visible fill-white"
+    ></mat-icon>
+    Copied!
+  </div>
+  <ng-template #noGroup>
+    <p>You are not assigned to any group.</p>
+  </ng-template>
 </div>
