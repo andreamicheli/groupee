@@ -8,6 +8,7 @@ module.exports = {
       white: "#fff",
       "t-light": "#FAF0E8",
       "t-dark": "#1F4545",
+      "t-dark-popup": "#99A3A3FF",
       "t-orange": "#FF6433",
       "t-orange-hover": "#FF4D00",
       "t-orange-active": "#992400", // 50% brightness of #FF6433
@@ -22,6 +23,7 @@ module.exports = {
       "t-purple-hover": "#4A3EBE",
       "t-purple-active": "#2B1F7D",
       "t-error": "#c75f61",
+      "t-white-transparent": "#FFFFFF8A",
       unactive: "#3B8383",
       google: {
         "text-gray": "#3c4043",
