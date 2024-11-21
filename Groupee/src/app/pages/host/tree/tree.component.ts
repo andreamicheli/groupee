@@ -107,16 +107,16 @@ export class HostTreeComponent implements OnInit {
 
   getOpacity(element: number, rank: number) {
     if (rank == 0)
-      if (element > 28) return 1;
+      if (element > 4) return 1;
       else return 0.3;
     if (rank == 1)
-      if (element > 31) return 1;
+      if (element > 8) return 1;
       else return 0.3;
     if (rank == 2)
-      if (element >= 34) return 1;
+      if (element >= 12) return 1;
       else return 0.3;
     if (rank == 3)
-      if (element > 34) return 1;
+      if (element > 16) return 1;
       else return 0.3;
     else return 0.3;
   }
