@@ -44,6 +44,7 @@ module.exports = {
     extend: {
       animation: {
         "light-bounce": "lightBounce 1s ease-in-out infinite",
+        "spin-slow": "spin 10s linear infinite",
       },
       keyframes: {
         lightBounce: {
