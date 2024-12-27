@@ -1,6 +1,6 @@
 <!-- Navbar -->
 <app-navbar
-  class="w-full sticky z-[9999] flex justify-center top-0 motion-preset-bounce motion-delay-500"
+  class="w-full lg:sticky z-[9999] flex justify-center top-0 motion-preset-bounce motion-delay-500"
 ></app-navbar>
 <!-- JSON Uploader -->
 <!-- <app-json-uploader class="w-full flex justify-center mt-4"></app-json-uploader> -->
@@ -34,7 +34,7 @@
   <!-- Scroll Button -->
   <button
     (click)="scrollToSection('section2')"
-    class="absolute bottom-6 left-1/2 transform -translate-x-1/2 px-4 py-2"
+    class="absolute md:bottom-6 bottom-2 left-1/2 transform -translate-x-1/2 px-4 py-2"
   >
     <div
       class="flex flex-col items-center mt-6 motion-preset-fade-lg motion-delay-1000"
@@ -67,7 +67,7 @@
 <!-- Section 2 -->
 <div
   id="section2"
-  class="h-screen bg-t-dark flex items-center justify-center px-4"
+  class="lg:h-screen py-10 bg-t-dark flex items-center justify-center px-4"
 >
   <div class="flex flex-col gap-8 items-center">
     <div
@@ -82,11 +82,11 @@
       </div>
     </div>
 
-    <div class="flex flex-col md:flex-row gap-12 md:gap-16 lg:mt-8 mt-4">
+    <div class="flex flex-col md:flex-row gap-8 md:gap-16 lg:mt-8">
       <!-- Professor Button -->
       <button (click)="navigateToHostSettings()">
         <div
-          class="relative w-72 h-72 sm:w-60 sm:h-60 md:w-[360px] md:h-[360px] cursor-pointer hover:scale-110 transition-all group"
+          class="relative lg:w-72 lg:h-72 md:w-[360px] md:h-[360px] w-44 h-44 cursor-pointer hover:scale-110 transition-all group"
         >
           <img
             src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExa2J0c3MxeHdkeDFvNzZtamo0OTY3aGJlYjg5Z25scGlkZjdtcnN5NCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/RSnbPf5osSUKMdzwog/giphy.webp"
@@ -111,7 +111,7 @@
       <!-- Student Button -->
       <button (click)="navigateToClientCode()">
         <div
-          class="relative w-72 h-72 sm:w-60 sm:h-60 md:w-[360px] md:h-[360px] cursor-pointer hover:scale-110 transition-all group"
+          class="relative lg:w-72 lg:h-72 md:w-[360px] md:h-[360px] w-44 h-44 cursor-pointer hover:scale-110 transition-all group"
         >
           <img
             src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExMW9kdW9pdzJqOGtoMTJ0bWpnMTkyOWNzNGtsOXF2Z2tuaG1qaTM5YyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/JU6TzB6O9QCju/giphy.webp"
@@ -138,9 +138,11 @@
 
 <!-- Footer -->
 <div
-  class="bg-t-dark text-white mx-4 lg:mx-12 my-20 px-6 pt-10 pb-4 rounded-3xl"
+  class="bg-t-dark text-white mx-4 lg:mx-12 md:my-20 my-4 px-6 pt-10 pb-4 rounded-3xl"
 >
-  <div class="flex flex-col md:flex-row justify-evenly gap-10 md:gap-28 mb-28">
+  <div
+    class="md:flex md:flex-row grid grid-cols-2 justify-evenly gap-10 md:gap-28 md:mb-28"
+  >
     <!-- Get Started Section -->
     <div>
       <h3 class="text-t-orange font-semibold mb-4">Get Started</h3>
